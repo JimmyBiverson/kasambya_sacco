@@ -61,7 +61,7 @@
                     </a>
 
                     <!-- Desktop Navigation -->
-                    <nav class="hidden lg:flex items-center space-x-1">
+                    <nav class="hidden lg:flex items-center space-x-3 flex-nowrap whitespace-nowrap">
                         <a href="{{ route('home') }}" class="site-nav-link {{ request()->routeIs('home') ? 'text-green-600' : '' }}">HOME</a>
 
                         <!-- About Dropdown -->

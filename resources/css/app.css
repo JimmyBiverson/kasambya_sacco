@@ -2,116 +2,336 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --primary: #1a6e3e;
-    --primary-dark: #0d4727;
-    --primary-light: #e8f5e9;
-    --gold: #f59e0b;
+html, body {
+    height: 100%;
+    background: #ffffff;
+    margin: 0;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+    color: #0f172a;
 }
 
-.top-bar {
-    background: linear-gradient(135deg, #0d4727, #1a6e3e);
+#app {
+    min-height: 100vh;
 }
 
-.nav-link {
-    @apply text-gray-700 font-medium hover:text-green-700 transition-colors duration-200 px-3 py-2 text-sm;
+/* ===== Public Site Styles ===== */
+
+/* Top bar */
+.top-bar a:hover {
+    opacity: 0.85;
 }
 
-.btn-primary {
-    @apply bg-green-700 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-green-800 transition-all duration-200 inline-block;
+/* Navigation */
+.site-nav-link {
+    @apply text-gray-700 font-medium hover:text-green-600 transition-colors duration-200 px-3 py-2 text-sm whitespace-nowrap inline-block;
 }
 
-.btn-gold {
-    @apply bg-amber-500 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-amber-600 transition-all duration-200 inline-block;
+/* Dropdown */
+.dropdown-menu {
+    @apply absolute top-full left-0 mt-0 w-56 bg-white border border-gray-200 shadow-lg z-50;
 }
 
-.hero-slide {
-    @apply absolute inset-0 bg-cover bg-center transition-opacity duration-1000;
+/* Buttons */
+.site-btn-primary {
+    @apply inline-block bg-green-600 text-white font-semibold px-6 py-2.5 transition-all duration-200;
+}
+.site-btn-primary:hover {
+    @apply bg-green-700;
 }
 
+.site-btn-outline {
+    @apply inline-block border border-green-600 text-green-600 font-semibold px-6 py-2.5 transition-all duration-200;
+}
+.site-btn-outline:hover {
+    @apply bg-green-600 text-white;
+}
+
+/* Hero section */
 .hero-overlay {
-    background: linear-gradient(135deg, rgba(13, 71, 39, 0.85) 0%, rgba(26, 110, 62, 0.7) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
 }
 
-.section-green {
-    @apply bg-green-700 text-white;
+/* Section headings */
+.section-heading {
+    @apply text-3xl md:text-4xl font-bold text-gray-900;
+}
+.section-subheading {
+    @apply text-gray-600 mt-3 max-w-2xl;
 }
 
-.section-light {
-    @apply bg-[#f0f4f0];
-}
-
-.stat-number {
-    @apply text-4xl md:text-5xl font-bold text-amber-400;
-}
-
+/* Cards */
 .service-card {
-    @apply bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200;
+    @apply bg-white border border-gray-200 p-6 hover:shadow-md transition-shadow;
+}
+.service-card:hover {
+    border-color: #16a34a;
 }
 
-.service-icon {
-    @apply w-16 h-16 mx-auto mb-4 object-contain;
+/* Stats */
+.stat-number {
+    @apply text-4xl font-bold text-green-600;
 }
 
-.footer-section {
-    background: linear-gradient(135deg, #0a2a1a, #0d4727);
+/* News card */
+.news-card {
+    @apply bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow;
 }
 
-.page-header {
-    background: linear-gradient(135deg, #0d4727, #1a6e3e);
-    @apply py-16 text-white text-center;
-}
-
-/* Slider */
-.slider-dot {
-    @apply w-3 h-3 rounded-full bg-white/50 cursor-pointer transition-all duration-300;
-}
-.slider-dot.active {
-    @apply bg-amber-400 w-6;
-}
-
-/* Partners carousel */
+/* Partner strip */
 @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
 .partner-scroll {
-    animation: scroll 20s linear infinite;
-}
-.partner-scroll:hover {
-    animation-play-state: paused;
+    animation: scroll 25s linear infinite;
 }
 
-/* FAQ */
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-.faq-answer.open {
-    max-height: 500px;
+/* FAQ accordion */
+.faq-item {
+    @apply border border-gray-200;
 }
 
-/* News Card */
-.news-card {
-    @apply bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300;
+/* Form inputs */
+.site-form-input {
+    @apply w-full px-4 py-3 border border-gray-300 text-gray-900 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all;
 }
-
-/* Stats Counter */
-.counter-item {
-    @apply text-center p-6;
-}
-
-/* Form styles */
-.form-input {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all;
-}
-
-.form-label {
+.site-form-label {
     @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Page headers */
+.page-header {
+    @apply py-16 bg-green-700 text-white;
+}
+.page-header h1 {
+    @apply text-4xl md:text-5xl font-bold;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    @apply text-sm text-green-200;
+}
+.breadcrumb a {
+    @apply text-green-200 hover:text-white;
+}
+
+/* Member dashboard */
+.dashboard-card {
+    @apply bg-white rounded-lg border border-gray-200 p-6;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeInUp 600ms ease both;
+}
+
+/* Mobile nav */
+.mobile-nav-link {
+    @apply block py-2 text-gray-700 font-medium hover:text-green-600;
+}
+
+/* ===== Responsive Utilities ===== */
+
+@media (max-width: 640px) {
+    .section-heading {
+        @apply text-2xl;
+    }
+    .page-header h1 {
+        @apply text-3xl;
+    }
+    .hero-content h1 {
+        @apply text-3xl;
+    }
+    .stat-number {
+        @apply text-3xl;
+    }
+    .site-btn-primary,
+    .site-btn-outline {
+        @apply text-sm px-5 py-2;
+    }
+}
+
+/* Better touch targets on mobile */
+@media (max-width: 768px) {
+    .site-nav-link,
+    .mobile-nav-link {
+        @apply py-3;
+    }
+    .dropdown-menu a {
+        @apply py-3;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, input, select, textarea {
+    transition: all 0.2s ease;
+}
+
+/* Loading shimmer effect for images */
+img {
+    @apply bg-gray-100;
+}
+
+/* Scrollbar styling for better UX */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded;
+}
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+}
+
+/* Print styles */
+@media print {
+    .top-bar,
+    header,
+    footer,
+    .site-btn-primary,
+    .site-btn-outline {
+        display: none !important;
+    }
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    @apply outline-2 outline-green-500 outline-offset-2;
+}
+
+/* ===== Ken Burns Hero Slider Animations ===== */
+
+@keyframes kenBurns {
+    0% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1.15) translate(-2%, -1%);
+    }
+}
+
+@keyframes kenBurnsAlt {
+    0% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1.15) translate(2%, 1%);
+    }
+}
+
+@keyframes kenBurnsWide {
+    0% {
+        transform: scale(1.35);
+    }
+    100% {
+        transform: scale(1.18) translate(1%, -2%);
+    }
+}
+
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ken-burns-0 {
+    animation: kenBurns 7s ease-in-out forwards;
+    transform-origin: 45% 55%;
+}
+
+.ken-burns-1 {
+    animation: kenBurnsAlt 7s ease-in-out forwards;
+    transform-origin: 60% 40%;
+}
+
+.ken-burns-2 {
+    animation: kenBurnsWide 7s ease-in-out forwards;
+    transform-origin: 35% 50%;
+}
+
+.hero-content-fade {
+    animation: fadeSlideUp 0.8s ease-out 0.4s both;
+}
+
+.hero-content-fade-delayed {
+    animation: fadeSlideUp 0.8s ease-out 0.6s both;
+}
+
+.hero-content-fade-btn {
+    animation: fadeSlideUp 0.8s ease-out 0.8s both;
+}
+
+/* ===== Premium Glassmorphism & Visual System ===== */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+.glass-panel-dark {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.02);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(22, 163, 74, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -15px rgba(22, 163, 74, 0.12);
+}
+
+.glass-inset {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+.text-glow {
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
+
+.text-glow-green {
+    text-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+.hover-scale {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-scale:hover {
+    transform: scale(1.03);
 }
