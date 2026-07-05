@@ -1,367 +1,150 @@
-@extends('layouts.app')
+@extends('layouts.site')
 
-@push('styles')
-<style>
-    :root {
-        --primary: #1a6e3e;
-        --primary-dark: #0d4727;
-        --amber: #f59e0b;
-        --amber-hover: #d97706;
-        --light-bg: #f0fdf4;
-        --text-dark: #1f2937;
-        --text-light: #6b7280;
-        --white: #ffffff;
-        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-        --radius: 8px;
-        --radius-lg: 12px;
-        --transition: all 0.3s ease;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-    .page-header {
-        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        padding: 3rem 0;
-        text-align: center;
-        color: var(--white);
-    }
-    .page-header h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-    }
-    .breadcrumb {
-        font-size: 0.95rem;
-        opacity: 0.85;
-    }
-    .breadcrumb a {
-        color: var(--amber);
-        text-decoration: none;
-    }
-    .breadcrumb a:hover {
-        text-decoration: underline;
-    }
-
-    .contact-section { padding: 4rem 0; background: var(--white); }
-    .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
-
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-        display: block;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 0.4rem;
-    }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 2px solid #e5e7eb;
-        border-radius: var(--radius);
-        font-size: 0.95rem;
-        transition: var(--transition);
-        background: var(--white);
-        color: var(--text-dark);
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(26, 110, 62, 0.1);
-    }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-
-    .btn-submit {
-        display: inline-block;
-        padding: 14px 36px;
-        background: var(--primary);
-        color: var(--white);
-        font-weight: 700;
-        font-size: 1rem;
-        border-radius: var(--radius);
-        border: none;
-        cursor: pointer;
-        transition: var(--transition);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    .btn-submit:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .info-card {
-        background: var(--light-bg);
-        border-radius: var(--radius-lg);
-        padding: 1.5rem;
-        margin-bottom: 1.2rem;
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-        transition: var(--transition);
-        border: 1px solid transparent;
-    }
-    .info-card:hover {
-        border-color: var(--primary);
-        transform: translateX(4px);
-    }
-    .info-card .icon-wrap {
-        width: 48px;
-        height: 48px;
-        background: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-    .info-card .icon-wrap svg {
-        width: 24px;
-        height: 24px;
-        color: var(--primary);
-    }
-    .info-card h4 {
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--primary-dark);
-        margin-bottom: 0.3rem;
-    }
-    .info-card p {
-        font-size: 0.95rem;
-        color: var(--text-light);
-        line-height: 1.6;
-    }
-
-    .faq-section { padding: 4rem 0; background: var(--light-bg); }
-    .section-title { text-align: center; margin-bottom: 3rem; }
-    .section-title h2 {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--primary-dark);
-        position: relative;
-        display: inline-block;
-    }
-    .section-title h2::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 4px;
-        background: var(--amber);
-        margin: 12px auto 0;
-        border-radius: 2px;
-    }
-    .faq-list { max-width: 800px; margin: 0 auto; }
-    .faq-item {
-        background: var(--white);
-        border-radius: var(--radius);
-        margin-bottom: 12px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-    }
-    .faq-question {
-        width: 100%;
-        padding: 1.2rem 1.5rem;
-        background: none;
-        border: none;
-        text-align: left;
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: var(--text-dark);
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: var(--transition);
-    }
-    .faq-question:hover { color: var(--primary); }
-    .faq-question svg {
-        width: 20px;
-        height: 20px;
-        transition: var(--transition);
-        flex-shrink: 0;
-    }
-    .faq-question.open svg { transform: rotate(180deg); color: var(--primary); }
-    .faq-answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, padding 0.4s ease;
-        padding: 0 1.5rem;
-    }
-    .faq-answer.open { max-height: 300px; padding: 0 1.5rem 1.2rem; }
-    .faq-answer p {
-        color: var(--text-light);
-        line-height: 1.7;
-        font-size: 0.95rem;
-    }
-
-    .success-alert {
-        background: #d1fae5;
-        border: 2px solid #059669;
-        color: #065f46;
-        padding: 1rem 1.5rem;
-        border-radius: var(--radius);
-        margin-bottom: 1.5rem;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-    .success-alert svg {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-    }
-
-    @media (max-width: 768px) {
-        .contact-grid { grid-template-columns: 1fr; }
-        .page-header h1 { font-size: 2rem; }
-        .section-title h2 { font-size: 1.6rem; }
-    }
-</style>
-@endpush
+@section('title', 'Contact')
+@section('meta_description', 'Contact Kasambya SACCO for inquiries about membership, savings, loans, and support.')
 
 @section('content')
 
-<div class="page-header">
-    <div class="container">
-        <h1>Contact</h1>
-        <div class="breadcrumb">
-            <a href="{{ route('home') }}">Kasambya Sacco</a> &gt; Contact
+<section class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 overflow-hidden py-20 px-4">
+    {{-- Decorative Background Glows --}}
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+    
+    <div class="relative max-w-7xl mx-auto text-left">
+        <div class="flex items-center space-x-2 text-xs font-semibold text-emerald-300 uppercase tracking-widest mb-4">
+            <a href="{{ route('home') }}" class="hover:text-amber-400 transition-colors">Kasambya SACCO</a>
+            <span>/</span>
+            <span class="text-slate-300">Contact Us</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight leading-none mb-4">
+            Get in Touch
+        </h1>
+        <p class="text-emerald-100/80 text-base md:text-lg max-w-3xl leading-relaxed">
+            We welcome your inquiries, suggestions, and feedback. Feel free to contact our administrative desks.
+        </p>
+    </div>
+</section>
+
+<!-- Map -->
+<section class="py-8 bg-slate-50 border-b border-slate-200" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="h-64 md:h-80 bg-slate-200 overflow-hidden border border-slate-200/50 rounded-3xl shadow-sm">
+            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=32.5%2C0.5%2C32.6%2C0.6&amp;layer=mapnik&amp;marker=0.55%2C32.55" width="100%" height="100%" frameborder="0" scrolling="no" style="border:0" allowfullscreen loading="lazy" title="Kasambya SACCO Location Map"></iframe>
         </div>
     </div>
-</div>
+</section>
 
-<section class="contact-section">
-    <div class="container">
-        <div class="contact-grid">
-            <div>
-                @if(session('success'))
-                    <div class="success-alert">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        {{ session('success') }}
-                    </div>
-                @endif
+<section class="py-16 bg-slate-50/50" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto px-4 grid gap-12 lg:grid-cols-2">
+        <!-- Contact Form -->
+        <div class="glass-card rounded-[2rem] border border-slate-200/60 p-8 md:p-10 shadow-lg" data-aos="fade-right">
+            @if(session('success'))
+                <div class="border border-emerald-250 bg-emerald-50 rounded-2xl p-4 mb-6 text-emerald-800 text-sm flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
 
-                <form action="{{ route('contact.submit') }}" method="POST">
-                    @csrf
+            <form action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
+                @csrf
 
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Your full name" required>
-                    </div>
+                <div>
+                    <label for="name" class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Your full name" required class="w-full bg-slate-100/50 focus:bg-white border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-800 text-sm rounded-2xl px-5 py-3.5 transition-all outline-none">
+                    @error('name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
-                    </div>
+                <div>
+                    <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Your email address" required class="w-full bg-slate-100/50 focus:bg-white border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-800 text-sm rounded-2xl px-5 py-3.5 transition-all outline-none">
+                    @error('email') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Your phone number" required>
-                    </div>
+                <div>
+                    <label for="phone" class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Phone <span class="text-red-500">*</span></label>
+                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Your phone number" required class="w-full bg-slate-100/50 focus:bg-white border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-800 text-sm rounded-2xl px-5 py-3.5 transition-all outline-none">
+                    @error('phone') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" value="{{ old('subject') }}" placeholder="Subject of your message" required>
-                    </div>
+                <div>
+                    <label for="subject" class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Subject</label>
+                    <input type="text" id="subject" name="subject" value="{{ old('subject') }}" placeholder="Subject of your message" class="w-full bg-slate-100/50 focus:bg-white border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-800 text-sm rounded-2xl px-5 py-3.5 transition-all outline-none">
+                    @error('subject') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Write your message here..." required>{{ old('message') }}</textarea>
-                    </div>
+                <div>
+                    <label for="message" class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Message <span class="text-red-500">*</span></label>
+                    <textarea id="message" name="message" placeholder="Write your message here..." required class="w-full bg-slate-100/50 focus:bg-white border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-800 text-sm rounded-2xl px-5 py-3.5 transition-all outline-none min-h-[160px]">{{ old('message') }}</textarea>
+                    @error('message') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
-                    <button type="submit" class="btn-submit">Send Message</button>
-                </form>
+                <button type="submit" class="w-full text-center bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-extrabold uppercase tracking-widest px-8 py-4.5 rounded-2xl transition duration-300 shadow-md text-[11px]">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Contact Info + FAQ -->
+        <div class="space-y-6" data-aos="fade-left">
+            <div class="glass-card rounded-3xl border border-slate-200/60 p-6 flex items-start gap-4">
+                <div class="w-12 h-12 bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 rounded-xl flex-shrink-0 animate-pulse-slow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 leading-snug">Office Location</h3>
+                    <p class="mt-1.5 text-slate-500 text-sm leading-relaxed">Kasambya Town Council, Masengere Road, Kasambya, Uganda</p>
+                </div>
             </div>
 
-            <div>
-                <div class="info-card">
-                    <div class="icon-wrap">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <div>
-                        <h4>Office Location</h4>
-                        <p>Kasambya Town Council, Masengere Road, Kasambya, Uganda</p>
-                    </div>
+            <div class="glass-card rounded-3xl border border-slate-200/60 p-6 flex items-start gap-4">
+                <div class="w-12 h-12 bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 rounded-xl flex-shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 </div>
-
-                <div class="info-card">
-                    <div class="icon-wrap">
-                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-                    </div>
-                    <div>
-                        <h4>Phone</h4>
-                        <p>0775 125 122 / 0779 892 660</p>
-                    </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 leading-snug">Office Lines</h3>
+                    <p class="mt-1.5 text-slate-500 text-sm leading-relaxed font-mono">+256 775 125 122<br>+256 779 892 660</p>
                 </div>
+            </div>
 
-                <div class="info-card">
-                    <div class="icon-wrap">
-                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-                    </div>
-                    <div>
-                        <h4>Email</h4>
-                        <p>kasambyasacco@gmail.com / info@kasambyasacco.com</p>
-                    </div>
+            <div class="glass-card rounded-3xl border border-slate-200/60 p-6 flex items-start gap-4">
+                <div class="w-12 h-12 bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 rounded-xl flex-shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 leading-snug">Official Emails</h3>
+                    <p class="mt-1.5 text-slate-500 text-sm leading-relaxed font-mono">
+                        {{ isset($settings) && $settings->has('org_email') ? $settings->get('org_email')->value : 'kasambyasacco@gmail.com' }}<br>info@kasambyasacco.com
+                    </p>
+                </div>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div class="glass-card rounded-3xl border border-slate-200/60 p-6 shadow-sm">
+                <h3 class="font-black text-slate-900 text-base mb-4 tracking-tight">Frequently Asked Questions</h3>
+                <div class="space-y-3">
+                    @forelse($faqs as $faq)
+                        <div class="border border-slate-100 rounded-2xl overflow-hidden bg-slate-50/20" x-data="{ open: false }">
+                            <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-3.5 text-left text-sm text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="font-bold pr-4">{{ $faq->question }}</span>
+                                <svg :class="{'rotate-180': open}" class="w-3.5 h-3.5 text-slate-400 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div x-show="open" class="px-4 pb-4 border-t border-slate-50 pt-2" x-cloak>
+                                <p class="text-slate-500 text-sm leading-relaxed">{{ $faq->answer }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-slate-400 text-sm">No FAQs available.</p>
+                    @endforelse
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="faq-section">
-    <div class="container">
-        <div class="section-title">
-            <h2>Frequently Asked Questions</h2>
-        </div>
-        <div class="faq-list" x-data="{ openFaq: null }">
-            <div class="faq-item">
-                <button class="faq-question" :class="{ 'open': openFaq === 0 }" @click="openFaq = openFaq === 0 ? null : 0">
-                    <span>How can I get in touch with Kasambya SACCO?</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="faq-answer" :class="{ 'open': openFaq === 0 }">
-                    <p>You can reach us by phone at 0775 125 122 / 0779 892 660, email us at kasambyasacco@gmail.com, or visit our offices at Kasambya Town Council, Masengere Road, Kasambya, Uganda. Our working hours are Monday to Friday, 8:45 AM to 5:00 PM, and Saturdays from 8:45 AM to 3:00 PM.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" :class="{ 'open': openFaq === 1 }" @click="openFaq = openFaq === 1 ? null : 1">
-                    <span>What is the best way to choose the right contact method?</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="faq-answer" :class="{ 'open': openFaq === 1 }">
-                    <p>For general inquiries, we recommend using the contact form on this page. For urgent matters, please call our phone lines. For document submissions or detailed inquiries, visiting our office in person or sending an email ensures you receive the most comprehensive assistance.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" :class="{ 'open': openFaq === 2 }" @click="openFaq = openFaq === 2 ? null : 2">
-                    <span>How do I create an account with Kasambya SACCO?</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="faq-answer" :class="{ 'open': openFaq === 2 }">
-                    <p>To create an account, visit our offices with a valid National ID or Passport, two passport-size photos, and the minimum share deposit. You can also fill out the membership application form on our website to get started. Our team will guide you through the account opening process and help you choose the right account type for your needs.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" :class="{ 'open': openFaq === 3 }" @click="openFaq = openFaq === 3 ? null : 3">
-                    <span>Where is Kasambya SACCO located?</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="faq-answer" :class="{ 'open': openFaq === 3 }">
-                    <p>Our offices are located at Kasambya Town Council, Masengere Road, Kasambya, Uganda. We are situated in the heart of Kasambya Town, Mubende District, making us easily accessible to both individual and group members from across the region.</p>
-                </div>
-            </div>
-        </div>
+<!-- CTA -->
+<section class="py-20 bg-white text-center">
+    <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-3xl font-black text-slate-900 tracking-tight">Still have questions?</h2>
+        <p class="mt-4 text-slate-500 text-sm md:text-base leading-relaxed">Reach out and we'll help you get started with the right membership and savings plan.</p>
+        <a href="{{ route('application') }}" class="inline-block bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-extrabold uppercase tracking-widest px-8 py-4.5 rounded-2xl transition duration-300 shadow-md text-[11px] mt-8">Apply Now</a>
     </div>
 </section>
 
