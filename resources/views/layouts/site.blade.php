@@ -61,8 +61,9 @@
                     </a>
 
                     <!-- Desktop Navigation -->
-                    <nav class="hidden lg:flex items-center space-x-3 flex-nowrap whitespace-nowrap">
-                        <a href="{{ route('home') }}" class="site-nav-link {{ request()->routeIs('home') ? 'text-green-600' : '' }}">HOME</a>
+                    <div class="hidden lg:block flex-1 nav-scroll -mx-4 px-4">
+                        <nav class="flex items-center space-x-2 flex-nowrap whitespace-nowrap">
+                            <a href="{{ route('home') }}" class="site-nav-link {{ request()->routeIs('home') ? 'text-green-600' : '' }}">HOME</a>
 
                         <!-- About Dropdown -->
                         <div class="relative" x-data="{ open: false }">
@@ -95,9 +96,20 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('news') }}" class="site-nav-link {{ request()->routeIs('news*') ? 'text-green-600' : '' }}">NEWS & EVENTS</a>
-                        <a href="{{ route('careers') }}" class="site-nav-link {{ request()->routeIs('careers') ? 'text-green-600' : '' }}">CAREERS</a>
-                        <a href="{{ route('contact') }}" class="site-nav-link {{ request()->routeIs('contact') ? 'text-green-600' : '' }}">CONTACT</a>
+                            <!-- More dropdown for less-priority links -->
+                            <div class="relative" x-data="{ open: false }">
+                                <button @click="open = !open" @click.outside="open = false" class="site-nav-link flex items-center gap-1">
+                                    MORE
+                                    <svg class="w-3 h-3" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </button>
+                                <div x-show="open" @click.outside="open = false" x-cloak class="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg shadow-md z-50 overflow-hidden">
+                                    <a href="{{ route('news') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:bg-green-50 hover:text-green-700">News & Events</a>
+                                    <a href="{{ route('careers') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:bg-green-50 hover:text-green-700">Careers</a>
+                                    <a href="{{ route('contact') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:bg-green-50 hover:text-green-700">Contact</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
                     </nav>
 
                     <div class="flex items-center space-x-3">

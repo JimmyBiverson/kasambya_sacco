@@ -30,6 +30,15 @@ body {
     @apply text-gray-700 font-medium hover:text-green-600 transition-colors duration-200 px-3 py-2 text-sm whitespace-nowrap inline-block;
 }
 
+/* Horizontal nav scroll wrapper */
+.nav-scroll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.nav-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
 /* Dropdown */
 .dropdown-menu {
     @apply absolute top-full left-0 mt-0 w-56 bg-white border border-gray-200 shadow-lg z-50;
