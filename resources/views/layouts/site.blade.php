@@ -61,12 +61,12 @@
                     </a>
 
                     <!-- Desktop Navigation -->
-                    <nav class="hidden lg:flex items-center justify-center flex-1 nav-scroll space-x-3 flex-nowrap whitespace-nowrap">
+                    <nav class="hidden lg:flex items-center justify-center flex-1 nav-scroll min-w-max space-x-3 flex-nowrap whitespace-nowrap">
                         <a href="{{ route('home') }}" class="site-nav-link {{ request()->routeIs('home') ? 'text-green-600' : '' }}">HOME</a>
 
                         <!-- About Dropdown -->
                         <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open" @click.outside="open = false" class="site-nav-link flex items-center gap-1 whitespace-nowrap {{ request()->routeIs('history', 'about', 'manager-message', 'reports') ? 'text-green-600' : '' }}">
+                            <button @click="open = !open" @click.outside="open = false" class="site-nav-link inline-flex items-center gap-1 whitespace-nowrap flex-shrink-0 {{ request()->routeIs('history', 'about', 'manager-message', 'reports') ? 'text-green-600' : '' }}">
                                 ABOUT
                                 <svg class="w-3 h-3 ml-1 flex-shrink-0" :class="{'rotate-180': open}" style="vertical-align:middle;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
@@ -80,7 +80,7 @@
 
                         <!-- Products & Services Dropdown -->
                         <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open" @click.outside="open = false" class="site-nav-link flex items-center gap-1 whitespace-nowrap leading-none {{ request()->routeIs('services', 'loan-products', 'msacco') ? 'text-green-600' : '' }}">
+                            <button @click="open = !open" @click.outside="open = false" class="site-nav-link inline-flex items-center gap-1 whitespace-nowrap leading-none flex-shrink-0 {{ request()->routeIs('services', 'loan-products', 'msacco') ? 'text-green-600' : '' }}">
                                 PRODUCTS&nbsp;&amp;&nbsp;SERVICES
                                 <svg class="w-3 h-3 ml-1 flex-shrink-0" :class="{'rotate-180': open}" style="vertical-align:middle;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
