@@ -64,3 +64,78 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Project setup (local)
+
+Run migrations and seed test data locally for development:
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+```
+
+Seeds include a test member and user:
+
+- Member membership number: `MS-2026-0001`
+- Member DOB: `1990-01-01`
+- Member email: `testmember@example.test`
+- User password for UI login (if needed): `password123`
+
+Member web login uses membership number + date of birth (no password). The dashboard will be linked to an application `User` account on first successful member login.
+
+---
+
+## Deployment & Production Notes
+
+Quick production checklist (Ubuntu + Nginx):
+
+1. Install PHP 8.1+, Composer, MySQL, Node.js.
+2. Place project in `/var/www/kasambya_sacco` and set ownership to web server user.
+3. Install dependencies and build assets:
+   - `composer install --no-dev --optimize-autoloader`
+   - `npm ci && npm run build`
+4. Configure `.env` for production (`APP_ENV=production`, `APP_DEBUG=false`, correct DB credentials).
+5. Run migrations: `php artisan migrate --force` and cache configs: `php artisan config:cache && php artisan route:cache && php artisan view:cache`.
+6. Set proper permissions on `storage` and `bootstrap/cache`.
+
+### Nginx example
+
+```nginx
+server {
+	listen 80;
+	server_name example.com; # replace with your domain
+	root /var/www/kasambya_sacco/public;
+
+	index index.php;
+
+	location / {
+		try_files $uri $uri/ /index.php?$query_string;
+	}
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
+}
+```
+
+### Database dump
+
+I attempted to create a local SQL dump using the `.env` DB configuration and saved it as `database/kasambya_sacco_dump.sql`.
+
+If you prefer to create a fresh dump yourself, run locally:
+
+```bash
+mysqldump -h 127.0.0.1 -P 3306 -u <user> <database> > database/kasambya_sacco_dump.sql
+```
+
+---
+
+If you want, I can try to push these changes to `https://github.com/JimmyBiverson/kasambya_sacco.git` — please ensure your local Git credentials are configured, or I can provide the exact git commands for you to run.
+
