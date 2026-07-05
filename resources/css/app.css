@@ -27,7 +27,11 @@ body {
 
 /* Navigation */
 .site-nav-link {
-    @apply text-gray-700 font-medium hover:text-green-600 transition-colors duration-200 px-2 py-1 text-xs whitespace-nowrap inline-block;
+    @apply text-gray-800 font-medium hover:text-green-600 transition-colors duration-200 px-3 py-1 text-sm whitespace-nowrap inline-block;
+}
+
+.site-nav-link svg {
+    vertical-align: middle;
 }
 
 /* Horizontal nav scroll wrapper */
