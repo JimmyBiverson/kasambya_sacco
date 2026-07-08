@@ -35,4 +35,9 @@ class SavingsTransaction extends Model
     {
         return $this->belongsTo(User::class, 'processed_by');
     }
+
+    public function journalEntry(): BelongsTo
+    {
+        return $this->belongsTo(JournalEntry::class, 'journal_entry_id');
+    }
 }

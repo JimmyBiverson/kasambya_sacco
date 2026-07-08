@@ -17,9 +17,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
+    private function cacheOrFallback(string $key, callable $callback, mixed $fallback = null): mixed
+    {
+        try {
+            return Cache::remember($key, 300, $callback);
+        } catch (\Exception $e) {
+            Log::error("Cache::remember failed for key: {$key}", ['error' => $e->getMessage()]);
+            return $fallback ?? collect();
+        }
+    }
+
     public function home()
     {
         try {
@@ -78,101 +90,71 @@ class SiteController extends Controller
 
     public function about()
     {
-        try {
-            $page = Cache::remember('site.page.about', 300, fn () =>
-                Page::where('slug', 'about-kasambya-sacco')->where('is_published', true)->first()
-            );
+        $page = $this->cacheOrFallback('site.page.about', fn () =>
+            Page::where('slug', 'about-kasambya-sacco')->where('is_published', true)->first()
+        , null);
 
-            $teamMembers = Cache::remember('site.team_members', 300, fn () =>
-                TeamMember::orderBy('sort_order')->get()
-            );
-        } catch (\Exception $e) {
-            $page = null;
-            $teamMembers = collect();
-        }
+        $teamMembers = $this->cacheOrFallback('site.team_members', fn () =>
+            TeamMember::orderBy('sort_order')->get()
+        );
 
         return view('site.about', compact('page', 'teamMembers'));
     }
 
     public function history()
     {
-        try {
-            $page = Cache::remember('site.page.history', 300, fn () =>
-                Page::where('slug', 'our-history')->where('is_published', true)->first()
-            );
+        $page = $this->cacheOrFallback('site.page.history', fn () =>
+            Page::where('slug', 'our-history')->where('is_published', true)->first()
+        , null);
 
-            $teamMembers = Cache::remember('site.team_members.history', 300, fn () =>
-                TeamMember::orderBy('sort_order')->get()
-            );
-        } catch (\Exception $e) {
-            $page = null;
-            $teamMembers = collect();
-        }
+        $teamMembers = $this->cacheOrFallback('site.team_members.history', fn () =>
+            TeamMember::orderBy('sort_order')->get()
+        );
 
         return view('site.history', compact('page', 'teamMembers'));
     }
 
     public function managerMessage()
     {
-        try {
-            $page = Cache::remember('site.page.manager-message', 300, fn () =>
-                Page::where('slug', 'message-from-the-manager')->where('is_published', true)->first()
-            );
-        } catch (\Exception $e) {
-            $page = null;
-        }
+        $page = $this->cacheOrFallback('site.page.manager-message', fn () =>
+            Page::where('slug', 'message-from-the-manager')->where('is_published', true)->first()
+        , null);
 
         return view('site.manager-message', compact('page'));
     }
 
     public function reports()
     {
-        try {
-            $page = Cache::remember('site.page.reports', 300, fn () =>
-                Page::where('slug', 'reports')->where('is_published', true)->first()
-            );
-        } catch (\Exception $e) {
-            $page = null;
-        }
+        $page = $this->cacheOrFallback('site.page.reports', fn () =>
+            Page::where('slug', 'reports')->where('is_published', true)->first()
+        , null);
 
         return view('site.reports', compact('page'));
     }
 
     public function services()
     {
-        try {
-            $services = Cache::remember('site.services.all', 300, fn () =>
-                Service::orderBy('sort_order')->get()
-            );
-        } catch (\Exception $e) {
-            $services = collect();
-        }
+        $services = $this->cacheOrFallback('site.services.all', fn () =>
+            Service::orderBy('sort_order')->get()
+        );
 
         return view('site.services', compact('services'));
     }
 
     public function loanProducts()
     {
-        try {
-            $loanProducts = Cache::remember('site.loan_products.all', 300, fn () =>
-                LoanProduct::where('is_active', true)->get()
-            );
-        } catch (\Exception $e) {
-            $loanProducts = collect();
-        }
+        $loanProducts = $this->cacheOrFallback('site.loan_products.all', fn () =>
+            LoanProduct::where('is_active', true)->get()
+        );
 
         return view('site.loan-products', compact('loanProducts'));
     }
 
     public function msacco()
     {
-        try {
-            $page = Cache::remember('site.page.msacco', 300, fn () =>
-                Page::where('slug', 'msacco')->where('is_published', true)->first()
-            );
-        } catch (\Exception $e) {
-            $page = null;
-        }
+        $page = $this->cacheOrFallback('site.page.msacco', fn () =>
+            Page::where('slug', 'msacco')->where('is_published', true)->first()
+        , null);
 
         return view('site.msacco', compact('page'));
     }
@@ -245,26 +227,18 @@ class SiteController extends Controller
 
     public function careers()
     {
-        try {
-            $page = Cache::remember('site.page.careers', 300, fn () =>
-                Page::where('slug', 'careers')->where('is_published', true)->first()
-            );
-        } catch (\Exception $e) {
-            $page = null;
-        }
+        $page = $this->cacheOrFallback('site.page.careers', fn () =>
+            Page::where('slug', 'careers')->where('is_published', true)->first()
+        , null);
 
         return view('site.careers', compact('page'));
     }
 
     public function contact()
     {
-        try {
-            $faqs = Cache::remember('site.faqs.contact', 300, fn () =>
-                Faq::where('is_published', true)->orderBy('sort_order')->get()
-            );
-        } catch (\Exception $e) {
-            $faqs = collect();
-        }
+        $faqs = $this->cacheOrFallback('site.faqs.contact', fn () =>
+            Faq::where('is_published', true)->orderBy('sort_order')->get()
+        );
 
         return view('site.contact', compact('faqs'));
     }
@@ -317,9 +291,10 @@ class SiteController extends Controller
 
     public function showMemberLogin()
     {
-        $a = rand(2, 9);
-        $b = rand(2, 9);
-        session(['member_captcha' => $a + $b]);
+        $a = rand(10, 50);
+        $b = rand(10, 50);
+        session(['member_captcha_' . ($a + $b) => $a + $b]);
+        session(['member_captcha_answer' => $a + $b]);
         return view('site.member-login', compact('a', 'b'));
     }
 
@@ -331,10 +306,13 @@ class SiteController extends Controller
         ]);
 
         $request->validate([
-            'captcha' => ['required', 'integer'],
+            'captcha' => ['required', 'integer', 'min:20', 'max:100'],
         ]);
 
-        if (session('member_captcha') !== (int) $request->input('captcha')) {
+        $expected = session('member_captcha_answer');
+        session()->forget('member_captcha_answer');
+
+        if ($expected === null || (int) $request->input('captcha') !== $expected) {
             return back()->withErrors(['captcha' => 'Captcha answer is incorrect.'])->withInput();
         }
 
@@ -347,13 +325,13 @@ class SiteController extends Controller
             return back()->withErrors(['membership_number' => 'Membership number or date of birth is incorrect, or your account is not active.'])->withInput();
         }
 
-        $email = $member->email ?: sprintf('member+%s@local.test', preg_replace('/[^A-Za-z0-9]/', '', $member->membership_number));
+        $email = $member->email ?: sprintf('member-%d@local.test', $member->id);
 
         $user = \App\Models\User::firstOrCreate([
             'email' => $email,
         ], [
             'name' => $member->full_name ?? $member->membership_number,
-            'password' => Hash::make(strtoupper(substr($member->membership_number, -6)) . '!'),
+            'password' => Hash::make(Str::random(16)),
         ]);
 
         session()->put('member_id', $member->id);
@@ -370,29 +348,30 @@ class SiteController extends Controller
             return redirect()->route('member.login');
         }
 
-        $member = Member::with(['branch', 'loans.loanProduct', 'savingsAccounts'])
+        $member = Member::with(['branch', 'loans.loanProduct', 'savingsAccounts.branch', 'shareAccounts'])
             ->findOrFail($memberId);
 
-        $loanSummary = $member->loans()
-            ->selectRaw('status, COUNT(*) as count, SUM(disbursed_amount) as total_disbursed')
-            ->groupBy('status')
-            ->get();
+        $savingsAccountIds = $member->savingsAccounts->pluck('id');
 
-        $activeSavings = $member->savingsAccounts()->where('status', 'active')->sum('balance');
-        $totalLoaned = $member->loans()->where('status', 'approved')->sum('disbursed_amount');
+        $loanSummary = $member->loans->groupBy('status')->map(fn($loans) => [
+            'status' => $loans->first()->status,
+            'count' => $loans->count(),
+            'total_disbursed' => $loans->sum('disbursed_amount'),
+        ])->values();
 
-        $savingsAccounts = $member->savingsAccounts()->with('branch')->get();
-        $loans = $member->loans()->with('loanProduct')->orderByDesc('created_at')->limit(10)->get();
+        $activeSavings = $member->savingsAccounts->where('status', 'active')->sum('balance');
+        $totalLoaned = $member->loans->where('status', 'approved')->sum('disbursed_amount');
+        $totalShares = $member->shareAccounts->sum('total_shares');
+
+        $savingsAccounts = $member->savingsAccounts;
+        $loans = $member->loans->sortByDesc('created_at')->take(10);
 
         $recentTransactions = \App\Models\SavingsTransaction::whereIn(
-            'savings_account_id',
-            $member->savingsAccounts()->pluck('id')
+            'savings_account_id', $savingsAccountIds
         )->with('savingsAccount')
             ->orderByDesc('created_at')
             ->limit(10)
             ->get();
-
-        $totalShares = $member->shareAccounts()->sum('total_shares');
 
         return view('site.member-dashboard', compact(
             'member', 'loanSummary', 'activeSavings', 'totalLoaned',

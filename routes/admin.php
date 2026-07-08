@@ -36,13 +36,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/notifications/counts', [DashboardController::class, 'notificationCounts'])->name('notifications.counts');
 
         // Content Management
-        Route::resource('slides', SlideController::class);
-        Route::resource('services', ServiceController::class);
-        Route::resource('pages', PageController::class);
-        Route::resource('news', NewsEventController::class);
-        Route::resource('team-members', TeamMemberController::class);
-        Route::resource('partners', PartnerController::class);
-        Route::resource('faqs', FaqController::class);
+        Route::resource('slides', SlideController::class)->except(['show']);
+        Route::resource('services', ServiceController::class)->except(['show']);
+        Route::resource('pages', PageController::class)->except(['show']);
+        Route::resource('news', NewsEventController::class)->except(['show']);
+        Route::resource('team-members', TeamMemberController::class)->except(['show']);
+        Route::resource('partners', PartnerController::class)->except(['show']);
+        Route::resource('faqs', FaqController::class)->except(['show']);
 
         Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
         Route::patch('contacts/{contact}/toggle-read', [ContactController::class, 'toggleRead'])->name('contacts.toggle-read');
@@ -53,8 +53,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('applications/{application}', [ApplicationController::class, 'destroy'])->name('applications.destroy');
 
         // Business CRUD
-        Route::resource('branches', BranchController::class);
-        Route::resource('loan-products', LoanProductController::class);
+        Route::resource('branches', BranchController::class)->except(['show']);
+        Route::resource('loan-products', LoanProductController::class)->except(['show']);
         Route::post('members/{member}/impersonate', [MemberController::class, 'impersonate'])->name('members.impersonate');
         Route::resource('members', MemberController::class);
         Route::resource('loans', LoanController::class)->only(['index', 'show', 'destroy']);
@@ -63,7 +63,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('savings/{savings}/reject', [SavingsAccountController::class, 'reject'])->name('savings.reject');
 
         // System
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class)->except(['show']);
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
         Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');

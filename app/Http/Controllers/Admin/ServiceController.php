@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -40,6 +41,9 @@ class ServiceController extends Controller
 
         Service::create($validated);
 
+        Cache::forget('site.services.featured');
+        Cache::forget('site.services.all');
+
         return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
     }
 
@@ -66,12 +70,19 @@ class ServiceController extends Controller
 
         $service->update($validated);
 
+        Cache::forget('site.services.featured');
+        Cache::forget('site.services.all');
+
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
     }
 
     public function destroy(Service $service): RedirectResponse
     {
         $service->delete();
+
+        Cache::forget('site.services.featured');
+        Cache::forget('site.services.all');
+
         return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
     }
 }

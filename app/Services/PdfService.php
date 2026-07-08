@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Setting;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +9,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PdfService
 {
+    private ?SettingService $settingService;
+
+    public function __construct(?SettingService $settingService = null)
+    {
+        $this->settingService = $settingService ?? app(SettingService::class);
+    }
+
     /**
      * Generate a PDF from a Blade view with SACCO-branded header/footer data,
      * and return a downloadable inline response.
@@ -66,13 +72,14 @@ class PdfService
      */
     private function headerFooterData(string $reportTitle): array
     {
+        $ss = $this->settingService;
         return [
-            'org_name'      => Setting::get('org_name', 'Mubende SACCO'),
-            'org_address'   => Setting::get('org_address', ''),
-            'org_phone'     => Setting::get('org_phone', ''),
-            'org_email'     => Setting::get('org_email', ''),
-            'reg_no'        => Setting::get('org_registration_number', '6682'),
-            'org_logo'      => Setting::get('org_logo', ''),
+            'org_name'      => $ss->get('org_name', 'Mubende SACCO'),
+            'org_address'   => $ss->get('org_address', ''),
+            'org_phone'     => $ss->get('org_phone', ''),
+            'org_email'     => $ss->get('org_email', ''),
+            'reg_no'        => $ss->get('org_registration_number', '6682'),
+            'org_logo'      => $ss->get('org_logo', ''),
             'report_title'  => $reportTitle,
             'generated_by'  => Auth::user()?->name ?? 'System',
             'generated_at'  => now()->format('d/m/Y H:i:s'),

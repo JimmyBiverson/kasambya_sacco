@@ -16,5 +16,29 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->report(function (\Throwable $e) {
+            if (! $e instanceof \Illuminate\Validation\ValidationException) {
+                \Illuminate\Support\Facades\Log::error('Unhandled exception', [
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);
+            }
+        });
+
+        $exceptions->render(function (App\Exceptions\InsufficientFundsException $e) {
+            return back()->with('error', $e->getMessage());
+        });
+        $exceptions->render(function (App\Exceptions\InsufficientSharesException $e) {
+            return back()->with('error', $e->getMessage());
+        });
+        $exceptions->render(function (App\Exceptions\DormantAccountException $e) {
+            return back()->with('error', $e->getMessage());
+        });
+        $exceptions->render(function (App\Exceptions\InactiveLoanProductException $e) {
+            return back()->with('error', $e->getMessage());
+        });
+        $exceptions->render(function (App\Exceptions\InactiveBranchException $e) {
+            return back()->with('error', $e->getMessage());
+        });
     })->create();

@@ -8,7 +8,7 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <h1>Member Login</h1>
-        <p class="text-green-100 mt-2">Access your account to view savings, loans, and transactions.</p>
+        <p class="text-theme-primary-contrast mt-2">Access your account to view savings, loans, and transactions.</p>
     </div>
 </section>
 
@@ -16,7 +16,7 @@
     <div class="max-w-md mx-auto px-4">
         <div class="bg-white border border-gray-200 p-8">
             <div class="text-center mb-6">
-                <svg class="w-16 h-16 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <svg class="w-16 h-16 text-theme-primary mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 <h2 class="text-xl font-bold text-gray-900 mt-4">Member Portal</h2>
                 <p class="text-sm text-gray-600">Sign in with your membership number and date of birth</p>
             </div>
@@ -54,7 +54,7 @@
 
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">Don't have an account?</p>
-                <a href="{{ route('application') }}" class="text-green-600 font-medium text-sm hover:text-green-700">Apply for Membership</a>
+                <a href="{{ route('application') }}" class="text-theme-primary font-medium text-sm hover:text-theme-primary">Apply for Membership</a>
             </div>
         </div>
     </div>

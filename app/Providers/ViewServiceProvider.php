@@ -35,6 +35,12 @@ class ViewServiceProvider extends ServiceProvider
             $themeSecondary = '#06b6d4';
         }
 
+        try {
+            $themeAccent = $settings->has('theme_accent') && $settings->get('theme_accent') ? $settings->get('theme_accent')->value : '#facc15';
+        } catch (\Throwable $e) {
+            $themeAccent = '#facc15';
+        }
+
         // Provide a simple associative array of key => value to templates
         try {
             $settings_values = $settings->mapWithKeys(function ($item, $key) {
@@ -48,5 +54,6 @@ class ViewServiceProvider extends ServiceProvider
         View::share('settings_values', $settings_values);
         View::share('theme_primary_value', $themePrimary);
         View::share('theme_secondary_value', $themeSecondary);
+        View::share('theme_accent_value', $themeAccent);
     }
 }

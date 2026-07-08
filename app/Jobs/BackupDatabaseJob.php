@@ -16,7 +16,7 @@ class BackupDatabaseJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 1;
+    public $tries = 3;
 
     public function handle(): void
     {
@@ -35,11 +35,12 @@ class BackupDatabaseJob implements ShouldQueue
 
         $path = "{$backupDir}/{$filename}";
 
+        $myCnf = tempnam(sys_get_temp_dir(), 'mycnf_');
+        file_put_contents($myCnf, "[client]\nhost=\"{$dbHost}\"\nuser=\"{$dbUser}\"\npassword=\"{$dbPass}\"\n");
+
         $command = sprintf(
-            'mysqldump --host=%s --user=%s --password=%s --single-transaction --routines --triggers %s | gzip > %s',
-            escapeshellarg($dbHost),
-            escapeshellarg($dbUser),
-            escapeshellarg($dbPass),
+            'mysqldump --defaults-extra-file=%s --single-transaction --routines --triggers %s | gzip > %s',
+            escapeshellarg($myCnf),
             escapeshellarg($dbName),
             escapeshellarg($path)
         );
@@ -48,6 +49,8 @@ class BackupDatabaseJob implements ShouldQueue
         $resultCode = null;
 
         exec($command, $output, $resultCode);
+
+        unlink($myCnf);
 
         if ($resultCode !== 0) {
             throw new \RuntimeException("Database backup failed with exit code {$resultCode}: " . implode("\n", $output ?? []));
@@ -60,43 +63,36 @@ class BackupDatabaseJob implements ShouldQueue
 
     private function pruneOldBackups(string $backupDir): void
     {
-        $files = collect(scandir($backupDir))
+        $allFiles = collect(scandir($backupDir))
             ->filter(fn (string $f) => str_starts_with($f, 'backup_') && str_ends_with($f, '.sql.gz'))
             ->sort()
             ->values();
 
-        $dailyCutoff = now()->subDays(30);
-        $weeklyCutoff = now()->subWeeks(12);
-        $monthlyCutoff = now()->subMonths(12);
-        $filesToDelete = [];
+        $toKeep = collect();
 
-        foreach ($files as $file) {
+        foreach ($allFiles as $file) {
             preg_match('/backup_.*_(\d{4}-\d{2}-\d{2})_/', $file, $matches);
             if (empty($matches[1])) continue;
-
             $fileDate = \Carbon\Carbon::parse($matches[1]);
 
-            if ($fileDate->lt($monthlyCutoff)) {
-                $filesToDelete[] = $file;
-            } elseif ($fileDate->lt($weeklyCutoff)) {
-                // Keep at most 12 monthly
-                $monthlyFiles = collect($filesToDelete)
-                    ->filter(fn ($f) => str_contains($f, $fileDate->format('Y-m')));
-                if ($monthlyFiles->isNotEmpty()) {
-                    $filesToDelete[] = $file;
+            if ($fileDate->gte(now()->subDays(30))) {
+                $toKeep->push($file);
+            } elseif ($fileDate->gte(now()->subWeeks(12))) {
+                $weekKey = $fileDate->format('Y-W');
+                if (!$toKeep->contains(fn($f) => str_contains($f, $weekKey))) {
+                    $toKeep->push($file);
                 }
-            } elseif ($fileDate->lt($dailyCutoff)) {
-                // Keep at most 12 weekly
-                $weekNum = $fileDate->isoWeek();
-                $weeklyFiles = collect($filesToDelete)
-                    ->filter(fn ($f) => str_contains($f, "week{$weekNum}"));
-                if ($weeklyFiles->isNotEmpty()) {
-                    $filesToDelete[] = $file;
+            } elseif ($fileDate->gte(now()->subMonths(12))) {
+                $monthKey = $fileDate->format('Y-m');
+                if (!$toKeep->contains(fn($f) => str_contains($f, $monthKey))) {
+                    $toKeep->push($file);
                 }
             }
         }
 
-        foreach ($filesToDelete as $file) {
+        $toDelete = $allFiles->diff($toKeep);
+
+        foreach ($toDelete as $file) {
             $path = "{$backupDir}/{$file}";
             if (file_exists($path)) {
                 unlink($path);

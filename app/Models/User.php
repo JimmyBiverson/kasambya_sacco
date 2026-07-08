@@ -22,9 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'google2fa_secret',
         'failed_login_attempts',
         'locked_at',
+        'email_verified_at',
+    ];
+
+    protected $guarded = [
+        'google2fa_secret',
     ];
 
     protected $casts = [

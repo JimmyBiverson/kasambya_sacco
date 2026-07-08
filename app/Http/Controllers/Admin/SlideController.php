@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slide;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -40,6 +41,8 @@ class SlideController extends Controller
 
         Slide::create($validated);
 
+        Cache::forget('site.slides');
+
         return redirect()->route('admin.slides.index')->with('success', 'Slide created successfully.');
     }
 
@@ -69,6 +72,8 @@ class SlideController extends Controller
 
         $slide->update($validated);
 
+        Cache::forget('site.slides');
+
         return redirect()->route('admin.slides.index')->with('success', 'Slide updated successfully.');
     }
 
@@ -78,6 +83,8 @@ class SlideController extends Controller
             Storage::disk('public')->delete($slide->image_path);
         }
         $slide->delete();
+
+        Cache::forget('site.slides');
 
         return redirect()->route('admin.slides.index')->with('success', 'Slide deleted successfully.');
     }

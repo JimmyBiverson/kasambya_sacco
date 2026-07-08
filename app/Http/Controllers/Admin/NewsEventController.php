@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\NewsEvent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -51,6 +52,11 @@ class NewsEventController extends Controller
 
         NewsEvent::create($validated);
 
+        Cache::forget('site.news.latest');
+        Cache::forget('site.news.recent');
+        Cache::forget('site.news.categories');
+        Cache::forget('site.news.recent.sidebar');
+
         return redirect()->route('admin.news.index')->with('success', 'News article created successfully.');
     }
 
@@ -86,6 +92,12 @@ class NewsEventController extends Controller
 
         $news->update($validated);
 
+        Cache::forget('site.news.latest');
+        Cache::forget('site.news.recent');
+        Cache::forget('site.news.categories');
+        Cache::forget('site.news.recent.sidebar');
+        Cache::forget('site.news.' . $news->slug);
+
         return redirect()->route('admin.news.index')->with('success', 'News article updated successfully.');
     }
 
@@ -94,7 +106,14 @@ class NewsEventController extends Controller
         if ($news->image) {
             Storage::disk('public')->delete($news->image);
         }
+        $slug = $news->slug;
         $news->delete();
+
+        Cache::forget('site.news.latest');
+        Cache::forget('site.news.recent');
+        Cache::forget('site.news.categories');
+        Cache::forget('site.news.recent.sidebar');
+        Cache::forget('site.news.' . $slug);
 
         return redirect()->route('admin.news.index')->with('success', 'News article deleted successfully.');
     }

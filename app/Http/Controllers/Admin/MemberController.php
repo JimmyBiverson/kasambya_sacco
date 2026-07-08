@@ -7,7 +7,9 @@ use App\Models\Branch;
 use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class MemberController extends Controller
@@ -142,6 +144,19 @@ class MemberController extends Controller
 
     public function destroy(Member $member): RedirectResponse
     {
+        if (!auth()->user()->hasRole('Super Admin')) {
+            return back()->with('error', 'Only Super Admin can delete members.');
+        }
+
+        if ($member->loans()->exists()) {
+            return back()->with('error', 'Cannot delete member with associated loans.');
+        }
+        if ($member->savingsAccounts()->exists()) {
+            return back()->with('error', 'Cannot delete member with associated savings accounts.');
+        }
+        if ($member->shareAccounts()->exists()) {
+            return back()->with('error', 'Cannot delete member with associated share accounts.');
+        }
         if ($member->photo) {
             Storage::disk('public')->delete($member->photo);
         }
@@ -152,13 +167,13 @@ class MemberController extends Controller
 
     public function impersonate(Member $member): RedirectResponse
     {
-        $email = $member->email ?: sprintf('member+%s@local.test', preg_replace('/[^A-Za-z0-9]/', '', $member->membership_number));
+        $email = $member->email ?: sprintf('member-%d@local.test', $member->id);
 
         $user = \App\Models\User::firstOrCreate([
             'email' => $email,
         ], [
             'name' => $member->full_name ?? $member->membership_number,
-            'password' => \Illuminate\Support\Facades\Hash::make(strtoupper(substr($member->membership_number, -6)) . '!'),
+            'password' => Hash::make(Str::random(16)),
         ]);
 
         session()->put('member_id', $member->id);

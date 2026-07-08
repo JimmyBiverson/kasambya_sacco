@@ -12,8 +12,12 @@ return new class extends Migration
         DB::statement("ALTER TABLE savings_accounts MODIFY COLUMN status ENUM('pending','active','dormant','closed','frozen') NOT NULL DEFAULT 'pending'");
 
         Schema::table('savings_accounts', function (Blueprint $table) {
-            $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->timestamp('approved_at')->nullable();
+            if (!Schema::hasColumn('savings_accounts', 'approved_by')) {
+                $table->foreignId('approved_by')->nullable()->constrained('users')->nullOnDelete();
+            }
+            if (!Schema::hasColumn('savings_accounts', 'approved_at')) {
+                $table->timestamp('approved_at')->nullable();
+            }
         });
     }
 

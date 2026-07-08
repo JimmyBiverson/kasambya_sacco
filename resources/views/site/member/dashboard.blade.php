@@ -372,11 +372,11 @@
                     <h3 class="font-black text-base lg:text-lg mb-2 relative z-10 font-sans">Need Assistance?</h3>
                     <p class="text-xs text-emerald-100/75 mb-4 lg:mb-6 relative z-10 leading-relaxed">Reach out to our support team for quick resolutions.</p>
                     <div class="space-y-2 lg:space-y-3 relative z-10 font-sans">
-                        <a href="tel:+256775125122" class="flex items-center gap-3 bg-white dark:bg-slate-800/10 hover:bg-white dark:bg-slate-800/20 p-2.5 rounded-xl transition-all duration-300 font-medium text-xs">
+                        <a href="tel:{{ $settings_values['org_phone'] ?? '+256775125122' }}" class="flex items-center gap-3 bg-white dark:bg-slate-800/10 hover:bg-white dark:bg-slate-800/20 p-2.5 rounded-xl transition-all duration-300 font-medium text-xs">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 flex items-center justify-center">
                                 <svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                             </div>
-                            <span>+256 775 125122</span>
+                            <span>{{ $settings_values['org_phone'] ?? '+256 775 125122' }}</span>
                         </a>
                         <a href="{{ route('member.support') }}" class="flex items-center gap-3 bg-white dark:bg-slate-800/10 hover:bg-white dark:bg-slate-800/20 p-2.5 rounded-xl transition-all duration-300 font-medium text-xs">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 flex items-center justify-center">

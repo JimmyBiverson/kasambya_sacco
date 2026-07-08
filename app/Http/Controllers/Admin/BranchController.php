@@ -66,6 +66,19 @@ class BranchController extends Controller
 
     public function destroy(Branch $branch): RedirectResponse
     {
+        if (!auth()->user()->hasRole('Super Admin')) {
+            return back()->with('error', 'Only Super Admin can delete branches.');
+        }
+
+        if ($branch->members()->exists()) {
+            return back()->with('error', 'Cannot delete branch with associated members.');
+        }
+        if ($branch->loans()->exists()) {
+            return back()->with('error', 'Cannot delete branch with associated loans.');
+        }
+        if ($branch->savingsAccounts()->exists()) {
+            return back()->with('error', 'Cannot delete branch with associated savings accounts.');
+        }
         $branch->delete();
         return redirect()->route('admin.branches.index')->with('success', 'Branch deleted successfully.');
     }

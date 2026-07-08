@@ -9,6 +9,7 @@ use App\Models\Contact;
 use App\Models\Branch;
 use App\Models\User;
 use App\Notifications\ApplicationApprovedNotification;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use App\Services\MemberNumberService;
 use Illuminate\Http\RedirectResponse;
@@ -29,53 +30,55 @@ class ApplicationController extends Controller
             'status' => 'required|in:pending,contacted,approved,rejected',
         ]);
 
-        if ($application->status !== 'approved' && $validated['status'] === 'approved') {
-            $member = Member::where('email', $application->email)
-                ->where('dob', $application->date_of_birth)
-                ->first();
+        $previousStatus = $application->status;
 
-            if (!$member) {
-                $membershipNumber = app(MemberNumberService::class)->generate();
+        DB::transaction(function () use ($application, $validated) {
+            if ($application->status !== 'approved' && $validated['status'] === 'approved') {
+                $member = Member::where('email', $application->email)
+                    ->where('dob', $application->date_of_birth)
+                    ->first();
 
-                // Ensure there is a branch to assign — create a default main branch if none exists
-                $branch = Branch::first();
-                if (!$branch) {
-                    $branch = Branch::create([
-                        'code' => 'MAIN',
-                        'name' => 'Main Branch',
-                        'address' => 'Head Office',
-                        'district' => 'Headquarters',
-                        'phone' => '',
-                        'email' => '',
-                        'manager_name' => null,
-                        'is_active' => true,
+                if (!$member) {
+                    $membershipNumber = app(MemberNumberService::class)->generate();
+
+                    $branch = Branch::first();
+                    if (!$branch) {
+                        $branch = Branch::create([
+                            'code' => 'MAIN',
+                            'name' => 'Main Branch',
+                            'address' => 'Head Office',
+                            'district' => 'Headquarters',
+                            'phone' => '',
+                            'email' => '',
+                            'manager_name' => null,
+                            'is_active' => true,
+                        ]);
+                    }
+
+                    Member::create([
+                        'membership_number' => $membershipNumber,
+                        'full_name' => $application->full_name,
+                        'email' => $application->email,
+                        'phone' => $application->phone,
+                        'address' => $application->address,
+                        'dob' => $application->date_of_birth,
+                        'occupation' => $application->occupation,
+                        'employer' => $application->employer,
+                        'monthly_income' => $application->monthly_income,
+                        'status' => 'active',
+                        'joined_at' => now(),
+                        'branch_id' => $branch->id,
+                        'category' => 'Regular',
+                        'gender' => 'Other',
                     ]);
                 }
-
-                Member::create([
-                    'membership_number' => $membershipNumber,
-                    'full_name' => $application->full_name,
-                    'email' => $application->email,
-                    'phone' => $application->phone,
-                    'address' => $application->address,
-                    'dob' => $application->date_of_birth,
-                    'occupation' => $application->occupation,
-                    'employer' => $application->employer,
-                    'monthly_income' => $application->monthly_income,
-                    'status' => 'active',
-                    'joined_at' => now(),
-                    'branch_id' => $branch->id,
-                    'category' => 'Regular',
-                    'gender' => 'Other',
-                ]);
             }
-        }
 
-        $previousStatus = $application->status;
-        $application->update($validated);
+            $application->update($validated);
+        });
 
         // If the application was just approved, notify admins
-        if ($previousStatus !== 'approved' && ($validated['status'] ?? '') === 'approved') {
+        if ($previousStatus !== 'approved' && $validated['status'] === 'approved') {
             try {
                 $admins = User::role('Super Admin')->get();
                 if ($admins->isNotEmpty()) {

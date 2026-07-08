@@ -3,16 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Dashboard') — Admin | Kasambya SACCO</title>
-    <meta name="description" content="Kasambya SACCO Admin Panel">
+    <title>@yield('title', 'Dashboard') — Admin | {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</title>
+    <meta name="description" content="{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }} Admin Panel">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @php
         $favicon = $settings_values['org_favicon'] ?? ($settings_values['org_logo'] ?? null);
     @endphp
     @if(!empty($favicon))
-        <link rel="icon" href="{{ Storage::url($favicon) }}" />
-        <link rel="shortcut icon" href="{{ Storage::url($favicon) }}" />
+        <link rel="icon" href="{{ url(Storage::url($favicon)) }}" />
+        <link rel="shortcut icon" href="{{ url(Storage::url($favicon)) }}" />
+    @else
+        <link rel="icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,9 +42,14 @@
             {{-- Logo --}}
             <div class="flex items-center justify-between h-16 px-5 border-b border-gray-800 dark:border-slate-800">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3">
-                    <div class="w-9 h-9 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-amber-500/20">MS</div>
+                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Kasambya SACCO'; $initials = implode('', array_map(fn($w) => $w[0], explode(' ', $orgName))); @endphp
+                    @if(!empty($orgLogo))
+                        <img src="{{ url(Storage::url($orgLogo)) }}" alt="{{ $orgName }}" class="h-9 w-auto rounded-lg">
+                    @else
+                        <div class="w-9 h-9 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-amber-500/20">{{ substr($initials, 0, 2) }}</div>
+                    @endif
                     <div>
-                        <div class="text-white font-bold text-sm leading-tight">Kasambya</div>
+                        <div class="text-white font-bold text-sm leading-tight">{{ $orgName }}</div>
                         <div class="text-amber-400 text-[10px] leading-tight -mt-0.5 tracking-wider uppercase font-semibold">Admin Panel</div>
                     </div>
                 </a>
@@ -284,8 +292,8 @@
             {{-- Footer --}}
             <footer class="border-t border-gray-200 bg-white px-4 lg:px-6 py-3">
                 <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400">
-                    <p>&copy; {{ date('Y') }} Kasambya SACCO Ltd. All rights reserved.</p>
-                    <p class="mt-1 sm:mt-0">v1.0.0 — Powered by <span class="font-medium text-gray-500">Kasambya SACCO</span></p>
+                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }} Ltd. All rights reserved.</p>
+                    <p class="mt-1 sm:mt-0">v1.0.0 — Powered by <span class="font-medium text-gray-500">{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</span></p>
                 </div>
             </footer>
         </div>

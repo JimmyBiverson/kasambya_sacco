@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Loan extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'member_id',
@@ -31,6 +32,12 @@ class Loan extends Model
 
     protected $casts = [
         'disbursed_at' => 'datetime',
+        'applied_amount' => 'integer',
+        'approved_amount' => 'integer',
+        'disbursed_amount' => 'integer',
+        'term_months' => 'integer',
+        'interest_rate' => 'float',
+        'credit_score' => 'integer',
     ];
 
     // -----------------------------------------------------------------

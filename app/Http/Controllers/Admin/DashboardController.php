@@ -12,6 +12,7 @@ use App\Models\Member;
 use App\Models\SavingsAccount;
 use App\Models\SavingsTransaction;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -84,14 +85,15 @@ class DashboardController extends Controller
             );
 
             $maleCount = Cache::remember('admin.dashboard.male_count', 60, fn () =>
-                Member::where('gender', 'male')->count()
+                Member::where('gender', 'M')->count()
             );
 
             $femaleCount = Cache::remember('admin.dashboard.female_count', 60, fn () =>
-                Member::where('gender', 'female')->count()
+                Member::where('gender', 'F')->count()
             );
 
         } catch (\Exception $e) {
+            Log::error('Dashboard data loading failed', ['error' => $e->getMessage()]);
             $totalMembers = 0;
             $activeLoans = 0;
             $totalSavings = 0;
@@ -142,10 +144,17 @@ class DashboardController extends Controller
     public function notificationCounts()
     {
         try {
-            $pendingApplications = Application::where('status', 'pending')->count();
-            $unreadContacts = Contact::where('is_read', false)->count();
-            $pendingMembers = Member::where('status', 'pending')->count();
+            $pendingApplications = Cache::remember('admin.notifications.pending_applications', 30, fn () =>
+                Application::where('status', 'pending')->count()
+            );
+            $unreadContacts = Cache::remember('admin.notifications.unread_contacts', 30, fn () =>
+                Contact::where('is_read', false)->count()
+            );
+            $pendingMembers = Cache::remember('admin.notifications.pending_members', 30, fn () =>
+                Member::where('status', 'pending')->count()
+            );
         } catch (\Exception $e) {
+            Log::error('Failed to load notification counts', ['error' => $e->getMessage()]);
             $pendingApplications = 0;
             $unreadContacts = 0;
             $pendingMembers = 0;

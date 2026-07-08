@@ -16,4 +16,9 @@ class Faq extends Model
         'sort_order',
         'is_published',
     ];
+
+    protected $casts = [
+        'is_published' => 'boolean',
+        'sort_order' => 'integer',
+    ];
 }

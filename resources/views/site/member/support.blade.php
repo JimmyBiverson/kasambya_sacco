@@ -53,7 +53,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-slate-800 dark:text-slate-200">Office Location</p>
-                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">Kasambya Town Council, Masengere Road, Kasambya, Uganda</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_address'] ?? 'Kasambya Town Council, Masengere Road, Kasambya, Uganda' }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
@@ -62,7 +62,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-slate-800 dark:text-slate-200">Phone</p>
-                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">+256 0775 125 122 / 0779 892 660</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_phone'] ?? '+256 0775 125 122 / 0779 892 660' }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
@@ -71,7 +71,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-slate-800 dark:text-slate-200">Email</p>
-                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">kasambyasacco@gmail.com</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_email'] ?? 'kasambyasacco@gmail.com' }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
@@ -80,7 +80,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-slate-800 dark:text-slate-200">Working Hours</p>
-                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">Mon - Fri: 8:45 AM - 5:00 PM<br>Sat: 8:45 AM - 3:00 PM</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['operating_hours'] ?? 'Mon - Fri: 8:45 AM - 5:00 PM' }}<br>Sat: 8:45 AM - 3:00 PM</p>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                     <div class="absolute -right-12 -top-12 w-32 h-32 bg-white dark:bg-slate-800/10 rounded-full blur-2xl"></div>
                     <h3 class="font-bold text-base relative z-10">Need Quick Help?</h3>
                     <p class="text-xs text-emerald-100/75 mt-2 relative z-10">Call our support line for immediate assistance.</p>
-                    <a href="tel:+256775125122" class="mt-4 inline-block bg-white dark:bg-slate-800/15 hover:bg-white dark:bg-slate-800/25 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all relative z-10">Call +256 775 125122</a>
+                    <a href="tel:{{ $settings_values['org_phone'] ?? '+256775125122' }}" class="mt-4 inline-block bg-white dark:bg-slate-800/15 hover:bg-white dark:bg-slate-800/25 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all relative z-10">Call {{ $settings_values['org_phone'] ?? '+256 775 125122' }}</a>
                 </div>
             </div>
         </div>

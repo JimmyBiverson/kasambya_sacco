@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -32,27 +33,42 @@ class SettingController extends Controller
             'hero_copy' => 'nullable|string|max:500',
             'theme_primary' => 'nullable|string|max:20',
             'theme_secondary' => 'nullable|string|max:20',
+            'theme_accent' => 'nullable|string|max:20',
         ]);
 
         foreach ($validated as $key => $value) {
-            if ($key === 'org_logo' && $request->hasFile('org_logo')) {
-                $oldLogo = Setting::get('org_logo');
-                if ($oldLogo) {
-                    Storage::disk('public')->delete($oldLogo);
+            if ($key === 'org_logo') {
+                if ($request->hasFile('org_logo')) {
+                    try {
+                        Storage::disk('public')->makeDirectory('settings');
+                        $oldLogo = Setting::get('org_logo');
+                        if ($oldLogo) {
+                            Storage::disk('public')->delete($oldLogo);
+                        }
+                        $value = $request->file('org_logo')->store('settings', 'public');
+                    } catch (\Throwable $e) {
+                        return redirect()->route('admin.settings.index')->with('error', 'Failed to upload logo. Please check file permissions and try again.');
+                    }
+                } else {
+                    continue;
                 }
-                $value = $request->file('org_logo')->store('settings', 'public');
             }
 
-            if ($key === 'org_favicon' && $request->hasFile('org_favicon')) {
-                $oldFav = Setting::get('org_favicon');
-                if ($oldFav) {
-                    Storage::disk('public')->delete($oldFav);
+            if ($key === 'org_favicon') {
+                if ($request->hasFile('org_favicon')) {
+                    try {
+                        Storage::disk('public')->makeDirectory('settings');
+                        $oldFav = Setting::get('org_favicon');
+                        if ($oldFav) {
+                            Storage::disk('public')->delete($oldFav);
+                        }
+                        $value = $request->file('org_favicon')->store('settings', 'public');
+                    } catch (\Throwable $e) {
+                        return redirect()->route('admin.settings.index')->with('error', 'Failed to upload favicon. Please check file permissions and try again.');
+                    }
+                } else {
+                    continue;
                 }
-                $value = $request->file('org_favicon')->store('settings', 'public');
-            }
-
-            if (($key === 'org_logo' && !$request->hasFile('org_logo')) || ($key === 'org_favicon' && !$request->hasFile('org_favicon'))) {
-                continue;
             }
 
             Setting::updateOrCreate(
@@ -60,6 +76,8 @@ class SettingController extends Controller
                 ['value' => $value, 'group' => 'general', 'type' => 'text']
             );
         }
+
+        Cache::forget('site.settings');
 
         return redirect()->route('admin.settings.index')->with('success', 'Settings updated successfully.');
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Loan;
 use App\Models\LoanProduct;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class LoanController extends Controller
@@ -50,6 +51,12 @@ class LoanController extends Controller
 
     public function destroy(Loan $loan): RedirectResponse
     {
+        if ($loan->repayments()->exists()) {
+            return back()->with('error', 'Cannot delete loan with associated repayments.');
+        }
+        if ($loan->schedules()->exists()) {
+            return back()->with('error', 'Cannot delete loan with associated repayment schedules.');
+        }
         $loan->delete();
         return redirect()->route('admin.loans.index')->with('success', 'Loan deleted successfully.');
     }

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('savings_accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('member_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('branch_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('branch_id')->constrained()->restrictOnDelete();
             $table->string('account_number')->unique();
             $table->enum('account_type', ['Normal', 'Emergency', 'Holiday', 'Children', 'Education', 'Target', 'FixedDeposit', 'Locked']);
             $table->unsignedBigInteger('balance')->default(0);

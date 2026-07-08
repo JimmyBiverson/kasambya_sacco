@@ -51,10 +51,10 @@ class ShareAccount extends Model
 
     public function purchaseShares(
         int $shares,
-        string $method = null,
-        string $reference = null,
-        string $description = null,
-        int $createdBy = null,
+        ?string $method = null,
+        ?string $reference = null,
+        ?string $description = null,
+        ?int $createdBy = null,
     ): ShareTransaction {
         $amount = $shares * $this->share_value;
 
@@ -76,10 +76,10 @@ class ShareAccount extends Model
 
     public function refundShares(
         int $shares,
-        string $method = null,
-        string $reference = null,
-        string $description = null,
-        int $createdBy = null,
+        ?string $method = null,
+        ?string $reference = null,
+        ?string $description = null,
+        ?int $createdBy = null,
     ): ShareTransaction {
         if ($shares > $this->total_shares) {
             throw new InsufficientSharesException($shares, $this->total_shares);

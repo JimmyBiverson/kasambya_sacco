@@ -132,6 +132,10 @@
 
     {{-- Header --}}
     <div class="header">
+        @php $logoPath = $org_logo ? public_path('storage/' . $org_logo) : null; @endphp
+        @if($logoPath && file_exists($logoPath))
+            <img src="{{ $logoPath }}" alt="{{ $org_name }}" style="max-height: 50px; margin-bottom: 8px;">
+        @endif
         <div class="org-name">{{ $org_name }}</div>
         @if($org_address)
         <div class="reg-no">{{ $org_address }}</div>

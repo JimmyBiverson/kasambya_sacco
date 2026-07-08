@@ -45,4 +45,9 @@ class Branch extends Model
     {
         return $this->hasMany(Department::class);
     }
+
+    public function shareAccounts(): HasMany
+    {
+        return $this->hasMany(ShareAccount::class);
+    }
 }

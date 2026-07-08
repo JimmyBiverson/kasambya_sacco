@@ -34,9 +34,9 @@ class MonthlyInterestJob implements ShouldQueue
                             continue;
                         }
 
-                        $oldBalance = $account->balance;
-                        $account->balance += $monthlyInterest;
-                        $account->save();
+                        SavingsAccount::where('id', $account->id)
+                            ->increment('balance', $monthlyInterest);
+                        $account->refresh();
 
                         $account->transactions()->create([
                             'type' => 'interest',

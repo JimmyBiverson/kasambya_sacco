@@ -24,9 +24,9 @@
 </head>
 <body>
     <div class="header">
-        <h1>Mubende SACCO</h1>
-        <p>Registration No: 6682 | {{ $report_title ?? 'Savings Account Statement' }}</p>
-        <p>Generated: {{ now()->format('d/m/Y H:i') }} | by: {{ auth()->user()?->name ?? 'System' }}</p>
+        <h1>{{ $org_name ?? 'Mubende SACCO' }}</h1>
+        <p>Registration No: {{ $reg_no ?? '6682' }} | {{ $report_title ?? 'Savings Account Statement' }}</p>
+        <p>{{ $org_address ? $org_address . ' | ' : '' }}{{ $org_phone ? 'Tel: ' . $org_phone . ' | ' : '' }}Generated: {{ now()->format('d/m/Y H:i') }} | by: {{ $generated_by ?? auth()->user()?->name ?? 'System' }}</p>
     </div>
 
     <div class="account-info">
@@ -79,7 +79,7 @@
     </table>
 
     <div class="footer">
-        Mubende SACCO (Reg: 6682) — {{ $report_title ?? 'Statement' }} — Generated {{ now()->format('d/m/Y H:i') }} — <span class="page-number"></span>
+        {{ $org_name ?? 'Mubende SACCO' }} (Reg: {{ $reg_no ?? '6682' }}) — {{ $report_title ?? 'Statement' }} — Generated {{ now()->format('d/m/Y H:i') }} — <span class="page-number"></span>
     </div>
 </body>
 </html>

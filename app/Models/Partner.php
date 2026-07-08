@@ -15,4 +15,8 @@ class Partner extends Model
         'url',
         'sort_order',
     ];
+
+    protected $casts = [
+        'sort_order' => 'integer',
+    ];
 }

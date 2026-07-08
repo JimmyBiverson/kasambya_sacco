@@ -16,4 +16,8 @@ class Page extends Model
         'meta_description',
         'is_published',
     ];
+
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
 }

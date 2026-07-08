@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TeamMember;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -39,6 +40,9 @@ class TeamMemberController extends Controller
 
         TeamMember::create($validated);
 
+        Cache::forget('site.team_members');
+        Cache::forget('site.team_members.history');
+
         return redirect()->route('admin.team-members.index')->with('success', 'Team member created successfully.');
     }
 
@@ -67,6 +71,9 @@ class TeamMemberController extends Controller
 
         $teamMember->update($validated);
 
+        Cache::forget('site.team_members');
+        Cache::forget('site.team_members.history');
+
         return redirect()->route('admin.team-members.index')->with('success', 'Team member updated successfully.');
     }
 
@@ -76,6 +83,9 @@ class TeamMemberController extends Controller
             Storage::disk('public')->delete($teamMember->photo);
         }
         $teamMember->delete();
+
+        Cache::forget('site.team_members');
+        Cache::forget('site.team_members.history');
 
         return redirect()->route('admin.team-members.index')->with('success', 'Team member deleted successfully.');
     }

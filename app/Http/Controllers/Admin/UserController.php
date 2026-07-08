@@ -54,6 +54,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user): RedirectResponse
     {
+        if (!auth()->user()->hasRole('Super Admin') && $request->filled('role')) {
+            return back()->with('error', 'Only Super Admin can change user roles.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
@@ -70,15 +74,25 @@ class UserController extends Controller
             $user->update(['password' => $validated['password']]);
         }
 
-        $user->syncRoles([$validated['role']]);
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user->syncRoles([$validated['role']]);
+        }
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user): RedirectResponse
     {
+        if (!auth()->user()->hasRole('Super Admin')) {
+            return back()->with('error', 'Only Super Admin can delete users.');
+        }
+
         if ($user->id === auth()->id()) {
             return back()->with('error', 'You cannot delete your own account.');
+        }
+
+        if ($user->hasRole('Super Admin') && User::role('Super Admin')->count() <= 1) {
+            return back()->with('error', 'Cannot delete the last Super Admin user.');
         }
 
         $user->delete();

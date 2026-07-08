@@ -20,37 +20,34 @@
     current: 0,
     interval: null,
     slides: {{ json_encode($slides->map(fn($s, $idx) => [
-        'image'   => $s->image_path ? Storage::url($s->image_path) : ($heroImages[$idx] ?? $heroImages[0]),
+        'image'   => $s->image_path ? asset('storage/' . $s->image_path) : ($heroImages[$idx] ?? $heroImages[0]),
         'title'   => $s->title ?? 'Safe Savings & Affordable Loans',
-        'subtitle' => $s->subtitle ?? 'Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.',
+        'subtitle' => $s->subtitle ?? ($settings_values['hero_copy'] ?? 'Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.'),
         'cta_text' => $s->cta_text ?? 'Become Member',
         'cta_url'  => $s->cta_url ?? route('application'),
         'origin'   => $idx % 3 === 0 ? '45% 55%' : ($idx % 3 === 1 ? '60% 40%' : '35% 50%'),
         'animClass' => 'ken-burns-' . ($idx % 3),
     ])->values()) }},
-    autoplay() {
-        this.interval = setInterval(() => {
-            this.current = (this.current + 1) % this.slides.length;
-        }, 7000);
-    },
     goTo(i) {
         this.current = i;
         clearInterval(this.interval);
-        this.autoplay();
-    },
-    init() { if (this.slides.length) this.autoplay(); }
-}" x-init="init()">
+        this.interval = setInterval(() => {
+            this.current = (this.current + 1) % this.slides.length;
+        }, 7000);
+    }
+}" x-init="if (slides.length) { interval = setInterval(() => { current = (current + 1) % slides.length }, 7000) }">
 
     <!-- Dark overlay for readability -->
     <div class="absolute inset-0 bg-black/45 z-10"></div>
 
     <!-- Ken Burns image layer with crossfade -->
     <template x-for="(slide, i) in slides" :key="'img-' + i">
-        <div class="absolute inset-0 z-0 overflow-hidden"
+        <div class="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-green-800 via-green-900 to-slate-900"
              :style="{ opacity: current === i ? 1 : 0, transition: 'opacity 1s ease-in-out' }">
             <img :src="slide.image" :alt="slide.title"
                  :class="'w-full h-full object-cover ' + (current === i ? slide.animClass : '')"
-                 :style="'transform-origin: ' + slide.origin + '; min-height: 520px;'">
+                 :style="'transform-origin: ' + slide.origin + '; min-height: 520px;'"
+                 @@error="$el.style.display='none'">
         </div>
     </template>
 
@@ -63,21 +60,19 @@
 
         <template x-for="(slide, i) in slides" :key="'content-' + i">
              <div x-show="current === i" x-cloak
-                  class="max-w-2xl bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden transform duration-700 ease-out"
-                  x-transition:enter="transition ease-out duration-700"
+                  class="max-w-2xl bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden"
+                  x-transition:enter="transition ease-out duration-1000"
                   x-transition:enter-start="opacity-0 translate-y-8 scale-95"
                   x-transition:enter-end="opacity-100 translate-y-0 scale-100">
-                <template x-if="current === i">
-                    <div>
-                        <p class="hero-content-fade text-sm uppercase tracking-[0.25em] text-emerald-450 font-bold mb-6">Kasambya SACCO</p>
-                        <h1 class="hero-content-fade-delayed text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-6 text-white text-glow" x-text="slide.title"></h1>
-                        <p class="hero-content-fade-delayed text-lg md:text-xl text-emerald-50 mb-10 max-w-xl leading-relaxed opacity-90" x-text="slide.subtitle"></p>
-                        <div class="hero-content-fade-btn flex flex-wrap items-center gap-4">
-                            <a :href="slide.cta_url" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3.5 text-base rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300" x-text="slide.cta_text"></a>
-                            <a href="{{ route('services') }}" class="inline-block border border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 text-base rounded-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm">View Saving Products</a>
-                        </div>
+                <div>
+                    <p class="hero-content-fade text-sm uppercase tracking-[0.25em] text-emerald-450 font-bold mb-6">Kasambya SACCO</p>
+                    <h1 class="hero-content-fade-delayed text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-6 text-white text-glow" x-text="slide.title"></h1>
+                    <p class="hero-content-fade-delayed text-lg md:text-xl text-emerald-50 mb-10 max-w-xl leading-relaxed opacity-90" x-text="slide.subtitle"></p>
+                    <div class="hero-content-fade-btn flex flex-wrap items-center gap-4">
+                        <a :href="slide.cta_url" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3.5 text-base rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300" x-text="slide.cta_text || 'Become Member'">Become Member</a>
+                        <a href="{{ route('services') }}" class="inline-block border border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 text-base rounded-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm">View Saving Products</a>
                     </div>
-                </template>
+                </div>
             </div>
         </template>
 
@@ -696,7 +691,7 @@
     <div class="max-w-3xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Join Kasambya SACCO?</h2>
         <p class="text-lg text-green-100 mb-8">Start your journey towards financial freedom today.</p>
-        <a href="tel:+256775125122" class="text-green-200 text-xl block mb-8 hover:text-white transition-colors">+256 0775 125 122</a>
+        <a href="tel:{{ $settings_values['org_phone'] ?? '+256775125122' }}" class="text-green-200 text-xl block mb-8 hover:text-white transition-colors">{{ $settings_values['org_phone'] ?? '+256 0775 125 122' }}</a>
         <a href="{{ route('application') }}" class="inline-block bg-white text-green-800 font-bold px-10 py-3 hover:bg-green-50 transition-colors">Become a Member</a>
     </div>
 </section>

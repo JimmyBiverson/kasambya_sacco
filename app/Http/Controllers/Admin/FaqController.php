@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class FaqController extends Controller
@@ -33,6 +34,9 @@ class FaqController extends Controller
 
         Faq::create($validated);
 
+        Cache::forget('site.faqs.home');
+        Cache::forget('site.faqs.contact');
+
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ created successfully.');
     }
 
@@ -53,12 +57,19 @@ class FaqController extends Controller
 
         $faq->update($validated);
 
+        Cache::forget('site.faqs.home');
+        Cache::forget('site.faqs.contact');
+
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated successfully.');
     }
 
     public function destroy(Faq $faq): RedirectResponse
     {
         $faq->delete();
+
+        Cache::forget('site.faqs.home');
+        Cache::forget('site.faqs.contact');
+
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ deleted successfully.');
     }
 }

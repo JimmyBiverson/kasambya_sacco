@@ -18,4 +18,9 @@ class Service extends Model
         'is_featured',
         'sort_order',
     ];
+
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'sort_order' => 'integer',
+    ];
 }

@@ -166,9 +166,15 @@
         <div class="card">
             {{-- Card Header --}}
             <div class="card-header">
-                <div>
-                    <div class="org-name">{{ $org_name }}</div>
-                    <div class="reg-no">Reg. No. {{ $reg_no }}</div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    @php $logoPath = $org_logo ? public_path('storage/' . $org_logo) : null; @endphp
+                    @if($logoPath && file_exists($logoPath))
+                        <img src="{{ $logoPath }}" alt="{{ $org_name }}" style="max-height: 24px; width: auto;">
+                    @endif
+                    <div>
+                        <div class="org-name">{{ $org_name }}</div>
+                        <div class="reg-no">Reg. No. {{ $reg_no }}</div>
+                    </div>
                 </div>
                 <div class="reg-no" style="text-align:right;">MEMBER CARD</div>
             </div>

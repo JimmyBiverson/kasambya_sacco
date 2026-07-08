@@ -17,4 +17,8 @@ class Contact extends Model
         'message',
         'is_read',
     ];
+
+    protected $casts = [
+        'is_read' => 'boolean',
+    ];
 }

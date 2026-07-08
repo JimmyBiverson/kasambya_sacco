@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -37,6 +38,8 @@ class PartnerController extends Controller
 
         Partner::create($validated);
 
+        Cache::forget('site.partners');
+
         return redirect()->route('admin.partners.index')->with('success', 'Partner created successfully.');
     }
 
@@ -63,6 +66,8 @@ class PartnerController extends Controller
 
         $partner->update($validated);
 
+        Cache::forget('site.partners');
+
         return redirect()->route('admin.partners.index')->with('success', 'Partner updated successfully.');
     }
 
@@ -72,6 +77,8 @@ class PartnerController extends Controller
             Storage::disk('public')->delete($partner->logo);
         }
         $partner->delete();
+
+        Cache::forget('site.partners');
 
         return redirect()->route('admin.partners.index')->with('success', 'Partner deleted successfully.');
     }

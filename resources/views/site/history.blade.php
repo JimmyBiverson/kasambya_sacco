@@ -16,7 +16,7 @@
 
 <section class="py-16 bg-white" data-aos="fade-up">
     <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-2xl font-bold text-green-700 mb-6">Established in 2003</h2>
+        <h2 class="text-2xl font-bold text-theme-primary mb-6">Established in 2003</h2>
         @if($page && $page->content)
             <div class="text-gray-700 leading-relaxed space-y-4">{!! $page->content !!}</div>
         @else
@@ -53,15 +53,15 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($teamMembers as $member)
                 <div class="bg-white border border-gray-200 p-6 text-center hover:shadow-md transition-shadow">
-                    <div class="w-20 h-20 rounded-full bg-green-100 mx-auto mb-4 overflow-hidden">
+                    <div class="w-20 h-20 rounded-full bg-theme-primary-soft mx-auto mb-4 overflow-hidden">
                         @if($member->photo)
                             <img src="{{ Storage::url($member->photo) }}" alt="{{ $member->name }}" class="w-full h-full object-cover">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-xl font-bold text-green-600">{{ strtoupper(substr($member->name, 0, 1)) }}</div>
+                            <div class="w-full h-full flex items-center justify-center text-xl font-bold text-theme-primary">{{ strtoupper(substr($member->name, 0, 1)) }}</div>
                         @endif
                     </div>
                     <h3 class="font-bold text-gray-900">{{ $member->position }}</h3>
-                    <p class="text-green-600 text-sm font-medium">{{ $member->name }}</p>
+                    <p class="text-theme-primary text-sm font-medium">{{ $member->name }}</p>
                     @if($member->bio)
                         <p class="text-gray-600 text-sm mt-2">{{ $member->bio }}</p>
                     @endif

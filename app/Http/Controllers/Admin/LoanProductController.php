@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LoanProduct;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class LoanProductController extends Controller
@@ -40,13 +41,17 @@ class LoanProductController extends Controller
             'collateral_required' => 'boolean',
             'category' => 'nullable|string|max:255',
             'is_active' => 'boolean',
+            'approval_levels' => 'nullable|array',
         ]);
 
-        if (empty($validated['approval_levels'])) {
-            $validated['approval_levels'] = ['level_1'];
+        if (!isset($validated['approval_levels'])) {
+            $validated['approval_levels'] = [['level' => 1, 'role' => 'Loan Officer']];
         }
 
         LoanProduct::create($validated);
+
+        Cache::forget('site.loan_products.featured');
+        Cache::forget('site.loan_products.all');
 
         return redirect()->route('admin.loan-products.index')->with('success', 'Loan product created successfully.');
     }
@@ -75,9 +80,17 @@ class LoanProductController extends Controller
             'collateral_required' => 'boolean',
             'category' => 'nullable|string|max:255',
             'is_active' => 'boolean',
+            'approval_levels' => 'nullable|array',
         ]);
 
+        if (!isset($validated['approval_levels'])) {
+            $validated['approval_levels'] = [['level' => 1, 'role' => 'Loan Officer']];
+        }
+
         $loanProduct->update($validated);
+
+        Cache::forget('site.loan_products.featured');
+        Cache::forget('site.loan_products.all');
 
         return redirect()->route('admin.loan-products.index')->with('success', 'Loan product updated successfully.');
     }
@@ -85,6 +98,10 @@ class LoanProductController extends Controller
     public function destroy(LoanProduct $loanProduct): RedirectResponse
     {
         $loanProduct->delete();
+
+        Cache::forget('site.loan_products.featured');
+        Cache::forget('site.loan_products.all');
+
         return redirect()->route('admin.loan-products.index')->with('success', 'Loan product deleted successfully.');
     }
 }

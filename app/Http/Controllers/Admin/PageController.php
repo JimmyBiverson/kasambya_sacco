@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -38,6 +39,8 @@ class PageController extends Controller
 
         Page::create($validated);
 
+        Cache::forget('site.page.' . $validated['slug']);
+
         return redirect()->route('admin.pages.index')->with('success', 'Page created successfully.');
     }
 
@@ -62,12 +65,18 @@ class PageController extends Controller
 
         $page->update($validated);
 
+        Cache::forget('site.page.' . $page->slug);
+
         return redirect()->route('admin.pages.index')->with('success', 'Page updated successfully.');
     }
 
     public function destroy(Page $page): RedirectResponse
     {
+        $slug = $page->slug;
         $page->delete();
+
+        Cache::forget('site.page.' . $slug);
+
         return redirect()->route('admin.pages.index')->with('success', 'Page deleted successfully.');
     }
 }

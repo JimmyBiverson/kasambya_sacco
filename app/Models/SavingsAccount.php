@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SavingsAccount extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'member_id',
@@ -57,6 +58,10 @@ class SavingsAccount extends Model
 
     public function deposit(int $amount, ?string $description = null, ?int $processedBy = null): SavingsTransaction
     {
+        if (!in_array($this->status, ['active', 'dormant'], true)) {
+            throw new DormantAccountException('Cannot deposit into a ' . $this->status . ' account.');
+        }
+
         $oldBalance = $this->balance;
         $this->balance += $amount;
         $this->save();
@@ -73,6 +78,10 @@ class SavingsAccount extends Model
 
     public function withdraw(int $amount, ?string $description = null, ?int $processedBy = null): SavingsTransaction
     {
+        if ($this->status === 'pending') {
+            throw new DormantAccountException('Cannot withdraw from a pending account.');
+        }
+
         if ($this->status === 'dormant') {
             throw new DormantAccountException();
         }

@@ -17,29 +17,25 @@ use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
-    private function getMember()
+    private function requireMember(): Member
     {
         $memberId = session('member_id');
         if (!$memberId) {
-            return null;
+            redirect()->route('member.login')->throwResponse();
         }
-        return Member::with(['branch', 'loans.loanProduct', 'savingsAccounts'])
-            ->findOrFail($memberId);
-    }
+        $member = Member::with(['branch', 'loans.loanProduct', 'savingsAccounts'])
+            ->find($memberId);
 
-    private function guard()
-    {
-        $member = $this->getMember();
         if (!$member) {
-            return redirect()->route('member.login');
+            redirect()->route('member.login')->throwResponse();
         }
+
         return $member;
     }
 
     public function dashboard()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $loanSummary = $member->loans()
             ->selectRaw('status, COUNT(*) as count, SUM(disbursed_amount) as total_disbursed')
@@ -73,8 +69,7 @@ class MemberController extends Controller
 
     public function savings()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $savingsAccounts = $member->savingsAccounts()->with('branch')->get();
         $activeSavings = $member->savingsAccounts()->where('status', 'active')->sum('balance');
@@ -84,8 +79,7 @@ class MemberController extends Controller
 
     public function openSavings()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $branches = Branch::where('is_active', true)->get();
         $accountTypes = ['Normal', 'Emergency', 'Holiday', 'Children', 'Education', 'Target', 'FixedDeposit', 'Locked'];
@@ -95,8 +89,7 @@ class MemberController extends Controller
 
     public function storeSavings(Request $request)
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $validated = $request->validate([
             'account_type' => 'required|string|in:Normal,Emergency,Holiday,Children,Education,Target,FixedDeposit,Locked',
@@ -139,10 +132,9 @@ class MemberController extends Controller
 
     public function loans()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
-        $loans = $member->loans()->with('loanProduct')->orderByDesc('created_at')->get();
+        $loans = $member->loans()->with('loanProduct')->orderByDesc('created_at')->paginate(15);
         $totalLoaned = $member->loans()->where('status', 'approved')->sum('disbursed_amount');
         $totalPending = $member->loans()->whereIn('status', ['pending', 'under_review'])->sum('applied_amount');
 
@@ -156,8 +148,7 @@ class MemberController extends Controller
 
     public function transactions()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $transactions = \App\Models\SavingsTransaction::whereIn(
             'savings_account_id',
@@ -179,8 +170,7 @@ class MemberController extends Controller
 
     public function applyLoan()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $loanProducts = LoanProduct::where('is_active', true)->get();
 
@@ -189,8 +179,7 @@ class MemberController extends Controller
 
     public function storeLoanApplication(Request $request)
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $validated = $request->validate([
             'loan_product_id' => 'required|integer|exists:loan_products,id',
@@ -201,7 +190,7 @@ class MemberController extends Controller
 
         $loanProduct = LoanProduct::findOrFail($validated['loan_product_id']);
 
-        $applicationNumber = 'LN-' . date('Y') . '-' . str_pad(Loan::max('id') + 1, 4, '0', STR_PAD_LEFT);
+        $applicationNumber = 'LN-' . date('Ymd') . '-' . strtoupper(Str::random(6));
 
         Loan::create([
             'member_id' => $member->id,
@@ -222,16 +211,14 @@ class MemberController extends Controller
 
     public function msacco()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         return view('site.member.msacco', compact('member'));
     }
 
     public function support()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $faqs = Faq::where('is_published', true)->orderBy('sort_order')->get();
 
@@ -240,16 +227,14 @@ class MemberController extends Controller
 
     public function profile()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         return view('site.member.profile', compact('member'));
     }
 
     public function updateProfile(Request $request)
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $validated = $request->validate([
             'phone' => 'nullable|string|max:20',
@@ -272,18 +257,16 @@ class MemberController extends Controller
 
     public function documents()
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
-        $documents = $member->documents()->latest()->get();
+        $documents = $member->documents()->latest()->paginate(15);
 
         return view('site.member.documents', compact('member', 'documents'));
     }
 
     public function uploadDocument(Request $request)
     {
-        $member = $this->guard();
-        if ($member instanceof \Illuminate\Http\RedirectResponse) return $member;
+        $member = $this->requireMember();
 
         $validated = $request->validate([
             'type' => 'required|string|in:NationalID,Passport,EmploymentLetter,Other',

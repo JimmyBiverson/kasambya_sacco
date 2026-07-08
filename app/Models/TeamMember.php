@@ -17,4 +17,8 @@ class TeamMember extends Model
         'email',
         'sort_order',
     ];
+
+    protected $casts = [
+        'sort_order' => 'integer',
+    ];
 }
