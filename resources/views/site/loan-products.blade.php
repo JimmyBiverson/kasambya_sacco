@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Loan Products')
-@section('meta_description', 'Explore Kasambya SACCO loan products including Agriculture, Housing, School Fees, Transport and more.')
+@section('meta_description', 'Explore Mubende Employees and Community Sacco Ltd loan products including Agriculture, Housing, School Fees, Transport and more.')
 
 @section('content')
 
@@ -29,7 +29,7 @@
                     @endif
                     <div class="mt-4 space-y-1 text-sm text-gray-500">
                         @if($product->interest_rate)
-                            <div class="flex justify-between"><span>Interest Rate:</span> <span class="font-medium text-gray-900">{{ $product->interest_rate }}%</span></div>
+                            <div class="flex justify-between"><span>Interest Rate:</span> <span class="font-medium text-gray-900">{{ round($product->interest_rate * 100, 1) }}%</span></div>
                         @endif
                         @if($product->min_amount && $product->max_amount)
                             <div class="flex justify-between"><span>Amount Range:</span> <span class="font-medium text-gray-900">UGX {{ number_format($product->min_amount) }} - {{ number_format($product->max_amount) }}</span></div>

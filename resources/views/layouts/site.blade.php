@@ -6,9 +6,9 @@
     @php
         $favicon = $settings_values['org_favicon'] ?? ($settings_values['org_logo'] ?? null);
         $socialImage = $settings_values['org_logo'] ?? null;
-        $orgName = $settings_values['org_name'] ?? 'Kasambya SACCO';
+        $orgName = $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd';
         $pageTitle = trim($__env->yieldContent('title')) ?: 'Home';
-        $metaDesc = trim($__env->yieldContent('meta_description')) ?: ($settings_values['meta_description'] ?? 'Kasambya SACCO - Safe Savings & Affordable Loans.');
+        $metaDesc = trim($__env->yieldContent('meta_description')) ?: ($settings_values['meta_description'] ?? 'Mubende Employees and Community Sacco Ltd - Safe Savings & Affordable Loans.');
     @endphp
     <title>{{ $pageTitle }} - {{ $orgName }}</title>
     <meta name="description" content="{{ $metaDesc }}" />
@@ -68,7 +68,7 @@
                     <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center gap-3">
                         @php
                             $navLogo   = $settings_values['org_logo'] ?? null;
-                            $_orgName  = $settings_values['org_name'] ?? 'Kasambya SACCO';
+                            $_orgName  = $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd';
                             $nameParts = explode(' ', $_orgName);
                             $orgInitials = implode('', array_map(fn($w) => strtoupper($w[0] ?? ''), $nameParts));
                         @endphp
@@ -80,7 +80,7 @@
                         {{-- Subtle vertical divider --}}
                         <span class="w-px h-8 bg-slate-200 dark:bg-slate-700 rounded-full"></span>
                         <div class="leading-tight pl-1">
-                            <span class="text-base font-extrabold text-slate-900 dark:text-white block">{{ $nameParts[0] ?? 'Kasambya' }}</span>
+                            <span class="text-base font-extrabold text-slate-900 dark:text-white block">{{ $nameParts[0] ?? 'Mubende' }}</span>
                             <span class="text-xs font-semibold text-theme-primary tracking-wide uppercase">{{ implode(' ', array_slice($nameParts, 1)) ?: 'SACCO' }}</span>
                         </div>
                     </a>
@@ -99,7 +99,7 @@
                             </button>
                             <div x-show="open" @click.outside="open = false" x-cloak class="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg shadow-md z-50 overflow-hidden">
                                 <a href="{{ route('history') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:text-theme-primary">Our History</a>
-                                <a href="{{ route('about') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:text-theme-primary">Kasambya SACCO</a>
+                                <a href="{{ route('about') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:text-theme-primary">Mubende Employees and Community Sacco Ltd</a>
                                 <a href="{{ route('manager-message') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:text-theme-primary">Message from the Manager</a>
                                 <a href="{{ route('reports') }}" class="block px-4 py-2.5 text-sm text-gray-700 dark:text-slate-200 hover:text-theme-primary">Financial Reports</a>
                             </div>
@@ -171,7 +171,7 @@
                         </button>
                         <div x-show="aboutOpen" class="pl-4 space-y-1 pb-2">
                             <a href="{{ route('history') }}" class="block py-1.5 text-sm text-gray-600 hover:text-theme-primary">Our History</a>
-                            <a href="{{ route('about') }}" class="block py-1.5 text-sm text-gray-600 hover:text-theme-primary">Kasambya SACCO</a>
+                            <a href="{{ route('about') }}" class="block py-1.5 text-sm text-gray-600 hover:text-theme-primary">Mubende Employees and Community Sacco Ltd</a>
                             <a href="{{ route('manager-message') }}" class="block py-1.5 text-sm text-gray-600 hover:text-theme-primary">Message from the Manager</a>
                             <a href="{{ route('reports') }}" class="block py-1.5 text-sm text-gray-600 hover:text-theme-primary">Financial Reports</a>
                         </div>
@@ -230,7 +230,7 @@
                             <span class="text-white font-bold text-lg">{{ $orgName }}</span>
                         </div>
                         <p class="text-theme-accent text-sm leading-relaxed">
-                            {{ $orgName }} was established in {{ $settings_values['org_established_year'] ?? '2003' }} and registered under Registration <strong class="text-theme-accent">Number {{ $settings_values['org_registration_number'] ?? '6682' }}</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991.
+                            {{ $orgName }} was established in {{ $settings_values['org_established_year'] ?? '1999' }} and registered under Registration <strong class="text-theme-accent">Number {{ $settings_values['org_registration_number'] ?? '6682' }}</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991.
                             <a href="{{ route('history') }}" class="text-theme-accent hover:text-white underline mt-2 inline-block">learn more</a>
                         </p>
                     </div>
@@ -270,15 +270,19 @@
                         <div class="space-y-3 text-sm text-theme-accent">
                             <p class="flex items-start gap-2">
                                 <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                {{ $settings_values['org_address'] ?? 'Kasambya Town Council, Masengere Road, Kasambya, Uganda' }}
+                                <span>
+                                    <strong class="text-white text-xs">HQ:</strong> {{ $settings_values['org_address'] ?? 'Kaweeri Cell, East Division opp Mubende District Head quaters, Mubende, Uganda' }}<br>
+                                    <strong class="text-white text-xs">Kalamba Branch:</strong> Opp. Akatale Komubuulo<br>
+                                    <strong class="text-white text-xs">Kassanda Center:</strong> At The Arcade
+                                </span>
                             </p>
                             <p class="flex items-center gap-2">
                                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                {{ $settings_values['org_email'] ?? 'kasambyasacco@gmail.com' }}
+                                {{ $settings_values['org_email'] ?? 'mubendehq@gmail.com' }}
                             </p>
                             <p class="flex items-center gap-2">
                                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                                <a href="tel:{{ $settings_values['org_phone'] ?? '+256775125122' }}" class="hover:text-white transition-colors">{{ $settings_values['org_phone'] ?? '+256 0775 125 122 / 0779 892 660' }}</a>
+                                <a href="tel:{{ $settings_values['org_phone'] ?? '+256775125122' }}" class="hover:text-white transition-colors">{{ $settings_values['org_phone'] ?? '+256 0775 125 122' }}</a>
                             </p>
                         </div>
                     </div>
@@ -287,7 +291,7 @@
 
             <div class="border-t border-theme-secondary">
                 <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between text-sm text-theme-accent">
-                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}. All Rights Reserved.</p>
+                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }}. All Rights Reserved.</p>
                     <div class="flex items-center space-x-4 mt-2 sm:mt-0">
                         <a href="{{ route('admin.dashboard') }}" class="hover:text-white transition-colors text-xs">Admin Portal</a>
                     </div>

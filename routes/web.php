@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -11,12 +11,12 @@ Route::get('/login', function () {
 // Public frontend routes
 Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('/our-history', [SiteController::class, 'history'])->name('history');
-Route::get('/about-kasambya-sacco', [SiteController::class, 'about'])->name('about');
+Route::get('/about-mubende-sacco', [SiteController::class, 'about'])->name('about');
 Route::get('/message-from-the-manager', [SiteController::class, 'managerMessage'])->name('manager-message');
 Route::get('/reports', [SiteController::class, 'reports'])->name('reports');
 Route::get('/our-services', [SiteController::class, 'services'])->name('services');
 Route::get('/loan-products', [SiteController::class, 'loanProducts'])->name('loan-products');
-Route::get('/msacco-services-at-kasambya-sacco', [SiteController::class, 'msacco'])->name('msacco');
+Route::get('/msacco-services-at-mubende-sacco', [SiteController::class, 'msacco'])->name('msacco');
 Route::get('/news-and-events', [SiteController::class, 'news'])->name('news');
 Route::get('/news-and-events/{slug}', [SiteController::class, 'newsShow'])->name('news.show');
 Route::get('/careers', [SiteController::class, 'careers'])->name('careers');

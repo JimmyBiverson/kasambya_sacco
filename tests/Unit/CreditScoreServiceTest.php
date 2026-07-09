@@ -111,7 +111,7 @@ class CreditScoreServiceTest extends TestCase
             $this->makeGuarantor('active'),
         ];
         $savingsAccounts = [$this->makeSavingsAccount(5_000_000)];
-        $member = $this->makeMember('Kasambya SACCO', $loans, $guarantors, $savingsAccounts);
+        $member = $this->makeMember('Mubende District', $loans, $guarantors, $savingsAccounts);
 
         // Repayment: 40 + savings: 30 + employment: 20 + guarantors: 10 = 100
         $score = $this->service->compute($member);

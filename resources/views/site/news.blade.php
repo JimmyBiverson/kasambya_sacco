@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'News & Events')
-@section('meta_description', 'Latest news, updates, and events from Kasambya SACCO.')
+@section('meta_description', 'Latest news, updates, and events from Mubende Employees and Community Sacco Ltd.')
 
 @section('content')
 

@@ -18,35 +18,35 @@ class MemberSeeder extends Seeder
     public function run(): void
     {
         // 1. Seed Branches
-        $branch1 = Branch::firstOrCreate(['code' => 'KS-HO'], [
-            'name' => 'Kasambya Head Office',
-            'address' => 'Kasambya Town Council, Masengere Road',
+        $branch1 = Branch::firstOrCreate(['code' => 'MB-HQ'], [
+            'name' => 'Mubende Office (HQ)',
+            'address' => 'Kaweeri Cell, East Division opp Mubende District Head quaters',
             'district' => 'Mubende',
             'region' => 'Central',
             'phone' => '0775125122',
-            'email' => 'kasambyahq@gmail.com',
+            'email' => 'mubendehq@gmail.com',
             'manager_name' => 'Nsubuga John',
             'is_active' => true,
         ]);
 
-        $branch2 = Branch::firstOrCreate(['code' => 'KS-MB'], [
-            'name' => 'Mubende Branch',
-            'address' => 'Mubende Town, Main Street',
+        $branch2 = Branch::firstOrCreate(['code' => 'MB-KL'], [
+            'name' => 'Kalamba Branch',
+            'address' => 'opp. Akatale Komubuulo',
             'district' => 'Mubende',
             'region' => 'Central',
             'phone' => '0779892660',
-            'email' => 'mubendebranch@gmail.com',
+            'email' => 'kalambabranch@gmail.com',
             'manager_name' => 'Mukasa Sarah',
             'is_active' => true,
         ]);
 
-        $branch3 = Branch::firstOrCreate(['code' => 'KS-KT'], [
-            'name' => 'Kasambya Town Branch',
-            'address' => 'Kasambya Trading Center',
-            'district' => 'Mubende',
+        $branch3 = Branch::firstOrCreate(['code' => 'MB-KS'], [
+            'name' => 'Kassanda Service Center',
+            'address' => 'at The Arcade',
+            'district' => 'Kassanda',
             'region' => 'Central',
             'phone' => '0700000003',
-            'email' => 'kasambyatown@gmail.com',
+            'email' => 'kassandaservice@gmail.com',
             'manager_name' => 'Atwine Ronald',
             'is_active' => true,
         ]);
@@ -59,7 +59,7 @@ class MemberSeeder extends Seeder
             'max_amount' => 10000000,
             'min_term' => 3,
             'max_term' => 24,
-            'interest_rate' => 0.08, // 8% per annum
+            'interest_rate' => 0.02, // 2% per month
             'interest_method' => 'reducing',
             'penalty_rate' => 0.001,
             'grace_period' => 30,
@@ -79,7 +79,7 @@ class MemberSeeder extends Seeder
             'max_amount' => 30000000,
             'min_term' => 6,
             'max_term' => 36,
-            'interest_rate' => 0.12, // 12%
+            'interest_rate' => 0.02, // 2% per month
             'interest_method' => 'reducing',
             'penalty_rate' => 0.001,
             'grace_period' => 15,
@@ -99,7 +99,7 @@ class MemberSeeder extends Seeder
             'max_amount' => 3000000,
             'min_term' => 1,
             'max_term' => 6,
-            'interest_rate' => 0.06,
+            'interest_rate' => 0.02, // 2%
             'interest_method' => 'flat',
             'penalty_rate' => 0.002,
             'grace_period' => 0,
@@ -116,10 +116,10 @@ class MemberSeeder extends Seeder
             'name' => 'Emergency Loan',
             'description' => 'Fast disbursed loans to handle unforeseen emergencies like medical bills.',
             'min_amount' => 100000,
-            'max_amount' => 1500000,
+            'max_amount' => 1500005,
             'min_term' => 1,
             'max_term' => 4,
-            'interest_rate' => 0.05,
+            'interest_rate' => 0.03, // 3%
             'interest_method' => 'flat',
             'penalty_rate' => 0.0015,
             'grace_period' => 0,
@@ -175,7 +175,7 @@ class MemberSeeder extends Seeder
                 'phone' => '0754888999',
                 'email' => 'florence.nakitende@example.test',
                 'occupation' => 'Teacher',
-                'employer' => 'Kasambya Primary School',
+                'employer' => 'Mubende Primary School',
                 'monthly_income' => 600000,
                 'category' => 'Regular',
                 'branch_id' => $branch2->id,
@@ -216,7 +216,7 @@ class MemberSeeder extends Seeder
             ],
             [
                 'membership_number' => 'MS-2026-0006',
-                'full_name' => 'Kasambya Farmers Group',
+                'full_name' => 'Mubende Farmers Group',
                 'dob' => '2010-06-15',
                 'gender' => 'Other',
                 'national_id' => null,
@@ -232,7 +232,7 @@ class MemberSeeder extends Seeder
             ]
         ];
 
-        $adminUser = User::where('email', 'admin@mybar.com')->first();
+        $adminUser = User::where('email', 'admin@gmail.com')->first();
         $adminId = $adminUser ? $adminUser->id : null;
 
         foreach ($membersData as $mData) {

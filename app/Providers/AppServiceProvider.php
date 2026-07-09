@@ -109,7 +109,7 @@ class AppServiceProvider extends ServiceProvider
 
             View::share('settings',              $settings);
             View::share('settings_values',       $settings_values);
-            View::share('orgName',               $settings_values['org_name']    ?? 'Kasambya SACCO');
+            View::share('orgName',               $settings_values['org_name']    ?? 'Mubende Employees and Community Sacco Ltd');
             View::share('theme_primary_value',   $settings_values['theme_primary']   ?? '#10b981');
             View::share('theme_secondary_value', $settings_values['theme_secondary']  ?? '#06b6d4');
             View::share('theme_accent_value',    $settings_values['theme_accent']     ?? '#facc15');

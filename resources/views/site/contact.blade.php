@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Contact')
-@section('meta_description', 'Contact Kasambya SACCO for inquiries about membership, savings, loans, and support.')
+@section('meta_description', 'Contact Mubende Employees and Community Sacco Ltd for inquiries about membership, savings, loans, and support.')
 
 @section('content')
 
@@ -29,7 +29,7 @@
 <section class="py-8 bg-slate-50 border-b border-slate-200" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
         <div class="h-64 md:h-80 bg-slate-200 overflow-hidden border border-slate-200/50 rounded-3xl shadow-sm">
-            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=32.5%2C0.5%2C32.6%2C0.6&amp;layer=mapnik&amp;marker=0.55%2C32.55" width="100%" height="100%" frameborder="0" scrolling="no" style="border:0" allowfullscreen loading="lazy" title="Kasambya SACCO Location Map"></iframe>
+            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=32.5%2C0.5%2C32.6%2C0.6&amp;layer=mapnik&amp;marker=0.55%2C32.55" width="100%" height="100%" frameborder="0" scrolling="no" style="border:0" allowfullscreen loading="lazy" title="Mubende Employees and Community Sacco Ltd Location Map"></iframe>
         </div>
     </div>
 </section>
@@ -89,8 +89,30 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <div>
-                    <h3 class="font-bold text-slate-900 leading-snug">Office Location</h3>
-                    <p class="mt-1.5 text-slate-500 text-sm leading-relaxed">{{ $settings_values['org_address'] ?? 'Kasambya Town Council, Masengere Road, Kasambya, Uganda' }}</p>
+                    <h3 class="font-bold text-slate-900 leading-snug">Our Offices</h3>
+                    <div class="mt-2 space-y-3">
+                        <div class="flex items-start gap-2">
+                            <span class="inline-flex items-center justify-center w-5 h-5 bg-theme-primary text-white text-[10px] font-black rounded-full flex-shrink-0 mt-0.5">1</span>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-800">Mubende Office (HQ)</p>
+                                <p class="text-slate-500 text-sm leading-relaxed">{{ $settings_values['org_address'] ?? 'Kaweeri Cell, East Division opp Mubende District Head quaters, Mubende, Uganda' }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="inline-flex items-center justify-center w-5 h-5 bg-theme-primary text-white text-[10px] font-black rounded-full flex-shrink-0 mt-0.5">2</span>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-800">Kalamba Branch</p>
+                                <p class="text-slate-500 text-sm leading-relaxed">Opp. Akatale Komubuulo</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="inline-flex items-center justify-center w-5 h-5 bg-theme-primary text-white text-[10px] font-black rounded-full flex-shrink-0 mt-0.5">3</span>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-800">Kassanda Service Center</p>
+                                <p class="text-slate-500 text-sm leading-relaxed">At The Arcade</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -111,7 +133,7 @@
                 <div>
                     <h3 class="font-bold text-slate-900 leading-snug">Official Emails</h3>
                     <p class="mt-1.5 text-slate-500 text-sm leading-relaxed font-mono">
-                        {{ $settings_values['org_email'] ?? 'kasambyasacco@gmail.com' }}
+                        {{ $settings_values['org_email'] ?? 'mubendehq@gmail.com' }}
                     </p>
                 </div>
             </div>

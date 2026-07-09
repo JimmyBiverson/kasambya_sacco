@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Member Login')
-@section('meta_description', 'Login to your Kasambya SACCO member account to check balances, loans, and transactions.')
+@section('meta_description', 'Login to your Mubende Employees and Community Sacco Ltd member account to check balances, loans, and transactions.')
 
 @section('content')
 

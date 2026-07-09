@@ -1,18 +1,18 @@
 @extends('layouts.site')
 
 @section('title', 'Home')
-@section('meta_description', 'Kasambya SACCO - Safe Savings & Affordable Loans. Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.')
+@section('meta_description', 'Mubende Employees and Community Sacco Ltd - Safe Savings & Affordable Loans. Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.')
 
 @section('content')
 
 <!-- Hero Slider with Ken Burns Effect -->
 @php
     $heroImages = [
-        asset('images/slides/slide-1.jpg'),
-        asset('images/slides/slide-2.jpg'),
-        asset('images/slides/slide-3.jpg'),
-        asset('images/slides/slide-4.jpg'),
-        asset('images/slides/slide-5.jpg'),
+        asset('images/uploaded/donation_group.jpg'),
+        asset('images/uploaded/donation_water.jpg'),
+        asset('images/uploaded/garbage_bins.jpg'),
+        asset('images/uploaded/handshake.jpg'),
+        asset('images/uploaded/member_active.jpg'),
     ];
 @endphp
 
@@ -25,17 +25,37 @@
         'subtitle' => $s->subtitle ?? ($settings_values['hero_copy'] ?? 'Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.'),
         'cta_text' => $s->cta_text ?? 'Become Member',
         'cta_url'  => $s->cta_url ?? route('application'),
-        'origin'   => $idx % 3 === 0 ? '45% 55%' : ($idx % 3 === 1 ? '60% 40%' : '35% 50%'),
         'animClass' => 'ken-burns-' . ($idx % 3),
     ])->values()) }},
+    restartAnim(slideIndex) {
+        this.$nextTick(() => {
+            const imgs = document.querySelectorAll('.hero-kb-img');
+            const img = imgs[slideIndex];
+            if (!img) return;
+            const cls = this.slides[slideIndex].animClass;
+            img.classList.remove(cls);
+            void img.offsetWidth; /* force reflow */
+            img.classList.add(cls);
+        });
+    },
     goTo(i) {
         this.current = i;
+        this.restartAnim(i);
         clearInterval(this.interval);
         this.interval = setInterval(() => {
             this.current = (this.current + 1) % this.slides.length;
+            this.restartAnim(this.current);
         }, 7000);
     }
-}" x-init="if (slides.length) { interval = setInterval(() => { current = (current + 1) % slides.length }, 7000) }">
+}" x-init="
+    if (slides.length) {
+        restartAnim(0);
+        interval = setInterval(() => {
+            current = (current + 1) % slides.length;
+            restartAnim(current);
+        }, 7000);
+    }
+">
 
     <!-- Dark overlay for readability -->
     <div class="absolute inset-0 bg-black/45 z-10"></div>
@@ -43,11 +63,11 @@
     <!-- Ken Burns image layer with crossfade -->
     <template x-for="(slide, i) in slides" :key="'img-' + i">
         <div class="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-green-800 via-green-900 to-slate-900"
-             :style="{ opacity: current === i ? 1 : 0, transition: 'opacity 1s ease-in-out' }">
+             :style="{ opacity: current === i ? 1 : 0, transition: 'opacity 1.2s ease-in-out' }">
             <img :src="slide.image" :alt="slide.title"
-                 :class="'w-full h-full object-cover ' + slide.animClass"
-                 :style="'transform-origin: ' + slide.origin + '; min-height: 520px;'"
-                 @@error="$el.style.display='none'">
+                 :class="'hero-kb-img w-full h-full object-cover ' + slide.animClass"
+                 style="min-height: 520px; will-change: transform;"
+                 x-on:error="$el.style.display='none'">
         </div>
     </template>
 
@@ -101,6 +121,7 @@
     </div>
 </section>
 
+
 <!-- Vision / Mission / Core Values / Customer Care -->
 <section class="py-16 bg-white" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
@@ -110,7 +131,7 @@
                     <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                 </div>
                 <h3 class="font-bold text-gray-900 mb-2">Our Vision</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">To provide affordable and sustainable financial services to our members.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">A financially sound and sustainable sacco , serving to uplift the social and economical well being of its members.</p>
                 <a href="{{ route('about') }}" class="text-green-600 text-sm font-medium mt-3 inline-block hover:text-green-700">Read More</a>
             </div>
             <div class="border border-gray-200 p-6 hover:border-green-500 transition-colors" data-aos="fade-up" data-aos-delay="100">
@@ -118,7 +139,7 @@
                     <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
                 <h3 class="font-bold text-gray-900 mb-2">Our Mission</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">To develop a strong spirit of saving among our members.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">To timely meet the financial needs of members through the provision of safe, secure and cheaper financial services.</p>
                 <a href="{{ route('about') }}" class="text-green-600 text-sm font-medium mt-3 inline-block hover:text-green-700">Read More</a>
             </div>
             <div class="border border-gray-200 p-6 hover:border-green-500 transition-colors" data-aos="fade-up" data-aos-delay="200">
@@ -126,7 +147,7 @@
                     <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <h3 class="font-bold text-gray-900 mb-2">Core Values</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">We uphold honesty and ethical conduct in all our operations.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Self reliance, Excellence, Reliability, Involving, Openness, Unity, Smartness.</p>
                 <a href="{{ route('about') }}" class="text-green-600 text-sm font-medium mt-3 inline-block hover:text-green-700">Read More</a>
             </div>
             <div class="border border-gray-200 p-6 hover:border-green-500 transition-colors" data-aos="fade-up" data-aos-delay="300">
@@ -189,8 +210,8 @@
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Founding</span>
-                        <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">Established 2003</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Founded by local community members to build a cooperative saving and credit support system.</p>
+                        <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">Established 1999</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">Founded by Mubende District employees in 1999 to build a cooperative saving and credit support system.</p>
                     </div>
                     <span class="text-5xl font-black text-slate-150/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">01</span>
                 </div>
@@ -211,8 +232,8 @@
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Expansion</span>
-                        <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">25+ Districts</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Expanded branching and services to bring accessible finance closer to rural communities.</p>
+                        <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">Greater Mubende</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">Serving Mubende, Kassanda, Mityana, Kakumiro, Kiboga, and Kyegegwa districts.</p>
                     </div>
                     <span class="text-5xl font-black text-slate-150/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">03</span>
                 </div>
@@ -222,8 +243,8 @@
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Impact</span>
-                        <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">10K+ Members</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">Empowering over ten thousand active savers and loan recipients toward self-reliance.</p>
+                        <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">5K Members</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">Over 5,000 active members both in public service and the community.</p>
                     </div>
                     <span class="text-5xl font-black text-slate-150/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">04</span>
                 </div>
@@ -285,9 +306,9 @@
 
 <!-- Stats -->
 @php
-    $establishedYear = intval($settings_values['org_established_year'] ?? 2003);
+    $establishedYear = intval($settings_values['org_established_year'] ?? 1999);
     $yearsExp = max(1, date('Y') - $establishedYear);
-    $memberCount = \App\Models\Member::count() + 1200; // Legacy base count helper
+    $memberCount = 5000;
 @endphp
 <section class="py-16 bg-theme-primary text-white" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
@@ -297,7 +318,7 @@
                 <div class="text-emerald-100">Professional Staff</div>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-bold mb-2" data-counter-target="25" data-counter-suffix="+">0+</div>
+                <div class="text-4xl md:text-5xl font-bold mb-2" data-counter-target="6" data-counter-suffix="+">0+</div>
                 <div class="text-emerald-100">Districts Served</div>
             </div>
             <div>

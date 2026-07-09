@@ -90,7 +90,7 @@
                 <div class="mt-6 bg-emerald-50 dark:bg-emerald-950 rounded-xl border border-emerald-200 dark:border-emerald-800 p-4">
                     <h3 class="font-bold text-emerald-800 dark:text-emerald-300 text-sm">How to Register</h3>
                     <ol class="mt-2 space-y-1 text-xs text-emerald-700 dark:text-emerald-400 list-decimal list-inside">
-                        <li>Visit Kasambya SACCO office with your National ID and registered mobile number (MTN/Airtel).</li>
+                        <li>Visit Mubende Employees and Community Sacco Ltd office with your National ID and registered mobile number (MTN/Airtel).</li>
                         <li>The staff will help you activate your M-SACCO mobile banking service within minutes.</li>
                     </ol>
                 </div>

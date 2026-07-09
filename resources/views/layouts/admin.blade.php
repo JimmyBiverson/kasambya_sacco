@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Dashboard') — Admin | {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</title>
-    <meta name="description" content="{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }} Admin Panel">
+    <title>@yield('title', 'Dashboard') — Admin | {{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }}</title>
+    <meta name="description" content="{{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }} Admin Panel">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @php
@@ -42,7 +42,7 @@
             {{-- Logo --}}
             <div class="flex items-center justify-between h-16 px-5 border-b border-gray-800 dark:border-slate-800">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3">
-                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Kasambya SACCO'; $initials = implode('', array_map(fn($w) => $w[0], explode(' ', $orgName))); @endphp
+                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd'; $initials = implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $orgName))); @endphp
                     @if(!empty($orgLogo))
                         <img src="{{ url(Storage::url($orgLogo)) }}" alt="{{ $orgName }}" class="h-9 w-auto rounded-lg">
                     @else
@@ -299,8 +299,8 @@
             {{-- Footer --}}
             <footer class="border-t border-gray-200 bg-white px-4 lg:px-6 py-3">
                 <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400">
-                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }} Ltd. All rights reserved.</p>
-                    <p class="mt-1 sm:mt-0">v1.0.0 — Powered by <span class="font-medium text-gray-500">{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</span></p>
+                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }} Ltd. All rights reserved.</p>
+                    <p class="mt-1 sm:mt-0">v1.0.0 — Powered by <span class="font-medium text-gray-500">{{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }}</span></p>
                 </div>
             </footer>
         </div>

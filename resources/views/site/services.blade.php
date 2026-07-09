@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Our Services')
-@section('meta_description', 'Discover Kasambya SACCO services including savings accounts, loans, and member support.')
+@section('meta_description', 'Discover Mubende Employees and Community Sacco Ltd services including savings accounts, loans, and member support.')
 
 @section('content')
 
@@ -78,7 +78,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                         <span>Call {{ $settings_values['org_phone'] ?? '+256 775 125' }}</span>
                     </a>
-                    <a href="mailto:{{ $settings_values['org_email'] ?? 'info@kasambyasacco.com' }}" class="flex items-center justify-center gap-2 bg-theme-primary text-theme-primary-contrast hover:bg-theme-primary/90 transition px-6 py-4 rounded-2xl font-bold border border-theme-primary/30 text-sm">
+                    <a href="mailto:{{ $settings_values['org_email'] ?? 'mubendehq@gmail.com' }}" class="flex items-center justify-center gap-2 bg-theme-primary text-theme-primary-contrast hover:bg-theme-primary/90 transition px-6 py-4 rounded-2xl font-bold border border-theme-primary/30 text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         <span>Send Support Mail</span>
                     </a>

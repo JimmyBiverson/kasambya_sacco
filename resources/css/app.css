@@ -684,17 +684,17 @@ textarea:focus-visible {
 }
 
 .ken-burns-0 {
-    animation: kenBurns 7s ease-in-out forwards;
+    animation: kenBurns 14s ease-in-out infinite alternate;
     transform-origin: 45% 55%;
 }
 
 .ken-burns-1 {
-    animation: kenBurnsAlt 7s ease-in-out forwards;
+    animation: kenBurnsAlt 14s ease-in-out infinite alternate;
     transform-origin: 60% 40%;
 }
 
 .ken-burns-2 {
-    animation: kenBurnsWide 7s ease-in-out forwards;
+    animation: kenBurnsWide 14s ease-in-out infinite alternate;
     transform-origin: 35% 50%;
 }
 

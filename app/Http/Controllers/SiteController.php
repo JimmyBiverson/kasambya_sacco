@@ -68,15 +68,15 @@ class SiteController extends Controller
             if ($slides->isEmpty()) {
                 $slides = collect([
                     (object) ['title' => 'Safe Savings & Affordable Loans', 'subtitle' => 'Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.', 'cta_text' => 'Become Member', 'cta_url' => route('application'), 'image_path' => null],
-                    (object) ['title' => 'Save. Borrow. Grow.', 'subtitle' => 'Over 21 years of empowering our community with accessible and affordable financial services.', 'cta_text' => 'View Products', 'cta_url' => route('services'), 'image_path' => null],
-                    (object) ['title' => 'Join Kasambya SACCO Today', 'subtitle' => 'Start your journey towards financial freedom with flexible savings and loan products designed for you.', 'cta_text' => 'Apply Now', 'cta_url' => route('application'), 'image_path' => null],
+                    (object) ['title' => 'Save. Borrow. Grow.', 'subtitle' => 'Started operation in 1999 empowering our community with accessible and affordable financial services.', 'cta_text' => 'View Products', 'cta_url' => route('services'), 'image_path' => null],
+                    (object) ['title' => 'Join Mubende Employees and Community Sacco Ltd Today', 'subtitle' => 'Start your journey towards financial freedom with flexible savings and loan products designed for you.', 'cta_text' => 'Apply Now', 'cta_url' => route('application'), 'image_path' => null],
                 ]);
             }
         } catch (\Exception $e) {
             $slides = collect([
                 (object) ['title' => 'Safe Savings & Affordable Loans', 'subtitle' => 'Join a trusted SACCO that empowers you with low-interest loans, secure savings, and financial growth.', 'cta_text' => 'Become Member', 'cta_url' => route('application'), 'image_path' => null],
-                (object) ['title' => 'Save. Borrow. Grow.', 'subtitle' => 'Over 21 years of empowering our community with accessible and affordable financial services.', 'cta_text' => 'View Products', 'cta_url' => route('services'), 'image_path' => null],
-                (object) ['title' => 'Join Kasambya SACCO Today', 'subtitle' => 'Start your journey towards financial freedom with flexible savings and loan products designed for you.', 'cta_text' => 'Apply Now', 'cta_url' => route('application'), 'image_path' => null],
+                (object) ['title' => 'Save. Borrow. Grow.', 'subtitle' => 'Started operation in 1999 empowering our community with accessible and affordable financial services.', 'cta_text' => 'View Products', 'cta_url' => route('services'), 'image_path' => null],
+                (object) ['title' => 'Join Mubende Employees and Community Sacco Ltd Today', 'subtitle' => 'Start your journey towards financial freedom with flexible savings and loan products designed for you.', 'cta_text' => 'Apply Now', 'cta_url' => route('application'), 'image_path' => null],
             ]);
             $services = collect();
             $loanProducts = collect();
@@ -91,7 +91,7 @@ class SiteController extends Controller
     public function about()
     {
         $page = $this->cacheOrFallback('site.page.about', fn () =>
-            Page::where('slug', 'about-kasambya-sacco')->where('is_published', true)->first()
+            Page::where('slug', 'about-mubende-sacco')->where('is_published', true)->first()
         , null);
 
         $teamMembers = $this->cacheOrFallback('site.team_members', fn () =>

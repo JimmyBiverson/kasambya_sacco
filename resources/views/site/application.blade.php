@@ -1,14 +1,14 @@
 @extends('layouts.site')
 
 @section('title', 'Application')
-@section('meta_description', 'Apply for membership at Kasambya SACCO. Fill out the application form to become a member.')
+@section('meta_description', 'Apply for membership at Mubende Employees and Community Sacco Ltd. Fill out the application form to become a member.')
 
 @section('content')
 
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / Application
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / Application
         </div>
         <h1>Application</h1>
     </div>

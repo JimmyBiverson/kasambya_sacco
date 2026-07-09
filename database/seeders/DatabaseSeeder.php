@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $adminUser = User::firstOrCreate(
-            ['email' => 'admin@mybar.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Mubende SACCO Admin',
                 'email_verified_at' => now(),
@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        if ($adminUser->wasRecentlyCreated || $adminUser->email !== 'admin@mybar.com') {
+        if ($adminUser->wasRecentlyCreated || $adminUser->email !== 'admin@gmail.com') {
             $adminUser->forceFill([
-                'email' => 'admin@mybar.com',
+                'email' => 'admin@gmail.com',
                 'name' => 'Mubende SACCO Admin',
                 'password' => 'password123',
             ])->save();

@@ -19,7 +19,7 @@ class MemberLoginTest extends TestCase
         $response->assertSee('Member Portal');
         $response->assertSee('Membership Number');
 
-        $captcha = session('member_captcha');
+        $captcha = session('member_captcha_answer');
         $this->assertNotNull($captcha, 'Captcha not set in session');
 
         $loginResponse = $this->post(route('member.login'), [
@@ -37,7 +37,7 @@ class MemberLoginTest extends TestCase
     {
         $response = $this->get(route('member.login'));
 
-        $captcha = session('member_captcha');
+        $captcha = session('member_captcha_answer');
 
         $loginResponse = $this->post(route('member.login'), [
             'membership_number' => 'MS-2026-0001',

@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Dashboard') — Member | {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</title>
-    <meta name="description" content="{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }} Member Portal">
+    <title>@yield('title', 'Dashboard') — Member | {{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }}</title>
+    <meta name="description" content="{{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }} Member Portal">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
             {{-- Logo --}}
             <div class="flex items-center justify-between h-16 px-5 border-b border-slate-200 dark:border-slate-800">
                 <a href="{{ route('member.dashboard') }}" class="flex items-center space-x-3">
-                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Kasambya SACCO'; $orgInitials = implode('', array_map(fn($w) => $w[0], explode(' ', $orgName))); @endphp
+                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd'; $orgInitials = implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $orgName))); @endphp
                     @if(!empty($orgLogo))
                         <img src="{{ url(Storage::url($orgLogo)) }}" alt="{{ $orgName }}" class="h-9 w-auto rounded-lg">
                     @else
@@ -188,8 +188,8 @@
             {{-- Footer --}}
             <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 lg:px-6 py-3 flex-shrink-0">
                 <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 dark:text-slate-400">
-                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }} Ltd. All rights reserved.</p>
-                    <p class="mt-1 sm:mt-0">Powered by {{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</p>
+                    <p>&copy; {{ date('Y') }} {{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }} Ltd. All rights reserved.</p>
+                    <p class="mt-1 sm:mt-0">Powered by {{ $settings_values['org_name'] ?? 'Mubende Employees and Community Sacco Ltd' }}</p>
                 </div>
             </footer>
         </div>

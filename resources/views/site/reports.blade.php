@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Financial Reports')
-@section('meta_description', 'Access financial reports and statements of Kasambya SACCO.')
+@section('meta_description', 'Access financial reports and statements of Mubende Employees and Community Sacco Ltd.')
 
 @section('content')
 

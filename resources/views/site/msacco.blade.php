@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'M-SACCO Services')
-@section('meta_description', 'Kasambya SACCO M-SACCO mobile banking services - deposit, loan repayment, balance check from your mobile phone.')
+@section('meta_description', 'M-SACCO mobile banking services for Mubende Employees and Community Sacco Ltd - deposit, loan repayment, and balance check from your mobile phone.')
 
 @section('content')
 

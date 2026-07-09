@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Message from the Manager')
-@section('meta_description', 'A message from the manager of Kasambya SACCO.')
+@section('meta_description', 'A message from the manager of Mubende Employees and Community Sacco Ltd.')
 
 @section('content')
 

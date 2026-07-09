@@ -53,7 +53,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-slate-800 dark:text-slate-200">Office Location</p>
-                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_address'] ?? 'Kasambya Town Council, Masengere Road, Kasambya, Uganda' }}</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_address'] ?? 'Kaweeri Cell, East Division opp Mubende District Head quaters, Mubende, Uganda' }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
@@ -71,7 +71,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-slate-800 dark:text-slate-200">Email</p>
-                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_email'] ?? 'kasambyasacco@gmail.com' }}</p>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs mt-0.5">{{ $settings_values['org_email'] ?? 'mubendehq@gmail.com' }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">

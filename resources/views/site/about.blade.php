@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'About Us')
-@section('meta_description', 'Learn more about Kasambya SACCO - our vision, mission, core values, and management team.')
+@section('meta_description', 'Learn more about Mubende Employees and Community Sacco Ltd - our vision, mission, core values, and management team.')
 
 @section('content')
 
@@ -9,7 +9,7 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / About Us
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / About Us
         </div>
         <h1>About Us</h1>
     </div>
@@ -20,14 +20,14 @@
     <div class="max-w-7xl mx-auto px-4">
         <div class="grid md:grid-cols-2 gap-10 items-start">
             <div data-aos="fade-right">
-                <img src="{{ asset('images/about-group.jpg') }}" alt="About Kasambya SACCO" class="w-full">
+                <img src="{{ asset('images/uploaded/member_active.jpg') }}" alt="About Mubende Employees and Community Sacco Ltd" class="w-full">
             </div>
             <div>
                 @if($page && $page->content)
                     <div class="text-gray-700 leading-relaxed space-y-4">{!! $page->content !!}</div>
                 @else
-                    <p class="text-gray-700 leading-relaxed">Kasambya SACCO is a trusted, member-driven financial cooperative serving Kasambya Town Council and surrounding communities. We are committed to promoting financial inclusion, empowering our members, and supporting sustainable development through accessible and affordable financial services.</p>
-                    <p class="text-gray-700 leading-relaxed mt-4">As we continue to grow, we are expanding our reach to neighboring districts with a vision of becoming a multipurpose SACCO that delivers greater value and improves the well-being of our members.</p>
+                    <p class="text-gray-700 leading-relaxed">Mubende Employees and Community Sacco Ltd is a cooperative financial institution providing financial services to people in the Mubende great region.</p>
+                    <p class="text-gray-700 leading-relaxed mt-4">Started operation in 1999 in Mubende district, we now serve greater Mubende districts (Kassanda, Mityana, Mubende, Kakumiro, Kiboga, and Kyegegwa) with over 5,000 members both in public service and the community, offering a secure way to save, buy shares, and get loans (including business, farming, livestock, and school fees loans).</p>
                 @endif
                 <a href="{{ route('history') }}" class="site-btn-primary mt-6 inline-block">Read our History</a>
             </div>
@@ -44,34 +44,38 @@
                     <svg class="w-7 h-7 text-theme-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                 </div>
                 <h3 class="font-bold text-gray-900 mb-3">Our Vision</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">To provide affordable and sustainable financial services to our members.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">A financially sound and sustainable sacco , serving to uplift the social and economical well being of its members.</p>
             </div>
             <div class="bg-white border border-gray-200 p-8 text-center">
                 <div class="w-14 h-14 bg-theme-primary-soft flex items-center justify-center mx-auto mb-4">
                     <svg class="w-7 h-7 text-theme-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
                 <h3 class="font-bold text-gray-900 mb-3">Our Mission</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">To develop a strong spirit of saving among our members in order to increase the capital base and improve members' welfare.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">To timely meet the financial needs of members through the provision of safe , secure and cheaper financial services.</p>
             </div>
             <div class="bg-white border border-gray-200 p-8 text-center">
                 <div class="w-14 h-14 bg-theme-primary-soft flex items-center justify-center mx-auto mb-4">
                     <svg class="w-7 h-7 text-theme-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <h3 class="font-bold text-gray-900 mb-3">Core Values</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">We uphold honesty and ethical conduct in all our operations: Integrity, Transparency, Teamwork, Time Consciousness, Customer Care, and Learning.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Self reliance, Excellence, Reliability, Involving, Openness, Unity, Smartness.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Stats -->
+@php
+    $establishedYear = intval($settings_values['org_established_year'] ?? 1999);
+    $yearsExp = max(1, date('Y') - $establishedYear);
+@endphp
 <section class="py-16 bg-theme-primary text-theme-primary-contrast">
     <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div><div class="text-4xl md:text-5xl font-bold mb-2">50+</div><div class="text-theme-primary-contrast/80">Professional Staff</div></div>
-            <div><div class="text-4xl md:text-5xl font-bold mb-2">25+</div><div class="text-theme-primary-contrast/80">Districts Served</div></div>
-            <div><div class="text-4xl md:text-5xl font-bold mb-2">21+</div><div class="text-theme-primary-contrast/80">Years of Experience</div></div>
-            <div><div class="text-4xl md:text-5xl font-bold mb-2">10K</div><div class="text-theme-primary-contrast/80">Satisfied Customers</div></div>
+            <div><div class="text-4xl md:text-5xl font-bold mb-2">6</div><div class="text-theme-primary-contrast/80">Districts Served</div></div>
+            <div><div class="text-4xl md:text-5xl font-bold mb-2">{{ $yearsExp }}+</div><div class="text-theme-primary-contrast/80">Years of Experience</div></div>
+            <div><div class="text-4xl md:text-5xl font-bold mb-2">5K+</div><div class="text-theme-primary-contrast/80">Satisfied Members</div></div>
         </div>
     </div>
 </section>

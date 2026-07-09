@@ -18,12 +18,13 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             // Organisation identity
-            ['key' => 'org_name',                'group' => 'organisation', 'type' => 'string',    'value' => 'Mubende Employees and Community SACCO Ltd'],
+            ['key' => 'org_name',                'group' => 'organisation', 'type' => 'string',    'value' => 'Mubende Employees and Community Sacco Ltd'],
             ['key' => 'org_logo',                'group' => 'organisation', 'type' => 'string',    'value' => ''],
-            ['key' => 'org_address',             'group' => 'organisation', 'type' => 'string',    'value' => ''],
-            ['key' => 'org_phone',               'group' => 'organisation', 'type' => 'string',    'value' => ''],
-            ['key' => 'org_email',               'group' => 'organisation', 'type' => 'string',    'value' => ''],
+            ['key' => 'org_address',             'group' => 'organisation', 'type' => 'string',    'value' => 'Kaweeri Cell, East Division opp Mubende District Head quaters'],
+            ['key' => 'org_phone',               'group' => 'organisation', 'type' => 'string',    'value' => '0775125122'],
+            ['key' => 'org_email',               'group' => 'organisation', 'type' => 'string',    'value' => 'mubendehq@gmail.com'],
             ['key' => 'org_registration_number', 'group' => 'organisation', 'type' => 'string',    'value' => '6682'],
+            ['key' => 'org_established_year',    'group' => 'organisation', 'type' => 'string',    'value' => '1999'],
             ['key' => 'operating_hours',         'group' => 'organisation', 'type' => 'string',    'value' => 'Mon–Fri 08:00–17:00'],
 
             // Theme
