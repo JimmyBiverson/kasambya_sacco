@@ -289,13 +289,16 @@ body {
 .bg-emerald-200 {
     background-color: color-mix(in srgb, var(--theme-primary) 30%, white 70%) !important;
 }
-.bg-emerald-600,
-.text-emerald-600,
-.fill-emerald-600 {
-    color: var(--theme-primary) !important;
+.bg-emerald-600 {
     background-color: var(--theme-primary) !important;
 }
-.bg-emerald-700,
+.text-emerald-600 {
+    color: var(--theme-primary) !important;
+}
+.fill-emerald-600 {
+    fill: var(--theme-primary) !important;
+}
+.bg-emerald-750,
 .hover\:bg-emerald-700:hover {
     background-color: color-mix(in srgb, var(--theme-primary) 80%, black 20%) !important;
 }

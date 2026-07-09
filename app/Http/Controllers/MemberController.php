@@ -43,7 +43,7 @@ class MemberController extends Controller
             ->get();
 
         $activeSavings = $member->savingsAccounts()->where('status', 'active')->sum('balance');
-        $totalLoaned = $member->loans()->where('status', 'approved')->sum('disbursed_amount');
+        $totalLoaned = $member->loans()->whereIn('status', ['approved', 'disbursed'])->sum('disbursed_amount');
 
         $savingsAccounts = $member->savingsAccounts()->with('branch')->get();
         $loans = $member->loans()->with('loanProduct')->orderByDesc('created_at')->limit(10)->get();
@@ -135,7 +135,7 @@ class MemberController extends Controller
         $member = $this->requireMember();
 
         $loans = $member->loans()->with('loanProduct')->orderByDesc('created_at')->paginate(15);
-        $totalLoaned = $member->loans()->where('status', 'approved')->sum('disbursed_amount');
+        $totalLoaned = $member->loans()->whereIn('status', ['approved', 'disbursed'])->sum('disbursed_amount');
         $totalPending = $member->loans()->whereIn('status', ['pending', 'under_review'])->sum('applied_amount');
 
         $loanSummary = $member->loans()

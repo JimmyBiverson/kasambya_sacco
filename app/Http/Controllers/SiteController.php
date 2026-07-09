@@ -306,7 +306,7 @@ class SiteController extends Controller
         ]);
 
         $request->validate([
-            'captcha' => ['required', 'integer', 'min:20', 'max:100'],
+            'captcha' => ['required', 'integer'],
         ]);
 
         $expected = session('member_captcha_answer');
@@ -360,7 +360,7 @@ class SiteController extends Controller
         ])->values();
 
         $activeSavings = $member->savingsAccounts->where('status', 'active')->sum('balance');
-        $totalLoaned = $member->loans->where('status', 'approved')->sum('disbursed_amount');
+        $totalLoaned = $member->loans->whereIn('status', ['approved', 'disbursed'])->sum('disbursed_amount');
         $totalShares = $member->shareAccounts->sum('total_shares');
 
         $savingsAccounts = $member->savingsAccounts;

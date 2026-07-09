@@ -46,11 +46,11 @@
             {{-- Logo --}}
             <div class="flex items-center justify-between h-16 px-5 border-b border-slate-200 dark:border-slate-800">
                 <a href="{{ route('member.dashboard') }}" class="flex items-center space-x-3">
-                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Kasambya SACCO'; $initials = implode('', array_map(fn($w) => $w[0], explode(' ', $orgName))); @endphp
+                    @php $orgLogo = $settings_values['org_logo'] ?? null; $orgName = $settings_values['org_name'] ?? 'Kasambya SACCO'; $orgInitials = implode('', array_map(fn($w) => $w[0], explode(' ', $orgName))); @endphp
                     @if(!empty($orgLogo))
                         <img src="{{ url(Storage::url($orgLogo)) }}" alt="{{ $orgName }}" class="h-9 w-auto rounded-lg">
                     @else
-                        <div class="w-9 h-9 sidebar-brand rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-theme-primary">{{ substr($initials, 0, 2) }}</div>
+                        <div class="w-9 h-9 sidebar-brand rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-theme-primary">{{ substr($orgInitials, 0, 2) }}</div>
                     @endif
                     <div>
                         <div class="text-slate-800 dark:text-slate-200 font-bold text-sm leading-tight">{{ $orgName }}</div>
@@ -170,6 +170,13 @@
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                         <span class="hidden sm:inline">View Site</span>
                     </a>
+                    <form method="POST" action="{{ route('member.logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-955/20 font-semibold flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/30 transition-all" title="Logout">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                            <span class="hidden sm:inline">Logout</span>
+                        </button>
+                    </form>
                 </div>
             </header>
 

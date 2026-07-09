@@ -89,5 +89,27 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('adminNotifications', $adminNotifications);
         });
+
+        // Share site settings with public-facing and member layouts
+        View::composer(['layouts.site', 'layouts.member'], function ($view) {
+            try {
+                $settings = Cache::remember('site.settings', 300, function () {
+                    return Setting::all()->keyBy('key');
+                });
+            } catch (\Exception $e) {
+                Log::error('Failed to load site settings for view', ['error' => $e->getMessage()]);
+                $settings = collect();
+            }
+
+            $settings_values = $settings->mapWithKeys(fn ($s, $k) => [$k => $s->value])->toArray();
+
+            $view->with([
+                'settings'             => $settings,
+                'settings_values'      => $settings_values,
+                'theme_primary_value'  => $settings_values['theme_primary']  ?? '#10b981',
+                'theme_secondary_value'=> $settings_values['theme_secondary'] ?? '#06b6d4',
+                'theme_accent_value'   => $settings_values['theme_accent']    ?? '#facc15',
+            ]);
+        });
     }
 }

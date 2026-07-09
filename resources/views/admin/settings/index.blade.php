@@ -25,6 +25,17 @@
                         </div>
                     </div>
 
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-200">Established Year</label>
+                            <input type="number" name="org_established_year" value="{{ old('org_established_year', $settings_values['org_established_year'] ?? '') }}" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 px-4 py-2" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-200">Registration Number</label>
+                            <input type="text" name="org_registration_number" value="{{ old('org_registration_number', $settings_values['org_registration_number'] ?? '') }}" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 px-4 py-2" />
+                        </div>
+                    </div>
+
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-200">Address</label>
                     <input type="text" name="org_address" value="{{ old('org_address', $settings_values['org_address'] ?? '') }}" class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 px-4 py-2" />
 

@@ -45,7 +45,7 @@
         <div class="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-green-800 via-green-900 to-slate-900"
              :style="{ opacity: current === i ? 1 : 0, transition: 'opacity 1s ease-in-out' }">
             <img :src="slide.image" :alt="slide.title"
-                 :class="'w-full h-full object-cover ' + (current === i ? slide.animClass : '')"
+                 :class="'w-full h-full object-cover ' + slide.animClass"
                  :style="'transform-origin: ' + slide.origin + '; min-height: 520px;'"
                  @@error="$el.style.display='none'">
         </div>
@@ -58,23 +58,28 @@
     <!-- Content -->
     <div class="relative z-20 max-w-7xl mx-auto px-4 py-28 md:py-36 lg:py-44">
 
-        <template x-for="(slide, i) in slides" :key="'content-' + i">
-             <div x-show="current === i" x-cloak
-                  class="max-w-2xl bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden"
-                  x-transition:enter="transition ease-out duration-1000"
-                  x-transition:enter-start="opacity-0 translate-y-8 scale-95"
-                  x-transition:enter-end="opacity-100 translate-y-0 scale-100">
-                <div>
-                    <p class="hero-content-fade text-sm uppercase tracking-[0.25em] text-emerald-450 font-bold mb-6">Kasambya SACCO</p>
-                    <h1 class="hero-content-fade-delayed text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-6 text-white text-glow" x-text="slide.title"></h1>
-                    <p class="hero-content-fade-delayed text-lg md:text-xl text-emerald-50 mb-10 max-w-xl leading-relaxed opacity-90" x-text="slide.subtitle"></p>
-                    <div class="hero-content-fade-btn flex flex-wrap items-center gap-4">
-                        <a :href="slide.cta_url" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3.5 text-base rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300" x-text="slide.cta_text || 'Become Member'">Become Member</a>
-                        <a href="{{ route('services') }}" class="inline-block border border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 text-base rounded-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm">View Saving Products</a>
+        <div class="grid grid-cols-1 grid-rows-1">
+            <template x-for="(slide, i) in slides" :key="'content-' + i">
+                 <div x-show="current === i" x-cloak
+                      class="col-start-1 row-start-1 max-w-2xl bg-black/40 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden"
+                      x-transition:enter="transition ease-out duration-1000"
+                      x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+                      x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                      x-transition:leave="transition ease-in duration-500 absolute inset-0"
+                      x-transition:leave-start="opacity-100 scale-100"
+                      x-transition:leave-end="opacity-0 scale-95">
+                    <div>
+                        <p class="hero-content-fade text-sm uppercase tracking-[0.25em] text-emerald-450 font-bold mb-6">{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</p>
+                        <h1 class="hero-content-fade-delayed text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-6 text-white text-glow" x-text="slide.title"></h1>
+                        <p class="hero-content-fade-delayed text-lg md:text-xl text-emerald-50 mb-10 max-w-xl leading-relaxed opacity-90" x-text="slide.subtitle"></p>
+                        <div class="hero-content-fade-btn flex flex-wrap items-center gap-4">
+                            <a :href="slide.cta_url" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3.5 text-base rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300" x-text="slide.cta_text || 'Become Member'">Become Member</a>
+                            <a href="{{ route('services') }}" class="inline-block border border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 text-base rounded-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm">View Saving Products</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </template>
+            </template>
+        </div>
 
         <!-- Navigation Dots -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3" x-show="slides.length > 1">
@@ -279,24 +284,29 @@
 </section>
 
 <!-- Stats -->
-<section class="py-16 bg-green-700 text-white" data-aos="fade-up">
+@php
+    $establishedYear = intval($settings_values['org_established_year'] ?? 2003);
+    $yearsExp = max(1, date('Y') - $establishedYear);
+    $memberCount = \App\Models\Member::count() + 1200; // Legacy base count helper
+@endphp
+<section class="py-16 bg-theme-primary text-white" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center pb-2">
             <div>
-                <div class="text-4xl md:text-5xl font-bold mb-2">50+</div>
-                <div class="text-green-200">Professional Staff</div>
+                <div class="text-4xl md:text-5xl font-bold mb-2" data-counter-target="50" data-counter-suffix="+">0+</div>
+                <div class="text-emerald-100">Professional Staff</div>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-bold mb-2">25+</div>
-                <div class="text-green-200">Districts Served</div>
+                <div class="text-4xl md:text-5xl font-bold mb-2" data-counter-target="25" data-counter-suffix="+">0+</div>
+                <div class="text-emerald-100">Districts Served</div>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-bold mb-2">21+</div>
-                <div class="text-green-200">Years of Experience</div>
+                <div class="text-4xl md:text-5xl font-bold mb-2" data-counter-target="{{ $yearsExp }}" data-counter-suffix="+">0+</div>
+                <div class="text-emerald-100">Years of Experience</div>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-bold mb-2">10K</div>
-                <div class="text-green-200">Satisfied Customers</div>
+                <div class="text-4xl md:text-5xl font-bold mb-2" data-counter-target="{{ $memberCount }}" data-counter-suffix="+">0+</div>
+                <div class="text-emerald-100">Satisfied Members</div>
             </div>
         </div>
     </div>
@@ -695,5 +705,38 @@
         <a href="{{ route('application') }}" class="inline-block bg-white text-green-800 font-bold px-10 py-3 hover:bg-green-50 transition-colors">Become a Member</a>
     </div>
 </section>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const counterObservers = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const end = parseInt(el.getAttribute('data-counter-target'), 10);
+                    const suffix = el.getAttribute('data-counter-suffix') || '';
+                    const duration = 2000; // 2 seconds animation
+                    let startTimestamp = null;
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                        const current = Math.floor(progress * end);
+                        el.innerHTML = current.toLocaleString() + suffix;
+                        if (progress < 1) {
+                            window.requestAnimationFrame(step);
+                        } else {
+                            el.innerHTML = end.toLocaleString() + suffix;
+                        }
+                    };
+                    window.requestAnimationFrame(step);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-counter-target]').forEach(el => counterObservers.observe(el));
+    });
+</script>
+@endpush
 
 @endsection

@@ -265,10 +265,17 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{ route('home') }}" target="_blank" class="text-xs text-gray-500 hover:text-emerald-600 font-medium flex items-center space-x-1.5 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">
+                    <a href="{{ route('home') }}" target="_blank" class="text-xs text-gray-500 hover:text-emerald-600 font-medium flex items-center space-x-1.5 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all mr-1">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                         <span class="hidden sm:inline">View Site</span>
                     </a>
+                    <form method="POST" action="{{ route('admin.logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/20 font-medium flex items-center space-x-1.5 px-3 py-1.5 rounded-lg transition-all" title="Logout">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                            <span class="hidden sm:inline">Logout</span>
+                        </button>
+                    </form>
                 </div>
             </header>
 

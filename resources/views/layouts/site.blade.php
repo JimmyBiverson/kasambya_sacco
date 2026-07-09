@@ -66,10 +66,12 @@
                 <div class="flex items-center justify-between h-16">
                     <!-- Logo -->
                     <a href="{{ route('home') }}" class="flex-shrink-0">
-                        @if(isset($settings) && $settings->has('org_logo') && $settings->get('org_logo')?->value)
-                            <img src="{{ Storage::url($settings->get('org_logo')->value) }}"                             alt="{{ $settings->get('org_name')?->value ?? 'Kasambya SACCO' }}" class="h-10 w-auto">
+                        @php $navLogo = $settings_values['org_logo'] ?? null; @endphp
+                        @if(!empty($navLogo))
+                            <img src="{{ url(Storage::url($navLogo)) }}" alt="{{ $orgName }}" class="h-10 w-auto">
                         @else
-                            <span class="text-xl font-bold text-theme-primary">Kasambya <span class="text-theme-secondary">SACCO</span></span>
+                            @php $nameParts = explode(' ', $orgName); @endphp
+                            <span class="text-xl font-bold text-theme-primary">{{ $nameParts[0] ?? 'Kasambya' }} <span class="text-theme-secondary">{{ implode(' ', array_slice($nameParts, 1)) ?: 'SACCO' }}</span></span>
                         @endif
                     </a>
 
@@ -210,13 +212,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- About -->
                     <div>
-                        @if(isset($settings) && $settings->has('org_logo') && $settings->get('org_logo')?->value)
-                            <img src="{{ Storage::url($settings->get('org_logo')->value) }}" alt="Kasambya SACCO" class="h-10 w-auto mb-4 brightness-0 invert">
+                        @php $footerLogo = $settings_values['org_logo'] ?? null; @endphp
+                        @if(!empty($footerLogo))
+                            <img src="{{ url(Storage::url($footerLogo)) }}" alt="{{ $orgName }}" class="h-10 w-auto mb-4 brightness-0 invert">
                         @else
-                            <span class="text-white font-bold text-lg mb-4 block">Kasambya SACCO</span>
+                            <span class="text-white font-bold text-lg mb-4 block">{{ $orgName }}</span>
                         @endif
                         <p class="text-theme-accent text-sm leading-relaxed">
-                            Kasambya SACCO was established in 2003 and registered under Registration <strong class="text-theme-accent">Number 6682</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991.
+                            {{ $orgName }} was established in {{ $settings_values['org_established_year'] ?? '2003' }} and registered under Registration <strong class="text-theme-accent">Number {{ $settings_values['org_registration_number'] ?? '6682' }}</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991.
                             <a href="{{ route('history') }}" class="text-theme-accent hover:text-white underline mt-2 inline-block">learn more</a>
                         </p>
                     </div>
