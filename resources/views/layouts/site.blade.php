@@ -64,15 +64,25 @@
         <header class="sticky top-0 z-50 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-slate-800" x-data="{ mobileOpen: false }">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex items-center justify-between h-16">
-                    <!-- Logo -->
-                    <a href="{{ route('home') }}" class="flex-shrink-0">
-                        @php $navLogo = $settings_values['org_logo'] ?? null; @endphp
+                    <!-- Logo + Site Name -->
+                    <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center gap-3">
+                        @php
+                            $navLogo   = $settings_values['org_logo'] ?? null;
+                            $_orgName  = $settings_values['org_name'] ?? 'Kasambya SACCO';
+                            $nameParts = explode(' ', $_orgName);
+                            $orgInitials = implode('', array_map(fn($w) => strtoupper($w[0] ?? ''), $nameParts));
+                        @endphp
                         @if(!empty($navLogo))
-                            <img src="{{ url(Storage::url($navLogo)) }}" alt="{{ $orgName }}" class="h-10 w-auto">
+                            <img src="{{ url(Storage::url($navLogo)) }}" alt="{{ $_orgName }}" class="h-10 w-auto rounded-lg">
                         @else
-                            @php $nameParts = explode(' ', $orgName); @endphp
-                            <span class="text-xl font-bold text-theme-primary">{{ $nameParts[0] ?? 'Kasambya' }} <span class="text-theme-secondary">{{ implode(' ', array_slice($nameParts, 1)) ?: 'SACCO' }}</span></span>
+                            <div class="w-10 h-10 bg-theme-primary rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md">{{ substr($orgInitials, 0, 2) }}</div>
                         @endif
+                        {{-- Subtle vertical divider --}}
+                        <span class="w-px h-8 bg-slate-200 dark:bg-slate-700 rounded-full"></span>
+                        <div class="leading-tight pl-1">
+                            <span class="text-base font-extrabold text-slate-900 dark:text-white block">{{ $nameParts[0] ?? 'Kasambya' }}</span>
+                            <span class="text-xs font-semibold text-theme-primary tracking-wide uppercase">{{ implode(' ', array_slice($nameParts, 1)) ?: 'SACCO' }}</span>
+                        </div>
                     </a>
 
                     <!-- Desktop Navigation -->
@@ -213,11 +223,12 @@
                     <!-- About -->
                     <div>
                         @php $footerLogo = $settings_values['org_logo'] ?? null; @endphp
-                        @if(!empty($footerLogo))
-                            <img src="{{ url(Storage::url($footerLogo)) }}" alt="{{ $orgName }}" class="h-10 w-auto mb-4 brightness-0 invert">
-                        @else
-                            <span class="text-white font-bold text-lg mb-4 block">{{ $orgName }}</span>
-                        @endif
+                        <div class="flex items-center space-x-3 mb-4">
+                            @if(!empty($footerLogo))
+                                <img src="{{ url(Storage::url($footerLogo)) }}" alt="{{ $orgName }}" class="h-10 w-auto brightness-0 invert">
+                            @endif
+                            <span class="text-white font-bold text-lg">{{ $orgName }}</span>
+                        </div>
                         <p class="text-theme-accent text-sm leading-relaxed">
                             {{ $orgName }} was established in {{ $settings_values['org_established_year'] ?? '2003' }} and registered under Registration <strong class="text-theme-accent">Number {{ $settings_values['org_registration_number'] ?? '6682' }}</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991.
                             <a href="{{ route('history') }}" class="text-theme-accent hover:text-white underline mt-2 inline-block">learn more</a>
@@ -263,7 +274,7 @@
                             </p>
                             <p class="flex items-center gap-2">
                                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                {{ isset($settings) && $settings->has('org_email') ? $settings->get('org_email')->value : 'kasambyasacco@gmail.com' }}
+                                {{ $settings_values['org_email'] ?? 'kasambyasacco@gmail.com' }}
                             </p>
                             <p class="flex items-center gap-2">
                                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>

@@ -8,10 +8,10 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / News & Events
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / News &amp; Events
         </div>
         <h1>News & Events</h1>
-        <p class="text-theme-primary-contrast/80 mt-2">Latest news, updates, and events from Kasambya SACCO.</p>
+        <p class="text-theme-primary-contrast/80 mt-2">Latest news, updates, and events from {{ $orgName }}.</p>
     </div>
 </section>
 

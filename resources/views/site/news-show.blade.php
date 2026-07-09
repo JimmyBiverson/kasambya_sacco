@@ -8,7 +8,7 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / <a href="{{ route('news') }}">News & Events</a> / {{ $newsItem?->title ?? 'Article' }}
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / <a href="{{ route('news') }}">News &amp; Events</a> / {{ $newsItem?->title ?? 'Article' }}
         </div>
         <h1 class="text-2xl md:text-4xl">{{ $newsItem?->title ?? 'Article' }}</h1>
     </div>

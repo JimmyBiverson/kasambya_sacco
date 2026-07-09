@@ -90,8 +90,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('adminNotifications', $adminNotifications);
         });
 
-        // Share site settings with public-facing and member layouts
-        View::composer(['layouts.site', 'layouts.member'], function ($view) {
+        // Share site settings globally with ALL views (layouts + child views)
+        View::composer('*', function ($view) {
+            static $shared = false;
+            if ($shared) return;
+            $shared = true;
+
             try {
                 $settings = Cache::remember('site.settings', 300, function () {
                     return Setting::all()->keyBy('key');
@@ -103,13 +107,12 @@ class AppServiceProvider extends ServiceProvider
 
             $settings_values = $settings->mapWithKeys(fn ($s, $k) => [$k => $s->value])->toArray();
 
-            $view->with([
-                'settings'             => $settings,
-                'settings_values'      => $settings_values,
-                'theme_primary_value'  => $settings_values['theme_primary']  ?? '#10b981',
-                'theme_secondary_value'=> $settings_values['theme_secondary'] ?? '#06b6d4',
-                'theme_accent_value'   => $settings_values['theme_accent']    ?? '#facc15',
-            ]);
+            View::share('settings',              $settings);
+            View::share('settings_values',       $settings_values);
+            View::share('orgName',               $settings_values['org_name']    ?? 'Kasambya SACCO');
+            View::share('theme_primary_value',   $settings_values['theme_primary']   ?? '#10b981');
+            View::share('theme_secondary_value', $settings_values['theme_secondary']  ?? '#06b6d4');
+            View::share('theme_accent_value',    $settings_values['theme_accent']     ?? '#facc15');
         });
     }
 }

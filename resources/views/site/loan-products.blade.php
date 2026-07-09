@@ -8,10 +8,10 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / Loan Products
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / Loan Products
         </div>
         <h1>Loan Products</h1>
-        <p class="text-theme-primary-contrast/80 mt-2 max-w-2xl">Kasambya SACCO offers a variety of loan products to support members in business, development, and meeting personal financial needs.</p>
+        <p class="text-theme-primary-contrast/80 mt-2 max-w-2xl">{{ $orgName }} offers a variety of loan products to support members in business, development, and meeting personal financial needs.</p>
     </div>
 </section>
 

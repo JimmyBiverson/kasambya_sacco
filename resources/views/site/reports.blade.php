@@ -8,7 +8,7 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / Financial Reports
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / Financial Reports
         </div>
         <h1>Financial Reports</h1>
     </div>

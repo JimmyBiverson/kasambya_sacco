@@ -12,7 +12,7 @@
     
     <div class="relative max-w-7xl mx-auto text-left">
         <div class="flex items-center space-x-2 text-xs font-semibold text-theme-primary/70 uppercase tracking-widest mb-4">
-            <a href="{{ route('home') }}" class="hover:text-theme-accent transition-colors">Kasambya SACCO</a>
+            <a href="{{ route('home') }}" class="hover:text-theme-accent transition-colors">{{ $orgName }}</a>
             <span>/</span>
             <span class="text-slate-300">Services</span>
         </div>
@@ -30,7 +30,7 @@
         <div class="text-center mb-16">
             <span class="text-[11px] font-extrabold uppercase tracking-widest text-theme-primary bg-theme-primary-soft px-3 py-1 rounded-full border border-theme-primary-light">Product Lineup</span>
             <h2 class="text-3xl font-black text-slate-900 tracking-tight mt-4 font-sans">Flexible Savings Products</h2>
-            <p class="text-slate-500 mt-2 max-w-2xl mx-auto">Kasambya SACCO provides a variety of savings and account services designed to meet the different financial needs of its members, groups, and institutions.</p>
+            <p class="text-slate-500 mt-2 max-w-2xl mx-auto">{{ $orgName }} provides a variety of savings and account services designed to meet the different financial needs of its members, groups, and institutions.</p>
         </div>
         
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -78,7 +78,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                         <span>Call {{ $settings_values['org_phone'] ?? '+256 775 125' }}</span>
                     </a>
-                    <a href="mailto:{{ isset($settings) && $settings->has('org_email') ? $settings->get('org_email')->value : 'info@kasambyasacco.com' }}" class="flex items-center justify-center gap-2 bg-theme-primary text-theme-primary-contrast hover:bg-theme-primary/90 transition px-6 py-4 rounded-2xl font-bold border border-theme-primary/30 text-sm">
+                    <a href="mailto:{{ $settings_values['org_email'] ?? 'info@kasambyasacco.com' }}" class="flex items-center justify-center gap-2 bg-theme-primary text-theme-primary-contrast hover:bg-theme-primary/90 transition px-6 py-4 rounded-2xl font-bold border border-theme-primary/30 text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         <span>Send Support Mail</span>
                     </a>

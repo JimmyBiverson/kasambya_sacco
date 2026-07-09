@@ -69,7 +69,7 @@
                       x-transition:leave-start="opacity-100 scale-100"
                       x-transition:leave-end="opacity-0 scale-95">
                     <div>
-                        <p class="hero-content-fade text-sm uppercase tracking-[0.25em] text-emerald-450 font-bold mb-6">{{ $settings_values['org_name'] ?? 'Kasambya SACCO' }}</p>
+                        <p class="hero-content-fade text-sm uppercase tracking-[0.25em] text-emerald-450 font-bold mb-6">{{ $orgName }}</p>
                         <h1 class="hero-content-fade-delayed text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.15] mb-6 text-white text-glow" x-text="slide.title"></h1>
                         <p class="hero-content-fade-delayed text-lg md:text-xl text-emerald-50 mb-10 max-w-xl leading-relaxed opacity-90" x-text="slide.subtitle"></p>
                         <div class="hero-content-fade-btn flex flex-wrap items-center gap-4">
@@ -159,7 +159,7 @@
             <div class="lg:col-span-5 flex flex-col justify-between py-2" data-aos="fade-right">
                 <div>
                     <h3 class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug">
-                        Kasambya SACCO was established in 2003 with a single, clear objective: to empower communities to build their own financial futures.
+                        {{ $orgName }} was established in {{ $settings_values['org_established_year'] ?? '2003' }} with a single, clear objective: to empower communities to build their own financial futures.
                     </h3>
                     <p class="text-slate-650 mt-6 leading-relaxed">
                         Registered under Registration <strong>Number 6682</strong> by the Registrar of Cooperative Societies, we are a member-owned financial cooperative dedicated to providing affordable and sustainable financial services.
@@ -175,7 +175,7 @@
                             <div class="w-full h-full bg-emerald-100 text-emerald-850 font-extrabold flex items-center justify-center text-sm">KS</div>
                         </div>
                         <div>
-                            <p class="text-sm font-bold text-slate-805">Kasambya SACCO Board</p>
+                            <p class="text-sm font-bold text-slate-805">{{ $orgName }} Board</p>
                             <p class="text-xs text-slate-500 font-medium">Serving Since 2003</p>
                         </div>
                     </div>
@@ -533,7 +533,7 @@
         <div class="text-center mb-16">
             <p class="text-xs uppercase tracking-[0.25em] text-emerald-600 font-bold">Our Products</p>
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-950 mt-3 font-sans">Key Saving Products</h2>
-            <p class="text-slate-500 mt-2 max-w-2xl mx-auto">Kasambya SACCO provides a variety of savings and account services designed to meet the different financial needs of its members, groups, and institutions.</p>
+            <p class="text-slate-500 mt-2 max-w-2xl mx-auto">{{ $orgName }} provides a variety of savings and account services designed to meet the different financial needs of its members, groups, and institutions.</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @forelse($services as $service)
@@ -566,8 +566,8 @@
         <div class="grid md:grid-cols-2 gap-10 items-center">
             <div>
                 <p class="text-sm uppercase tracking-widest text-green-600 font-semibold">Mobile Banking</p>
-                <h2 class="section-heading mt-3">M-SACCO Service at Kasambya SACCO</h2>
-                <p class="text-gray-600 mt-4 leading-relaxed">M-SACCO is a mobile banking service that allows members of Kasambya SACCO to access selected SACCO services using their mobile phones.</p>
+                <h2 class="section-heading mt-3">M-SACCO Service at {{ $orgName }}</h2>
+                <p class="text-gray-600 mt-4 leading-relaxed">M-SACCO is a mobile banking service that allows members of {{ $orgName }} to access selected SACCO services using their mobile phones.</p>
                 <div class="mt-6 space-y-4">
                     <div class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -643,7 +643,7 @@
     <div class="max-w-3xl mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="section-heading">Frequently Asked Questions</h2>
-            <p class="section-subheading mx-auto">Find answers to common questions about Kasambya SACCO and our services.</p>
+            <p class="section-subheading mx-auto">Find answers to common questions about {{ $orgName }} and our services.</p>
         </div>
         <div class="space-y-3">
             @forelse($faqs as $faq)
@@ -699,7 +699,7 @@
 <!-- CTA -->
 <section class="py-16 bg-green-700 text-white text-center">
     <div class="max-w-3xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Join Kasambya SACCO?</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Join {{ $orgName }}?</h2>
         <p class="text-lg text-green-100 mb-8">Start your journey towards financial freedom today.</p>
         <a href="tel:{{ $settings_values['org_phone'] ?? '+256775125122' }}" class="text-green-200 text-xl block mb-8 hover:text-white transition-colors">{{ $settings_values['org_phone'] ?? '+256 0775 125 122' }}</a>
         <a href="{{ route('application') }}" class="inline-block bg-white text-green-800 font-bold px-10 py-3 hover:bg-green-50 transition-colors">Become a Member</a>

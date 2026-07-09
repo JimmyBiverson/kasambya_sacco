@@ -8,7 +8,7 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / Our History
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / Our History
         </div>
         <h1>Our History</h1>
     </div>
@@ -21,9 +21,9 @@
             <div class="text-gray-700 leading-relaxed space-y-4">{!! $page->content !!}</div>
         @else
             <div class="text-gray-700 leading-relaxed space-y-4">
-                <p>Kasambya SACCO was established in 2003 and registered under Registration <strong>Number 6682</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991. The SACCO was formed by a group of community members who aimed at promoting a culture of saving and providing accessible financial services to people within Kasambya and the surrounding areas.</p>
+                <p>{{ $orgName }} was established in {{ $settings_values['org_established_year'] ?? '2003' }} and registered under Registration <strong>Number {{ $settings_values['org_registration_number'] ?? '6682' }}</strong> by the Registrar of Cooperative Societies in accordance with the Cooperative Societies Statute of 1991. The SACCO was formed by a group of community members who aimed at promoting a culture of saving and providing accessible financial services to people within Kasambya and the surrounding areas.</p>
                 <p>At its inception, the SACCO started with a small membership base and limited capital, mainly mobilized through members' savings and share contributions. Despite the challenges faced in the early years, the commitment and trust of members enabled the SACCO to grow steadily.</p>
-                <p>Over the years, Kasambya SACCO has expanded its membership, savings portfolio, loan services and Mobile banking enabling many members to access affordable credit to support their businesses, agriculture, education, trade, asset acquisition and household needs. This growth has significantly contributed to improving the livelihoods and economic wellbeing of members.</p>
+                <p>Over the years, {{ $orgName }} has expanded its membership, savings portfolio, loan services and Mobile banking enabling many members to access affordable credit to support their businesses, agriculture, education, trade, asset acquisition and household needs. This growth has significantly contributed to improving the livelihoods and economic wellbeing of members.</p>
             </div>
 
             <div class="mt-8 grid md:grid-cols-3 gap-6">

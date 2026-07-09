@@ -8,7 +8,7 @@
 <section class="page-header">
     <div class="max-w-7xl mx-auto px-4">
         <div class="breadcrumb mb-3">
-            <a href="{{ route('home') }}">Kasambya SACCO</a> / M-SACCO Services
+            <a href="{{ route('home') }}">{{ $orgName }}</a> / M-SACCO Services
         </div>
         <h1>M-SACCO Services</h1>
     </div>
@@ -21,7 +21,7 @@
                 @if($page && $page->content)
                     <div class="text-gray-700 leading-relaxed space-y-4">{!! $page->content !!}</div>
                 @else
-                    <p class="text-gray-700 leading-relaxed">Kasambya SACCO would like to inform all members about the availability of <strong>M-SACCO Mobile Banking Services</strong>, a convenient digital platform that allows you to carry out SACCO transactions easily and securely using your mobile phone.</p>
+                    <p class="text-gray-700 leading-relaxed">{{ $orgName }} would like to inform all members about the availability of <strong>M-SACCO Mobile Banking Services</strong>, a convenient digital platform that allows you to carry out SACCO transactions easily and securely using your mobile phone.</p>
                 @endif
             </div>
             <div class="bg-theme-primary-soft p-10 text-center">
@@ -72,7 +72,7 @@
         <div class="bg-gray-50 p-8" data-aos="fade-up">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Register for M-SACCO</h2>
             <ol class="list-decimal list-inside text-gray-700 space-y-2">
-                <li>Visit Kasambya SACCO office with your National ID, registered mobile number (MTN/Airtel), and SACCO account details.</li>
+                <li>Visit {{ $orgName }} office with your National ID, registered mobile number (MTN/Airtel), and SACCO account details.</li>
                 <li>The staff will help you activate your M-SACCO mobile banking service within minutes.</li>
             </ol>
             <a href="{{ route('application') }}" class="site-btn-primary mt-6 inline-block">Become Member Today</a>

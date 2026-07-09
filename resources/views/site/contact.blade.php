@@ -12,7 +12,7 @@
     
     <div class="relative max-w-7xl mx-auto text-left">
         <div class="flex items-center space-x-2 text-xs font-semibold text-theme-primary/70 uppercase tracking-widest mb-4">
-            <a href="{{ route('home') }}" class="hover:text-theme-accent transition-colors">Kasambya SACCO</a>
+            <a href="{{ route('home') }}" class="hover:text-theme-accent transition-colors">{{ $orgName }}</a>
             <span>/</span>
             <span class="text-slate-300">Contact Us</span>
         </div>
