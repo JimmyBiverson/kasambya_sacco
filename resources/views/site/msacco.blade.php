@@ -24,9 +24,9 @@
                     <p class="text-gray-700 leading-relaxed">{{ $orgName }} now brings you <strong>MECOSA Merchant Payment</strong>, a simple and secure mobile service that lets members carry out SACCO transactions with ease using their mobile phones.</p>
                 @endif
             </div>
-            <div class="bg-theme-primary-soft p-10 text-center">
+            <div class="bg-theme-primary-soft p-6 md:p-10 text-center">
                 <div class="text-6xl mb-4">
-                    <svg class="w-40 h-40 mx-auto text-theme-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    <svg class="w-24 h-24 md:w-40 md:h-40 mx-auto text-theme-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900">MECOSA Merchant Payment</h3>
                 <p class="text-gray-600">Mobile banking made simple for every member</p>
@@ -86,7 +86,7 @@
 <section class="py-16 bg-gray-50" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Membership Requirements</h2>
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             <div class="bg-white border border-gray-200 p-6">
                 <h4 class="font-semibold text-gray-900 mb-3">Free Savings Account</h4>
                 <ul class="space-y-2 text-sm text-gray-600">

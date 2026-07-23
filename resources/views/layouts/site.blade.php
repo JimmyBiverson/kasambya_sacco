@@ -127,7 +127,7 @@
                     </nav>
 
                     <div class="flex items-center space-x-3">
-                        <button @click="dark = !dark" class="hidden sm:inline-flex text-gray-600 dark:text-slate-300 hover:text-theme-accent p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-all" title="Toggle dark mode">
+                        <button @click="dark = !dark" class="inline-flex text-gray-600 dark:text-slate-300 hover:text-theme-accent p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-all" title="Toggle dark mode">
                             <svg x-cloak x-show="!dark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                             <svg x-cloak x-show="dark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </button>
@@ -202,6 +202,19 @@
                     @else
                         <a href="{{ route('member.login') }}" class="block py-2 text-center text-sm text-gray-600 dark:text-slate-300 hover:text-theme-primary mt-2">Member Login</a>
                     @endif
+
+                    <!-- Mobile Dark Mode Toggle -->
+                    <div class="border-t border-gray-200 dark:border-slate-700 pt-3 mt-3">
+                        <button @click="dark = !dark" class="flex items-center justify-between w-full py-2 text-gray-700 dark:text-slate-200 font-medium">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                                <span x-text="dark ? 'Light Mode' : 'Dark Mode'"></span>
+                            </span>
+                            <div class="w-10 h-5 rounded-full transition-colors duration-300" :class="dark ? 'bg-theme-primary' : 'bg-gray-300'">
+                                <div class="w-4 h-4 bg-white rounded-full shadow-sm transform translate-y-0.5 transition-transform duration-300" :class="dark ? 'translate-x-5' : 'translate-x-0.5'"></div>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>

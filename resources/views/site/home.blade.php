@@ -66,7 +66,8 @@
              :style="{ opacity: current === i ? 1 : 0, transition: 'opacity 1.2s ease-in-out' }">
             <img :src="slide.image" :alt="slide.title"
                  :class="'hero-kb-img w-full h-full object-cover ' + slide.animClass"
-                 style="min-height: 520px; will-change: transform;"
+                 style="min-height: 320px; will-change: transform;"
+                 :class="'hero-kb-img w-full h-full object-cover md:min-h-[520px] ' + slide.animClass"
                  x-on:error="$el.style.display='none'">
         </div>
     </template>
@@ -76,7 +77,7 @@
     <div class="absolute inset-0 z-[6] bg-gradient-to-t from-green-950/30 via-transparent to-transparent"></div>
 
     <!-- Content -->
-    <div class="relative z-20 max-w-7xl mx-auto px-4 py-24 md:py-32 lg:py-40">
+    <div class="relative z-20 max-w-7xl mx-auto px-4 py-12 md:py-24 lg:py-40">
 
         <div class="grid grid-cols-1 grid-rows-1">
             <template x-for="(slide, i) in slides" :key="'content-' + i">
@@ -93,8 +94,8 @@
                         <h1 class="hero-content-fade-delayed text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-4 text-white text-glow" x-text="slide.title"></h1>
                         <p class="hero-content-fade-delayed text-base md:text-lg text-emerald-50 mb-6 max-w-lg leading-relaxed opacity-90" x-text="slide.subtitle"></p>
                         <div class="hero-content-fade-btn flex flex-wrap items-center gap-3">
-                            <a :href="slide.cta_url" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 text-sm rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300" x-text="slide.cta_text || 'Become Member'">Become Member</a>
-                            <a href="{{ route('services') }}" class="inline-block border border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold px-6 py-3 text-sm rounded-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm">View Saving Products</a>
+                            <a :href="slide.cta_url" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs md:px-6 md:py-3 md:text-sm rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300" x-text="slide.cta_text || 'Become Member'">Become Member</a>
+                            <a href="{{ route('services') }}" class="inline-block border border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold px-5 py-2.5 text-xs md:px-6 md:py-3 md:text-sm rounded-xl hover:scale-105 transition-all duration-300 backdrop-blur-sm">View Saving Products</a>
                         </div>
                     </div>
                 </div>
@@ -113,7 +114,7 @@
         </div>
 
         <!-- Slide counter -->
-        <div class="absolute bottom-8 right-8 z-30 text-sm text-white/60 font-mono tracking-wider" x-show="slides.length > 0">
+        <div class="absolute bottom-8 right-8 z-30 text-sm text-white/60 font-mono tracking-wider hidden md:block" x-show="slides.length > 0">
             <span x-text="'0' + (current + 1)"></span>
             <span class="mx-2">/</span>
             <span x-text="'0' + slides.length"></span>
@@ -163,7 +164,7 @@
 </section>
 
 <!-- Storytelling / History (charity: water style) -->
-<section class="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden" data-aos="fade-up">
+<section class="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden" data-aos="fade-up">
     <!-- Subtle background blobs -->
     <div class="absolute top-10 left-0 w-80 h-80 bg-green-200/20 rounded-full blur-3xl -z-10"></div>
     <div class="absolute bottom-10 right-0 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl -z-10"></div>
@@ -206,47 +207,47 @@
             <!-- Story right side: The Interactive Milestones Grid (Glassmorphism Cards) -->
             <div class="lg:col-span-7 grid md:grid-cols-2 gap-6" data-aos="fade-left">
                 <!-- Milestone Card 1 -->
-                <div class="glass-card p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
+                <div class="glass-card p-5 md:p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Founding</span>
                         <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">Established 1999</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">Founded by Mubende District employees in 1999 to build a cooperative saving and credit support system.</p>
                     </div>
-                    <span class="text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">01</span>
+                    <span class="text-4xl md:text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">01</span>
                 </div>
 
                 <!-- Milestone Card 2 -->
-                <div class="glass-card p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
+                <div class="glass-card p-5 md:p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Official</span>
                         <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">Registered 6682</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">Fully registered under the Cooperative Societies Statute of 1991 to guarantee formal standards.</p>
                     </div>
-                    <span class="text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">02</span>
+                    <span class="text-4xl md:text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">02</span>
                 </div>
 
                 <!-- Milestone Card 3 -->
-                <div class="glass-card p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
+                <div class="glass-card p-5 md:p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Expansion</span>
                         <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">Greater Mubende</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">Serving Mubende, Kassanda, Mityana, Kakumiro, Kiboga, and Kyegegwa districts.</p>
                     </div>
-                    <span class="text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">03</span>
+                    <span class="text-4xl md:text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">03</span>
                 </div>
 
                 <!-- Milestone Card 4 -->
-                <div class="glass-card p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
+                <div class="glass-card p-5 md:p-8 rounded-3xl border border-white flex flex-col justify-between relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full flex items-center justify-center -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
                     <div>
                         <span class="text-xs font-semibold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Impact</span>
                         <h4 class="text-lg font-bold text-slate-800 mt-4 mb-2">5K Members</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">Over 5,000 active members both in public service and the community.</p>
                     </div>
-                    <span class="text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">04</span>
+                    <span class="text-4xl md:text-5xl font-black text-slate-200/70 font-mono mt-6 block text-right group-hover:text-emerald-500/10 transition-colors">04</span>
                 </div>
             </div>
         </div>
@@ -254,14 +255,14 @@
 </section>
 
 <!-- Why Choose Us -->
-<section class="py-24 bg-white relative overflow-hidden" data-aos="fade-up">
+<section class="py-16 md:py-24 bg-white relative overflow-hidden" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="text-xs uppercase tracking-[0.25em] text-emerald-600 font-bold">Why Choose Us</p>
         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-950 mt-3 font-sans">We are more than just a SACCO</h2>
         <p class="text-slate-500 mt-3 max-w-2xl mx-auto">We are a trusted partner committed to your financial growth and success.</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
             <!-- Card 1 -->
-            <div class="glass-card p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="0">
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="0">
                 <div>
                     <div class="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -271,7 +272,7 @@
                 </div>
             </div>
             <!-- Card 2 -->
-            <div class="glass-card p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="100">
                 <div>
                     <div class="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -281,7 +282,7 @@
                 </div>
             </div>
             <!-- Card 3 -->
-            <div class="glass-card p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="200">
                 <div>
                     <div class="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -291,7 +292,7 @@
                 </div>
             </div>
             <!-- Card 4 -->
-            <div class="glass-card p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="300">
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-slate-100 flex flex-col justify-between select-none" data-aos="fade-up" data-aos-delay="300">
                 <div>
                     <div class="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-600">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
@@ -334,12 +335,12 @@
 </section>
 
 <!-- MESAFO Section -->
-<section class="py-24 bg-gradient-to-b from-emerald-50 to-white relative overflow-hidden" data-aos="fade-up">
+<section class="py-16 md:py-24 bg-gradient-to-b from-emerald-50 to-white relative overflow-hidden" data-aos="fade-up">
     <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-100/30 rounded-full blur-3xl -z-10"></div>
     <div class="absolute bottom-0 left-0 w-80 h-80 bg-green-100/30 rounded-full blur-3xl -z-10"></div>
 
     <div class="max-w-7xl mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div data-aos="fade-right">
                 <span class="text-xs uppercase tracking-[0.25em] text-emerald-600 font-bold">Our Foundation</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3 font-sans">MESAFO</h2>
@@ -389,7 +390,7 @@
 </section>
 
 <!-- Full Services Listing -->
-<section class="py-24 bg-white relative overflow-hidden" data-aos="fade-up">
+<section class="py-16 md:py-24 bg-white relative overflow-hidden" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
             <p class="text-xs uppercase tracking-[0.25em] text-emerald-600 font-bold">What We Offer</p>
@@ -538,7 +539,7 @@
 </section>
 
 <!-- Interactive Estimator Widget (Save the Children style calculator) -->
-<section class="py-24 bg-emerald-950 text-white relative overflow-hidden" data-aos="fade-up">
+<section class="py-16 md:py-24 bg-emerald-950 text-white relative overflow-hidden" data-aos="fade-up">
     <div class="absolute -right-32 -bottom-32 w-96 h-96 rounded-full bg-emerald-800/30 blur-3xl"></div>
     <div class="absolute -left-32 -top-32 w-96 h-96 rounded-full bg-green-800/30 blur-3xl"></div>
 
@@ -550,7 +551,7 @@
         </div>
 
         <!-- Alpine Calculator Container -->
-        <div class="glass-panel-dark rounded-3xl p-8 backdrop-blur-lg border border-white/10 shadow-2xl" x-data="{
+        <div class="glass-panel-dark rounded-3xl p-5 md:p-8 backdrop-blur-lg border border-white/10 shadow-2xl" x-data="{
             tab: 'savings',
             // Savings state
             mDeposit: 100000,
@@ -752,7 +753,7 @@
 </section>
 
 <!-- Key Saving Products (World Vision sponsored layout grid) -->
-<section class="py-24 bg-gray-50 relative overflow-hidden" data-aos="fade-up">
+<section class="py-16 md:py-24 bg-gray-50 relative overflow-hidden" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
             <p class="text-xs uppercase tracking-[0.25em] text-emerald-600 font-bold">Our Products</p>
@@ -812,9 +813,9 @@
                 </div>
                 <a href="{{ route('msacco') }}" class="site-btn-primary mt-6 inline-block">How It Works</a>
             </div>
-            <div class="bg-green-50 p-8 text-center">
+            <div class="bg-green-50 p-6 md:p-8 text-center">
                 <div class="text-6xl mb-4">
-                    <svg class="w-32 h-32 mx-auto text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    <svg class="w-20 h-20 md:w-32 md:h-32 mx-auto text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                 </div>
                 <div class="text-xl font-bold text-gray-900 mb-2">M-SACCO</div>
                 <p class="text-gray-600 text-sm">Mobile Banking</p>
@@ -921,7 +922,7 @@
 </section>
 
 <!-- CTA -->
-<section class="py-16 bg-green-700 text-white text-center">
+<section class="py-12 md:py-16 bg-green-700 text-white text-center">
     <div class="max-w-3xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Join {{ $orgName }}?</h2>
         <p class="text-lg text-green-100 mb-8">Start your journey towards financial freedom today.</p>

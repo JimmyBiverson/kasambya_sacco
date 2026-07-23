@@ -18,9 +18,8 @@
     <div class="max-w-4xl mx-auto px-4">
         <div class="grid md:grid-cols-3 gap-10">
             <div class="md:col-span-1" data-aos="fade-right">
-            <div class="md:col-span-1">
                 <div class="bg-theme-primary-soft rounded-lg overflow-hidden">
-                    <img src="{{ asset('images/about-leadership.jpg') }}" alt="Manager" class="w-full">
+                    <img src="{{ asset('images/about-leadership.jpg') }}" alt="Manager" class="w-full max-w-full">
                 </div>
             </div>
             <div class="md:col-span-2">

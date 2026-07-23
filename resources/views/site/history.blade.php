@@ -26,7 +26,7 @@
                 <p>Over the years, {{ $orgName }} has expanded its membership, savings portfolio, loan services and Mobile banking enabling many members to access affordable credit to support their businesses, agriculture, education, trade, asset acquisition and household needs. This growth has significantly contributed to improving the livelihoods and economic wellbeing of members.</p>
             </div>
 
-            <div class="mt-8 grid md:grid-cols-3 gap-6">
+            <div class="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="border border-gray-200 p-6">
                     <h3 class="font-bold text-gray-900">Our Vision</h3>
                     <p class="text-gray-600 text-sm mt-2">A financially sound and sustainable sacco , serving to uplift the social and economical well being of its members.</p>
@@ -61,7 +61,7 @@
                         <h4 class="font-bold text-gray-800 mt-3">Venue Partnership & Collaborations</h4>
                         <p class="text-gray-600 text-xs mt-1">Working closely with local administrators and community groups to host educational seminars on saving.</p>
                     </div>
-                    <div class="border border-gray-200 p-4 rounded-xl flex flex-col justify-center bg-gray-50 dark:bg-slate-800 p-6">
+                    <div class="border border-gray-200 rounded-xl flex flex-col justify-center bg-gray-50 dark:bg-slate-800 p-6">
                         <h4 class="font-bold text-theme-primary text-lg">Empowering Mubende Since 1999</h4>
                         <p class="text-gray-700 text-sm mt-2">Mubende Employees and Community Sacco Ltd remains committed to serving all members through smartness, unity, and self-reliance.</p>
                     </div>
