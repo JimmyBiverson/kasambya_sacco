@@ -1,0 +1,793 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    height: 100%;
+    background: #ffffff;
+    margin: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    color: #0f172a;
+}
+
+#app {
+    min-height: 100vh;
+}
+
+/* ===== Public Site Styles ===== */
+
+/* Top bar */
+.top-bar a:hover {
+    opacity: 0.85;
+}
+
+/* Navigation */
+.site-nav-link {
+    @apply text-gray-800 font-medium transition-colors duration-200 px-3 py-1 text-sm whitespace-nowrap inline-block;
+    color: inherit;
+}
+
+.site-nav-link:hover {
+    color: var(--theme-primary);
+}
+
+.site-nav-link svg {
+    vertical-align: middle;
+}
+
+.text-theme-primary {
+    color: var(--theme-primary) !important;
+}
+
+.text-theme-secondary {
+    color: var(--theme-secondary) !important;
+}
+
+.text-theme-accent {
+    color: var(--theme-accent) !important;
+}
+
+/* Horizontal nav scroll wrapper */
+.nav-scroll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.nav-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+/* Dropdown */
+.dropdown-menu {
+    @apply absolute top-full left-0 mt-0 w-56 bg-white border border-gray-200 shadow-lg z-50;
+}
+
+/* Buttons */
+.site-btn-primary {
+    @apply inline-block text-white font-semibold px-6 py-2.5 transition-all duration-200;
+    background-color: var(--theme-primary);
+}
+.site-btn-primary:hover {
+    opacity: 0.9;
+}
+
+.site-btn-secondary {
+    @apply inline-block text-white font-semibold px-6 py-2.5 transition-all duration-200;
+    background-color: var(--theme-secondary);
+}
+.site-btn-secondary:hover {
+    opacity: 0.9;
+}
+
+.site-btn-accent {
+    @apply inline-block text-slate-900 font-semibold px-6 py-2.5 transition-all duration-200;
+    background-color: var(--theme-accent);
+}
+.site-btn-accent:hover {
+    opacity: 0.9;
+}
+
+.site-btn-outline {
+    @apply inline-block font-semibold px-6 py-2.5 transition-all duration-200;
+    border: 1px solid var(--theme-secondary);
+    color: var(--theme-secondary);
+}
+.site-btn-outline:hover {
+    background-color: var(--theme-secondary);
+    color: #ffffff;
+}
+
+/* Hero section */
+.hero-overlay {
+    background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+}
+
+/* Section headings */
+.section-heading {
+    @apply text-3xl md:text-4xl font-bold text-gray-900;
+}
+.section-subheading {
+    @apply text-gray-600 mt-3 max-w-2xl;
+}
+
+/* Cards */
+.service-card {
+    @apply bg-white border border-gray-200 p-6 hover:shadow-md transition-shadow;
+}
+.service-card:hover {
+    border-color: var(--theme-primary);
+}
+
+/* Stats */
+.stat-number {
+    @apply text-4xl font-bold;
+    color: var(--theme-primary);
+}
+
+/* News card */
+.news-card {
+    @apply bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow;
+}
+
+/* Partner strip */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.partner-scroll {
+    animation: scroll 25s linear infinite;
+}
+
+/* FAQ accordion */
+.faq-item {
+    @apply border border-gray-200;
+}
+
+/* Form inputs */
+.site-form-input {
+    @apply w-full px-4 py-3 border border-gray-300 text-gray-900 focus:outline-none transition-all;
+    border-color: #d1d5db;
+}
+.site-form-input:focus {
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 1px var(--theme-primary);
+}
+.site-form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Page headers */
+.page-header {
+    @apply py-16 text-white;
+    background-color: var(--theme-primary);
+}
+.page-header h1 {
+    @apply text-4xl md:text-5xl font-bold;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    @apply text-sm;
+    color: var(--theme-primary);
+}
+.breadcrumb a {
+    color: var(--theme-primary);
+}
+.breadcrumb a:hover {
+    color: #ffffff;
+}
+
+/* Member dashboard */
+.dashboard-card {
+    @apply bg-white rounded-lg border border-gray-200 p-6;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeInUp 600ms ease both;
+}
+
+/* Mobile nav */
+.mobile-nav-link {
+    @apply block py-2 text-gray-700 font-medium;
+}
+.mobile-nav-link:hover {
+    color: var(--theme-primary);
+}
+
+@media (max-width: 640px) {
+    .site-header-shell .brand-title {
+        max-width: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .site-header-shell .brand-subtitle {
+        display: none;
+    }
+
+    .site-header-shell .logo-stack {
+        gap: 0.5rem;
+    }
+
+    .page-header {
+        padding-top: 3.25rem;
+        padding-bottom: 3.25rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.25rem;
+        line-height: 1.15;
+    }
+}
+
+/* Theme utilities */
+.border-theme-primary {
+    border-color: var(--theme-primary) !important;
+}
+.border-theme-secondary {
+    border-color: var(--theme-secondary) !important;
+}
+.bg-theme-primary {
+    background-color: var(--theme-primary) !important;
+}
+.bg-theme-secondary {
+    background-color: var(--theme-secondary) !important;
+}
+.bg-theme-accent {
+    background-color: var(--theme-accent) !important;
+}
+
+.text-theme-primary-contrast {
+    color: var(--theme-primary-contrast) !important;
+}
+.text-theme-secondary-contrast {
+    color: var(--theme-secondary-contrast) !important;
+}
+.text-theme-accent-contrast {
+    color: var(--theme-accent-contrast) !important;
+}
+
+.bg-theme-primary-soft {
+    background-color: color-mix(in srgb, var(--theme-primary) 12%, white 88%) !important;
+}
+.dark .bg-theme-primary-soft {
+    background-color: color-mix(in srgb, var(--theme-primary) 18%, black 82%) !important;
+}
+.bg-theme-secondary-soft {
+    background-color: color-mix(in srgb, var(--theme-secondary) 12%, white 88%) !important;
+}
+.dark .bg-theme-secondary-soft {
+    background-color: color-mix(in srgb, var(--theme-secondary) 18%, black 82%) !important;
+}
+.bg-theme-accent-soft {
+    background-color: color-mix(in srgb, var(--theme-accent) 12%, white 88%) !important;
+}
+.dark .bg-theme-accent-soft {
+    background-color: color-mix(in srgb, var(--theme-accent) 18%, black 82%) !important;
+}
+
+.border-theme-primary-light {
+    border-color: color-mix(in srgb, var(--theme-primary) 40%, white 60%) !important;
+}
+.border-theme-secondary-light {
+    border-color: color-mix(in srgb, var(--theme-secondary) 40%, white 60%) !important;
+}
+.border-theme-accent-light {
+    border-color: color-mix(in srgb, var(--theme-accent) 40%, white 60%) !important;
+}
+
+.accent-theme-primary {
+    accent-color: var(--theme-primary) !important;
+}
+
+/* Theme-aware helper utilities */
+.hero-primary {
+    background: linear-gradient(135deg, var(--theme-primary), color-mix(in srgb, var(--theme-primary) 70%, black 30%));
+}
+
+.hero-dot-primary {
+    background-color: color-mix(in srgb, var(--theme-primary) 80%, white 20%) !important;
+}
+
+/* Legacy Tailwind emerald/amber theme aliases mapped to admin theme colors */
+.from-emerald-900 {
+    --tw-gradient-from: var(--theme-primary);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255,255,255,0));
+}
+.to-emerald-950 {
+    --tw-gradient-to: var(--theme-primary);
+}
+
+.bg-emerald-50 {
+    background-color: color-mix(in srgb, var(--theme-primary) 12%, white 88%) !important;
+}
+.bg-emerald-100 {
+    background-color: color-mix(in srgb, var(--theme-primary) 18%, white 82%) !important;
+}
+.bg-emerald-200 {
+    background-color: color-mix(in srgb, var(--theme-primary) 30%, white 70%) !important;
+}
+.bg-emerald-600 {
+    background-color: var(--theme-primary) !important;
+}
+.text-emerald-600 {
+    color: var(--theme-primary) !important;
+}
+.fill-emerald-600 {
+    fill: var(--theme-primary) !important;
+}
+.bg-emerald-750,
+.hover\:bg-emerald-700:hover {
+    background-color: color-mix(in srgb, var(--theme-primary) 80%, black 20%) !important;
+}
+.bg-emerald-800,
+.bg-emerald-800\/15,
+.border-emerald-800 {
+    background-color: color-mix(in srgb, var(--theme-primary) 82%, black 18%) !important;
+    border-color: color-mix(in srgb, var(--theme-primary) 82%, black 18%) !important;
+}
+.bg-emerald-950,
+.dark .bg-emerald-950 {
+    background-color: color-mix(in srgb, var(--theme-primary) 18%, black 82%) !important;
+}
+.bg-emerald-950\/20,
+.shadow-emerald-950\/20 {
+    box-shadow: 0 25px 50px -12px color-mix(in srgb, var(--theme-primary) 20%, black 80%) !important;
+}
+.text-emerald-100\/70 {
+    color: color-mix(in srgb, var(--theme-primary) 70%, white 30%) !important;
+}
+.text-emerald-300 {
+    color: color-mix(in srgb, var(--theme-primary) 60%, white 40%) !important;
+}
+.text-emerald-700,
+.text-emerald-800,
+.text-emerald-900 {
+    color: var(--theme-primary) !important;
+}
+.border-emerald-100 {
+    border-color: color-mix(in srgb, var(--theme-primary) 55%, white 45%) !important;
+}
+.border-emerald-200,
+.border-emerald-100 {
+    border-color: color-mix(in srgb, var(--theme-primary) 50%, white 50%) !important;
+}
+
+.bg-amber-50 {
+    background-color: color-mix(in srgb, var(--theme-secondary) 12%, white 88%) !important;
+}
+.bg-amber-100 {
+    background-color: color-mix(in srgb, var(--theme-secondary) 18%, white 82%) !important;
+}
+.bg-amber-200 {
+    background-color: color-mix(in srgb, var(--theme-secondary) 30%, white 70%) !important;
+}
+.bg-amber-950,
+.dark .bg-amber-950 {
+    background-color: color-mix(in srgb, var(--theme-secondary) 18%, black 82%) !important;
+}
+.text-amber-600,
+.text-amber-700 {
+    color: var(--theme-secondary) !important;
+}
+.text-amber-800 {
+    color: color-mix(in srgb, var(--theme-secondary) 80%, black 20%) !important;
+}
+.border-amber-100,
+.border-amber-200 {
+    border-color: color-mix(in srgb, var(--theme-secondary) 50%, white 50%) !important;
+}
+
+.bg-green-900\/10 {
+    background-color: color-mix(in srgb, var(--theme-primary) 10%, black 90%) !important;
+}
+
+.hover\:bg-emerald-100:hover,
+.group-hover\:bg-emerald-100:hover {
+    background-color: color-mix(in srgb, var(--theme-primary) 10%, white 90%) !important;
+}
+
+
+.from-theme-primary {
+    --tw-gradient-from: var(--theme-primary);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255,255,255,0));
+}
+
+.to-theme-primary-dark {
+    --tw-gradient-to: color-mix(in srgb, var(--theme-primary) 20%, black 80%);
+}
+
+.text-theme-primary-soft {
+    color: color-mix(in srgb, var(--theme-primary) 70%, white 30%) !important;
+}
+
+.text-theme-accent-soft {
+    color: color-mix(in srgb, var(--theme-accent) 70%, white 30%) !important;
+}
+
+.text-theme-accent-contrast {
+    color: var(--theme-accent-contrast) !important;
+}
+
+.hero-dot-secondary {
+    background-color: color-mix(in srgb, var(--theme-secondary) 80%, white 20%) !important;
+}
+
+.sidebar-brand {
+    background: linear-gradient(135deg, var(--theme-primary), color-mix(in srgb, var(--theme-primary) 85%, black 15%));
+}
+
+.bg-theme-primary-surface {
+    background-color: color-mix(in srgb, var(--theme-primary) 20%, white 80%) !important;
+}
+.dark .bg-theme-primary-surface {
+    background-color: color-mix(in srgb, var(--theme-primary) 20%, black 15%) !important;
+}
+
+.bg-theme-secondary-surface {
+    background-color: color-mix(in srgb, var(--theme-secondary) 20%, white 80%) !important;
+}
+.dark .bg-theme-secondary-surface {
+    background-color: color-mix(in srgb, var(--theme-secondary) 20%, black 15%) !important;
+}
+
+.bg-theme-accent-surface {
+    background-color: color-mix(in srgb, var(--theme-accent) 20%, white 80%) !important;
+}
+.dark .bg-theme-accent-surface {
+    background-color: color-mix(in srgb, var(--theme-accent) 20%, black 15%) !important;
+}
+
+.border-theme-accent-light {
+    border-color: color-mix(in srgb, var(--theme-accent) 40%, white 60%) !important;
+}
+
+.shadow-theme-primary {
+    box-shadow: 0 25px 50px -20px color-mix(in srgb, var(--theme-primary) 50%, black 50%) !important;
+}
+
+/* Legacy emerald/amber mappings to theme colors */
+.from-emerald-900 {
+    --tw-gradient-from: var(--theme-primary);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255,255,255,0));
+}
+.to-emerald-950 {
+    --tw-gradient-to: color-mix(in srgb, var(--theme-primary) 15%, black 85%);
+}
+.bg-emerald-800\/15 {
+    background-color: color-mix(in srgb, var(--theme-primary) 80%, white 20%) !important;
+}
+.bg-green-900\/10 {
+    background-color: color-mix(in srgb, var(--theme-secondary) 80%, white 20%) !important;
+}
+.text-emerald-100\/70 {
+    color: color-mix(in srgb, var(--theme-primary) 90%, white 80%) !important;
+}
+.text-emerald-300 {
+    color: color-mix(in srgb, var(--theme-primary) 80%, white 20%) !important;
+}
+.bg-emerald-50 {
+    background-color: color-mix(in srgb, var(--theme-primary) 15%, white 85%) !important;
+}
+.dark .bg-emerald-950 {
+    background-color: color-mix(in srgb, var(--theme-primary) 15%, black 85%) !important;
+}
+.border-emerald-200 {
+    border-color: color-mix(in srgb, var(--theme-primary) 60%, white 40%) !important;
+}
+.dark .border-emerald-800 {
+    border-color: color-mix(in srgb, var(--theme-primary) 20%, black 80%) !important;
+}
+.text-emerald-800 {
+    color: color-mix(in srgb, var(--theme-primary) 30%, black 70%) !important;
+}
+.dark .text-emerald-300 {
+    color: color-mix(in srgb, var(--theme-primary) 75%, white 25%) !important;
+}
+.text-emerald-500,
+.text-emerald-600,
+.text-emerald-700 {
+    color: var(--theme-primary) !important;
+}
+.bg-emerald-600,
+.hover\:bg-emerald-700:hover {
+    background-color: var(--theme-primary) !important;
+}
+.bg-emerald-100 {
+    background-color: color-mix(in srgb, var(--theme-primary) 30%, white 70%) !important;
+}
+.shadow-emerald-950\/20 {
+    box-shadow: 0 25px 50px -20px color-mix(in srgb, var(--theme-primary) 50%, black 50%) !important;
+}
+.text-emerald-700 {
+    color: var(--theme-primary) !important;
+}
+.dark .text-emerald-400 {
+    color: var(--theme-primary-contrast) !important;
+}
+
+.bg-amber-50 {
+    background-color: color-mix(in srgb, var(--theme-accent) 15%, white 85%) !important;
+}
+.dark .bg-amber-950 {
+    background-color: color-mix(in srgb, var(--theme-accent) 15%, black 85%) !important;
+}
+.border-amber-200 {
+    border-color: color-mix(in srgb, var(--theme-accent) 60%, white 40%) !important;
+}
+.dark .border-amber-800 {
+    border-color: color-mix(in srgb, var(--theme-accent) 20%, black 80%) !important;
+}
+.text-amber-800 {
+    color: color-mix(in srgb, var(--theme-accent) 30%, black 70%) !important;
+}
+.dark .text-amber-300 {
+    color: color-mix(in srgb, var(--theme-accent) 75%, white 25%) !important;
+}
+.text-amber-600,
+.text-amber-700,
+.text-amber-300 {
+    color: var(--theme-accent) !important;
+}
+.bg-amber-100 {
+    background-color: color-mix(in srgb, var(--theme-accent) 30%, white 70%) !important;
+}
+
+/* Legacy interactive and extra state mappings */
+.hover\:bg-emerald-50:hover {
+    background-color: color-mix(in srgb, var(--theme-primary) 15%, white 85%) !important;
+}
+.hover\:bg-emerald-100:hover {
+    background-color: color-mix(in srgb, var(--theme-primary) 30%, white 70%) !important;
+}
+.hover\:bg-emerald-700:hover,
+.hover\:bg-emerald-600:hover {
+    background-color: var(--theme-primary) !important;
+}
+.hover\:border-emerald-300:hover {
+    border-color: color-mix(in srgb, var(--theme-primary) 40%, white 60%) !important;
+}
+.hover\:text-emerald-700:hover {
+    color: var(--theme-primary) !important;
+}
+.group:hover .group-hover\:bg-emerald-100 {
+    background-color: color-mix(in srgb, var(--theme-primary) 30%, white 70%) !important;
+}
+.group:hover .group-hover\:text-emerald-700 {
+    color: var(--theme-primary) !important;
+}
+
+.bg-emerald-950\/10 {
+    background-color: color-mix(in srgb, var(--theme-primary) 20%, black 90%) !important;
+}
+.dark .bg-emerald-950\/10 {
+    background-color: color-mix(in srgb, var(--theme-primary) 20%, black 90%) !important;
+}
+.bg-emerald-950\/20 {
+    background-color: color-mix(in srgb, var(--theme-primary) 40%, black 80%) !important;
+}
+.dark .bg-emerald-950\/20 {
+    background-color: color-mix(in srgb, var(--theme-primary) 40%, black 80%) !important;
+}
+.bg-amber-950\/50 {
+    background-color: color-mix(in srgb, var(--theme-accent) 40%, black 60%) !important;
+}
+.dark .bg-amber-950\/50 {
+    background-color: color-mix(in srgb, var(--theme-accent) 40%, black 60%) !important;
+}
+.border-emerald-100 {
+    border-color: color-mix(in srgb, var(--theme-primary) 40%, white 60%) !important;
+}
+.border-amber-100 {
+    border-color: color-mix(in srgb, var(--theme-accent) 40%, white 60%) !important;
+}
+.dark .border-amber-800\/50 {
+    border-color: color-mix(in srgb, var(--theme-accent) 20%, black 80%) !important;
+}
+
+/* ===== Responsive Utilities ===== */
+
+@media (max-width: 640px) {
+    .section-heading {
+        @apply text-2xl;
+    }
+    .page-header h1 {
+        @apply text-3xl;
+    }
+    .hero-content h1 {
+        @apply text-3xl;
+    }
+    .stat-number {
+        @apply text-3xl;
+    }
+    .site-btn-primary,
+    .site-btn-outline {
+        @apply text-sm px-5 py-2;
+    }
+}
+
+/* Better touch targets on mobile */
+@media (max-width: 768px) {
+    .site-nav-link,
+    .mobile-nav-link {
+        @apply py-3;
+    }
+    .dropdown-menu a {
+        @apply py-3;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, input, select, textarea {
+    transition: all 0.2s ease;
+}
+
+/* Loading shimmer effect for images */
+img {
+    @apply bg-gray-100;
+}
+
+/* Scrollbar styling for better UX */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded;
+}
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+}
+
+/* Print styles */
+@media print {
+    .top-bar,
+    header,
+    footer,
+    .site-btn-primary,
+    .site-btn-outline {
+        display: none !important;
+    }
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    @apply outline-2 outline-green-500 outline-offset-2;
+}
+
+/* ===== Ken Burns Hero Slider Animations ===== */
+
+@keyframes kenBurns {
+    0% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1.15) translate(-2%, -1%);
+    }
+}
+
+@keyframes kenBurnsAlt {
+    0% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1.15) translate(2%, 1%);
+    }
+}
+
+@keyframes kenBurnsWide {
+    0% {
+        transform: scale(1.35);
+    }
+    100% {
+        transform: scale(1.18) translate(1%, -2%);
+    }
+}
+
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ken-burns-0 {
+    animation: kenBurns 14s ease-in-out infinite alternate;
+    transform-origin: 45% 55%;
+}
+
+.ken-burns-1 {
+    animation: kenBurnsAlt 14s ease-in-out infinite alternate;
+    transform-origin: 60% 40%;
+}
+
+.ken-burns-2 {
+    animation: kenBurnsWide 14s ease-in-out infinite alternate;
+    transform-origin: 35% 50%;
+}
+
+.hero-content-fade {
+    animation: fadeSlideUp 0.8s ease-out 0.4s both;
+}
+
+.hero-content-fade-delayed {
+    animation: fadeSlideUp 0.8s ease-out 0.6s both;
+}
+
+.hero-content-fade-btn {
+    animation: fadeSlideUp 0.6s ease-out 0s both;
+}
+
+/* ===== Premium Glassmorphism & Visual System ===== */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+.glass-panel-dark {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.02);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(22, 163, 74, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -15px rgba(22, 163, 74, 0.12);
+}
+
+.glass-inset {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+.text-glow {
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
+
+.text-glow-green {
+    text-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+.hover-scale {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-scale:hover {
+    transform: scale(1.03);
+}
