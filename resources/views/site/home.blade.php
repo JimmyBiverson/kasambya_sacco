@@ -58,23 +58,22 @@
 ">
 
     <!-- Dark overlay for readability -->
-    <div class="absolute inset-0 bg-black/30 z-10"></div>
+    <div class="absolute inset-0 bg-black/10 md:bg-black/30 z-10"></div>
 
     <!-- Ken Burns image layer with crossfade -->
     <template x-for="(slide, i) in slides" :key="'img-' + i">
         <div class="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-green-800 via-green-900 to-slate-900"
              :style="{ opacity: current === i ? 1 : 0, transition: 'opacity 1.2s ease-in-out' }">
             <img :src="slide.image" :alt="slide.title"
-                 :class="'hero-kb-img w-full h-full object-cover ' + slide.animClass"
-                 style="min-height: 320px; will-change: transform;"
                  :class="'hero-kb-img w-full h-full object-cover md:min-h-[520px] ' + slide.animClass"
+                 style="min-height: 320px; will-change: transform;"
                  x-on:error="$el.style.display='none'">
         </div>
     </template>
 
     <!-- Gradient overlay for depth -->
-    <div class="absolute inset-0 z-[5] bg-gradient-to-r from-green-950/60 via-green-900/30 to-transparent"></div>
-    <div class="absolute inset-0 z-[6] bg-gradient-to-t from-green-950/30 via-transparent to-transparent"></div>
+    <div class="absolute inset-0 z-[5] bg-gradient-to-r from-green-950/20 md:from-green-950/60 via-green-900/10 md:via-green-900/30 to-transparent"></div>
+    <div class="absolute inset-0 z-[6] bg-gradient-to-t from-green-950/10 md:from-green-950/30 via-transparent to-transparent"></div>
 
     <!-- Content -->
     <div class="relative z-20 max-w-7xl mx-auto px-4 py-12 md:py-24 lg:py-40">
@@ -82,7 +81,7 @@
         <div class="grid grid-cols-1 grid-rows-1">
             <template x-for="(slide, i) in slides" :key="'content-' + i">
                  <div x-show="current === i" x-cloak
-                       class="col-start-1 row-start-1 max-w-xl bg-black/35 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden"
+                       class="col-start-1 row-start-1 max-w-xl bg-black/15 md:bg-black/35 backdrop-blur-sm p-5 md:p-8 rounded-2xl shadow-xl relative overflow-hidden"
                       x-transition:enter="transition ease-out duration-1000"
                       x-transition:enter-start="opacity-0 translate-y-8 scale-95"
                       x-transition:enter-end="opacity-100 translate-y-0 scale-100"
